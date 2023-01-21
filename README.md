@@ -9,6 +9,8 @@
 <div align="center">
     <!-- > Drag your video (<10MB) here to host it for free on GitHub. -->
 [![Product Name Screen Shot][product-screenshot]](https://github.com/Cassin01/wf.nvim)
+
+![screen_shot](https://user-images.githubusercontent.com/42632201/213849418-3cddb8bb-7323-4af7-b201-1ce2de07d3b9.png)
 </div>
 
 <div align="center">
