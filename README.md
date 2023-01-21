@@ -206,5 +206,5 @@ You can find guides and showcase of the plugin on [the Wiki](https://github.com/
 [issues-shield]: https://img.shields.io/github/issues/Cassin01/wf.nvim.svg?style=for-the-badge
 [issues-url]: https://github.com/Cassin01/wf.nvim/issues
 [license-shield]: https://img.shields.io/github/license/Cassin01/wf.nvim.svg?style=for-the-badge
-[license-url]: https://github.com/Cassin01/wf.nvim/blob/master/LICENSE.txt
+[license-url]: https://github.com/Cassin01/wf.nvim/blob/main/LICENSE.txt
 [product-screenshot]: https://user-images.githubusercontent.com/42632201/213849418-3cddb8bb-7323-4af7-b201-1ce2de07d3b9.png
