@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Cassin01/wf.nvim">
-    <img src="https://user-images.githubusercontent.com/Cassin01/wf.nvim/main/.github/images/logo.png" alt="Logo" width="80" height="80">
+    <img src=".github/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">wf.nvim</h3>
