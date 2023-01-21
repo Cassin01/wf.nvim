@@ -7,7 +7,8 @@
 </p>
 
 <div align="center">
-    > Drag your video (<10MB) here to host it for free on GitHub.
+    <!-- > Drag your video (<10MB) here to host it for free on GitHub. -->
+[![Product Name Screen Shot][product-screenshot]](https://github.com/Cassin01/wf.nvim)
 </div>
 
 <div align="center">
@@ -130,3 +131,7 @@ You can find guides and showcase of the plugin on [the Wiki](https://github.com/
 ## 🎭 Motivations
 
 > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others.
+
+
+<!-- MARKDOWN LNIKS & IMAGES -->
+[product-screenshot]: https:raw.githubusercontent.com/Cassin01/wf.nvim/main/.github/images/screen-shot.png
