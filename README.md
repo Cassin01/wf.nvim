@@ -134,4 +134,5 @@ You can find guides and showcase of the plugin on [the Wiki](https://github.com/
 
 
 <!-- MARKDOWN LNIKS & IMAGES -->
-[product-screenshot]: https://raw.githubusercontent.com/Cassin01/wf.nvim/main/.github/images/screen-shot.png
+[product-screenshot]: https://raw.githubusercontent.com/Cassin01/wf.nvim/main/.github/images/screen_shot.png
+
