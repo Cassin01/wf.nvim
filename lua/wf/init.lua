@@ -53,6 +53,7 @@ end
 -- setup Wf options and merge them with user provided ones.
 function Wf.setup(opts)
     Wf.config = require("wf.config").setup(opts)
+    print("setuped")
 end
 
 _G.Wf = Wf
