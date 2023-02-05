@@ -35,19 +35,14 @@
     <li>
       <a href="#about-the-project">About The Project</a>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#📋installation">Installation</a></li>
+    <li><a href="#getting-started">Getting started</a></li>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#Wiki">Wiki</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#motivations">Motivations</a></li>
   </ol>
 </details>
 
@@ -80,17 +75,7 @@ Have a ball!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-## ⚡️ Features
-
-> Write short sentences describing your plugin features
-
-- FEATURE 1
-- FEATURE ..
-- FEATURE N
-
-## 📋 Installation
+## Installation
 
 <div align="center">
 <table>
@@ -111,9 +96,9 @@ Have a ball!
 
 ```lua
 -- stable version
-use {"wf", tag = "*" }
+use {"wf", tag = "*", config = function() require("wf").setup() end}
 -- dev version
-use {"wf"}
+use {"wf", config = function() require("wf").setup() end}
 ```
 
 </td>
@@ -145,9 +130,9 @@ Plug "wf"
 
 ```lua
 -- stable version
-require("lazy").setup({{"wf", version = "*"}})
+require("lazy").setup({{"wf", version = "*", config = function() require("wf").setup() end}})
 -- dev version
-require("lazy").setup({"wf"})
+require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
 ```
 
 </td>
@@ -156,11 +141,15 @@ require("lazy").setup({"wf"})
 </table>
 </div>
 
-## ☄ Getting started
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Getting started
 
 > Describe how to use the plugin the simplest way
 
-## ⚙ Configuration
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Configuration
 
 > The configuration list sometimes become cumbersome, making it folded by default reduce the noise of the README file.
 
@@ -177,23 +166,52 @@ require("wf").setup({
 
 </details>
 
-## 🧰 Commands
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-|   Command   |         Description        |
-|-------------|----------------------------|
-|  `:Toggle`  |     Enables the plugin.    |
-
-## ⌨ Contributing
-
-PRs and issues are always welcome. Make sure to provide as much context as possible when opening one.
-
-## 🗞 Wiki
+## Wiki
 
 You can find guides and showcase of the plugin on [the Wiki](https://github.com/cassin/wf.nvim/wiki)
 
-## 🎭 Motivations
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+## Contact
+
+Twitter [@ioii_ooo](https://twitter.com/ioii_ooo)
+
+Project Link: [https://github.com/Cassin01/wf.nvim](https://github.com/Cassin01/wf.nvim)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Motivations
 
 > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LNIKS & IMAGES -->
