@@ -44,11 +44,7 @@ Helpers.expect.config_equality = MiniTest.new_expectation(
 Helpers.expect.config_type_equality = MiniTest.new_expectation(
     "config option type matches",
     function(child, field, value)
-        return Helpers.expect.global_equality(
-            child,
-            "type(_G.Wf.config." .. field .. ")",
-            value
-        )
+        return Helpers.expect.global_equality(child, "type(_G.Wf.config." .. field .. ")", value)
     end,
     errorMessage
 )
@@ -68,11 +64,7 @@ Helpers.expect.state_equality = MiniTest.new_expectation(
 Helpers.expect.state_type_equality = MiniTest.new_expectation(
     "state type matches",
     function(child, field, value)
-        return Helpers.expect.global_equality(
-            child,
-            "type(_G.Wf.state." .. field .. ")",
-            value
-        )
+        return Helpers.expect.global_equality(child, "type(_G.Wf.state." .. field .. ")", value)
     end,
     errorMessage
 )
