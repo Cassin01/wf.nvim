@@ -49,7 +49,7 @@ local function which_key(opts)
         local buf = vim.api.nvim_get_current_buf()
         local win = vim.api.nvim_get_current_win()
         local mode = get_mode()
-        local mode_shortname = mode:sub(1,1)
+        local mode_shortname = mode:sub(1, 1)
         if modes[mode_shortname] == nil then
             print("Not support mode: " .. mode_shortname)
         end
@@ -60,7 +60,7 @@ local function which_key(opts)
 
         opts = opts or { text_insert_in_advance = "" }
         opts["text_insert_in_advance"] =
-        string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"] or [[\]])
+            string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"] or [[\]])
         local _opts = {
             title = "Which Key",
             text_insert_in_advance = "",
@@ -73,10 +73,10 @@ local function which_key(opts)
             if type(rhs["callback"]) == "function" then
                 rhs["callback"]()
                 if rhs.silent == 0 then
-                    vim.api.nvim_echo({{rhs.lhsraw, "Normal"}}, false, {})
+                    vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
                 end
             else
-                feedkeys(lhs, count,{ win = win, buf = buf, mode = mode }, false)
+                feedkeys(lhs, count, { win = win, buf = buf, mode = mode }, false)
             end
         end)
     end
