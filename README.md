@@ -151,6 +151,9 @@ require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
 
 ## Getting started
 
+<details>
+  <summary>Minimal Setup</summary>
+
 ```lua
 local which_key = require("wf.builtin.which_key")
 local register = require("wf.builtin.register")
@@ -172,7 +175,7 @@ vim.api.nvim_set_keymap(
   bookmark({
     nvim = "~/.config/nvim",
     zsh = "~/.zshrc",
-  }, {})
+  })
   { noremap = true, silent = true, desc = "[wf.nvim] bookmark" }
 )
 
@@ -192,6 +195,8 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
 ```
+
+</details>
 
 <!-- > Describe how to use the plugin the simplest way -->
 
