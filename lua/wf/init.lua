@@ -380,41 +380,10 @@ local function which_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups
     end, "<C-h>")
 end
 
--- core
-local function _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
-    local obj_handlers = objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
-    which_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups_obj, callback, obj_handlers, opts, opts.selector == "which")
-    fuzzy_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups_obj, opts, opts.selector == "fuzzy")
-
-    -- vim.api.nvim_buf_set_lines(which_obj.buf, 0, -1, true, { opts.text_insert_in_advance })
-    -- local c = vim.g[full_name .. "#char_insert_in_advance"]
-    -- if c ~= nil then
-    --     vim.api.nvim_buf_set_lines(fuzzy_obj.buf, 0, -1, true, { opts.text_insert_in_advance .. c })
-    -- else
-    --     vim.g[full_name .. "#text_insert_in_advance"] = opts.text_insert_in_advance
-    --     vim.g[full_name .. "#which_obj_buf"] = which_obj.buf
-    -- end
-    -- if opts.selector == "fuzzy" then
-    --     vim.api.nvim_set_current_win(fuzzy_obj.win)
-    --     -- vim.schedule(function()
-    --         -- vim.cmd("startinsert!")
-    --     -- end)
-    -- elseif opts.selector == "which" then
-    --     vim.api.nvim_set_current_win(which_obj.win)
-    --     -- vim.schedule(function()
-    --         -- vim.cmd("startinsert!")
-    --     -- end)
-    -- else
-    --     print("selector must be fuzzy or which")
-    --     obj_handlers.del()
-    --     return
-    -- end
-    if opts.selector ~= "fuzzy" and opts.selector ~= "which" then
-        print("selector must be fuzzy or which")
-        obj_handlers.del()
-        return
-    end
-    leave_check(which_obj, fuzzy_obj, output_obj, obj_handlers.del)
+-- setup Wf options and merge them with user provided ones.
+function Wf.setup(opts)
+    Wf.config = require("wf.config").setup(opts)
+    print("setuped")
 end
 
 local function setup_objs(choices_obj, callback, opts_)
