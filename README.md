@@ -111,11 +111,17 @@ use {"wf", config = function() require("wf").setup() end}
 </td>
 <td>
 
-```lua
+```vim
+call plug#begin()
 -- stable version
 Plug "wf", { "tag": "*" }
 -- dev version
 Plug "wf"
+call plug#end()
+
+lua << EOF
+require("wf").setup()
+EOF
 ```
 
 </td>
@@ -145,18 +151,60 @@ require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
 
 ## Getting started
 
-> Describe how to use the plugin the simplest way
+```lua
+local which_key = require("wf.builtin.which_key")
+local register = require("wf.builtin.register")
+local bookmark = require("wf.builtin.bookmark")
+local buffer = require("wf.builtin.buffer")
+
+-- Register
+vim.keymap.set(
+  "n",
+  "<Space>wr",
+  register(),
+  { noremap = true, silent = true, desc = "[wf.nvim] register" }
+)
+
+-- Bookmark
+vim.api.nvim_set_keymap(
+  "n",
+  "<Space>wbo",
+  bookmark({
+    nvim = "~/.config/nvim",
+    zsh = "~/.zshrc",
+  }, {})
+  { noremap = true, silent = true, desc = "[wf.nvim] bookmark" }
+)
+
+-- Buffer
+vim.keymap.set(
+    "n",
+    "<Space>wbu",
+    buffer({}),
+    {noremap = true, silent= true, desc = "[wf.nvim] buffer"}
+)
+
+-- Which Key
+vim.keymap.set(
+  "n", 
+  "<Leader>", 
+  which_key({ text_insert_in_advance = "<Leader>" }), 
+  { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
+)
+```
+
+<!-- > Describe how to use the plugin the simplest way -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Configuration
 
-> The configuration list sometimes become cumbersome, making it folded by default reduce the noise of the README file.
+<!-- > The configuration list sometimes become cumbersome, making it folded by default reduce the noise of the README file. -->
 
 <details>
 <summary>Click to unfold the full list of options with their default values</summary>
 
-> **Note**: The options are also available in Neovim by calling `:h wf.options`
+<!-- > **Note**: The options are also available in Neovim by calling `:h wf.options` -->
 
 ```lua
 require("wf").setup({
@@ -209,7 +257,7 @@ Project Link: [https://github.com/Cassin01/wf.nvim](https://github.com/Cassin01/
 
 ## Motivations
 
-> If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others.
+<!-- > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others. -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
