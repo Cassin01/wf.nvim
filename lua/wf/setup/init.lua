@@ -4,7 +4,7 @@ local sign_group_prompt = require("wf.static").sign_group_prompt
 
 -- @param ground string "fg" or "bg"
 local function get_hl(tbl, name, ground)
-    local _ground = vim.fn.synIDattr(vim.fn.hlID(name), ground)
+    local _ground = vim.fn.synIDattr(vim.fn.hlID(name), ground, "gui")
     if _ground ~= "" then
         tbl[ground] = _ground
     end
@@ -13,8 +13,8 @@ end
 
 local function rev(name)
     local tbl = { default = true }
-    local bg = vim.fn.synIDattr(vim.fn.hlID("NormalFloat"), "bg")
-    local fg = vim.fn.synIDattr(vim.fn.hlID(name), "fg")
+    local bg = vim.fn.synIDattr(vim.fn.hlID("NormalFloat"), "bg#", "gui")
+    local fg = vim.fn.synIDattr(vim.fn.hlID(name), "fg#", "gui")
     if bg ~= "" then
         tbl["fg"] = bg
     end
@@ -118,10 +118,9 @@ local function setup(opts)
     for k, v in pairs(opts.highlight) do
         if type(v) == "string" then
             vim.api.nvim_set_hl(0, k, { default = true, link = v })
+        elseif type(v) == "table" then
+          vim.api.nvim_set_hl(0, k, v)
         end
-        -- elseif type(v) == "table" then
-        --   vim.api.nvim_set_hl(0, k, v)
-        -- end
     end
     vim.g[full_name .. "#theme"] = opts.theme
 end
