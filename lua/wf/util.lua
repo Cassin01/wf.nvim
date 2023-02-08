@@ -197,7 +197,7 @@ end
 function M.feedkeys(lhs, count, current, noremap)
     local mode_shortname = current.mode:sub(1, 1)
     local rhs = vim.fn.maparg(M.rt(lhs), mode_shortname, false, true)
-    local _feedkeys = function()
+    local _feedkeys = vim.schedule_wrap(function()
         if type(rhs["callback"]) == "function" then
             rhs["callback"]()
             if rhs.silent == 0 then
@@ -206,7 +206,7 @@ function M.feedkeys(lhs, count, current, noremap)
         else
             vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
         end
-    end
+    end)
     local mode = current.mode
     if
         current.win == vim.api.nvim_get_current_win()
