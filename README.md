@@ -251,17 +251,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTACT -->
-## Contact
-
-Twitter: [@ioii_ooo](https://twitter.com/ioii_ooo)
-
-Reddit: [u/Alternative_Tip_7811](https://www.reddit.com/user/Alternative_Tip_7811)
-
-Project Link: [https://github.com/Cassin01/wf.nvim](https://github.com/Cassin01/wf.nvim)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Motivations
 
 <!-- > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others. -->
