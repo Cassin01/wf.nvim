@@ -70,14 +70,14 @@ local function which_key(opts)
 
         select(choices, opts_, function(_, lhs)
             local rhs = vim.fn.maparg(rt(lhs), mode_shortname, false, true)
-            if type(rhs["callback"]) == "function" then
-                rhs["callback"]()
-                if rhs.silent == 0 then
-                    vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
-                end
-            else
+            -- if type(rhs["callback"]) == "function" then
+            --     rhs["callback"]()
+            --     if rhs.silent == 0 then
+            --         vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
+            --     end
+            -- else
                 feedkeys(lhs, count, { win = win, buf = buf, mode = mode }, false)
-            end
+            -- end
         end)
     end
     return core
