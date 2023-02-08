@@ -169,7 +169,7 @@ vim.keymap.set(
 )
 
 -- Bookmark
-vim.api.nvim_set_keymap(
+vim.keymap.set(
   "n",
   "<Space>wbo",
   bookmark({
@@ -189,9 +189,9 @@ vim.keymap.set(
 
 -- Which Key
 vim.keymap.set(
-  "n", 
-  "<Leader>", 
-  which_key({ text_insert_in_advance = "<Leader>" }), 
+  "n",
+  "<Leader>",
+  which_key({ text_insert_in_advance = "<Leader>" }),
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
 ```
@@ -255,6 +255,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 Twitter: [@ioii_ooo](https://twitter.com/ioii_ooo)
+
 Reddit: [u/Alternative_Tip_7811](https://www.reddit.com/user/Alternative_Tip_7811)
 
 Project Link: [https://github.com/Cassin01/wf.nvim](https://github.com/Cassin01/wf.nvim)
