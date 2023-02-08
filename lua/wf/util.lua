@@ -194,7 +194,19 @@ function M.path_from_head(name, depth)
 end
 
 -- @param current: buf, win, mode
-function M.feedkeys(keys, count, current, noremap)
+function M.feedkeys(lhs, count, current, noremap)
+    local mode_shortname = current.mode:sub(1, 1)
+    local rhs = vim.fn.maparg(M.rt(lhs), mode_shortname, false, true)
+    local _feedkeys = vim.schedule_wrap(function()
+        if type(rhs["callback"]) == "function" then
+            rhs["callback"]()
+            if rhs.silent == 0 then
+                vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
+            end
+        else
+            vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+        end
+    end)
     local mode = current.mode
     if
         current.win == vim.api.nvim_get_current_win()
@@ -202,7 +214,7 @@ function M.feedkeys(keys, count, current, noremap)
     then
         local current_mode = vim.fn.mode()
         if count and count ~= 0 then
-            keys = count .. keys
+            lhs = count .. lhs
         end
         if current_mode == "i" then
             -- feed CTRL-O again i called from CTRL-O
@@ -213,11 +225,12 @@ function M.feedkeys(keys, count, current, noremap)
             end
 
             -- feed the keys with remap
-            vim.api.nvim_feedkeys(M.rt(keys), noremap and "n" or "m", false)
+            -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+            _feedkeys()
         elseif current_mode == "n" then
             if mode == "n" then
-                print(vim.inspect(vim.fn.maparg(M.rt(keys), "n")))
-                vim.api.nvim_feedkeys(M.rt(keys), noremap and "n" or "m", false)
+                -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+                _feedkeys()
             end
         else
             print("current mode: ", current_mode, "\n", "mode: ", mode)
