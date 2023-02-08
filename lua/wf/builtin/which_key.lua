@@ -51,7 +51,8 @@ local function which_key(opts)
         local mode = get_mode()
         local mode_shortname = mode:sub(1, 1)
         if modes[mode_shortname] == nil then
-            print("Not support mode: " .. mode_shortname)
+            print("Which Key does not support mode: " .. mode_shortname)
+            return
         end
         local g = _get_gmap("n")
         local b = _get_bmap(buf, "n")
@@ -64,7 +65,6 @@ local function which_key(opts)
         local _opts = {
             title = "Which Key",
             text_insert_in_advance = "",
-            -- key_group_dict = vim.fn.luaeval("_G.__kaza.prefix"),
         }
         local opts_ = ingect_deeply(_opts, opts)
 
