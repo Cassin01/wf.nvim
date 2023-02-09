@@ -537,12 +537,13 @@ local function setup_objs(choices_obj, callback, opts_)
     local which_obj = which.input_obj_gen(opts, opts.selector == "which")
     local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
     vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
-    local autocommands = vim.api.nvim_get_autocmds({
-        event = "InsertEnter",
-    })
-    print(vim.inspect(autocommands))
+    -- local autocommands = vim.api.nvim_get_autocmds({
+    --     event = "InsertEnter",
+    -- })
+    -- print(vim.inspect(autocommands))
     vim.schedule(function()
-        vim.cmd("startinsert!")
+        -- vim.cmd("startinsert!")
+        vim.fn.feedkeys('A', 'n')
     end)
 
     -- async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
