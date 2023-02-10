@@ -76,10 +76,6 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
                     caller_obj.win,
                     { original_cursor[1], original_cursor[2] }
                     )
-                print("original cursor")
-                print(vim.inspect(original_cursor))
-                print("current cursor")
-                print(vim.inspect(vim.api.nvim_win_get_cursor(0)))
                 -- if
                 --     cursor_valid
                 --     and vim.api.nvim_get_mode().mode == "i"
@@ -556,7 +552,7 @@ local function setup_objs(choices_obj, callback, opts_)
     -- print(vim.inspect(autocommands))
     vim.schedule(function()
         vim.cmd("startinsert!")
-        print(vim.inspect(vim.api.nvim_get_mode()))
+        -- print(vim.inspect(vim.api.nvim_get_mode()))
         -- vim.fn.feedkeys('A', 'n')
     end)
     print(vim.api.nvim_get_mode())
