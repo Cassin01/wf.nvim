@@ -71,21 +71,30 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
             local cursor_valid, original_cursor = pcall(vim.api.nvim_win_get_cursor, caller_obj.win)
             if vim.api.nvim_win_is_valid(caller_obj.win) then
                 pcall(vim.api.nvim_set_current_win, caller_obj.win)
-                if
-                    cursor_valid
-                    and vim.api.nvim_get_mode().mode == "i"
-                    and caller_obj.mode ~= "i"
-                then
-                    print("original cursor")
-                    print(vim.inspect(original_cursor))
-                    print("current cursor")
-                    print(vim.inspect(vim.api.nvim_win_get_cursor(0)))
-                    pcall(
-                        vim.api.nvim_win_set_cursor,
-                        caller_obj.win,
-                        { original_cursor[1], original_cursor[2] }
+                pcall(
+                    vim.api.nvim_win_set_cursor,
+                    caller_obj.win,
+                    { original_cursor[1], original_cursor[2] }
                     )
-                end
+                print("original cursor")
+                print(vim.inspect(original_cursor))
+                print("current cursor")
+                print(vim.inspect(vim.api.nvim_win_get_cursor(0)))
+                -- if
+                --     cursor_valid
+                --     and vim.api.nvim_get_mode().mode == "i"
+                --     and caller_obj.mode ~= "i"
+                -- then
+                --     print("original cursor")
+                --     print(vim.inspect(original_cursor))
+                --     print("current cursor")
+                --     print(vim.inspect(vim.api.nvim_win_get_cursor(0)))
+                --     pcall(
+                --         vim.api.nvim_win_set_cursor,
+                --         caller_obj.win,
+                --         { original_cursor[1], original_cursor[2] }
+                --     )
+                -- end
             end
             for _, o in ipairs(objs) do
                 if vim.api.nvim_buf_is_valid(o.buf) then
