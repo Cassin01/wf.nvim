@@ -559,6 +559,7 @@ local function setup_objs(choices_obj, callback, opts_)
         print(vim.inspect(vim.api.nvim_get_mode()))
         -- vim.fn.feedkeys('A', 'n')
     end)
+    print(vim.api.nvim_get_mode())
 
     -- async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
     _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
