@@ -63,9 +63,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
             vim.api.nvim_del_augroup_by_name(augname_leave_check)
             lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
         end)
-        if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-            vim.cmd("stopinsert")
-        end
+        -- if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
+        --     vim.cmd("stopinsert")
+        -- end
 
         vim.schedule(function()
             local cursor_valid, original_cursor = pcall(vim.api.nvim_win_get_cursor, caller_obj.win)
@@ -554,9 +554,6 @@ local function setup_objs(choices_obj, callback, opts_)
         vim.cmd("startinsert!")
         -- print(vim.inspect(vim.api.nvim_get_mode()))
         -- vim.fn.feedkeys('A', 'n')
-    end)
-    vim.schedule(function()
-        print(vim.inspect(vim.api.nvim_get_mode()))
     end)
 
     -- async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
