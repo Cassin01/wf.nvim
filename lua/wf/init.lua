@@ -79,7 +79,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
                     print("original cursor")
                     print(vim.inspect(original_cursor))
                     print("current cursor")
-                    print(vim.inspect(vim.api.nvim_win_get_cursor(0))))
+                    print(vim.inspect(vim.api.nvim_win_get_cursor(0)))
                     pcall(
                         vim.api.nvim_win_set_cursor,
                         caller_obj.win,
