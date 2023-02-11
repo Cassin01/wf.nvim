@@ -64,7 +64,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-      vim.cmd("stopinsert")
+      vim.schedule(funciton()
+        vim.cmd("stopinsert")
+      end)
     end
 
     vim.schedule(function()
@@ -375,6 +377,7 @@ local function which_setup(
   au(_g, { "TextChangedI", "TextChanged" }, function()
     print("TextChangedI")
     print(vim.inspect(vim.api.nvim_get_mode()))
+    print(vim.api.nvim_buf_get_lines(which_obj.buf,0,-1, true)[1])
 
     local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
     if id ~= nil then
