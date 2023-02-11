@@ -200,16 +200,17 @@ function M.feedkeys(lhs, count, current, noremap)
   local rhs = vim.fn.maparg(M.rt(lhs), mode_shortname, false, true)
   -- local _feedkeys = vim.schedule_wrap(function()
   local _feedkeys = function()
-    if type(rhs["callback"]) == "function" then
-      print("_callback")
-      print(vim.inspect(vim.api.nvim_get_mode()))
-      rhs["callback"]()
-      if rhs.silent == 0 then
-        vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
-      end
-    else
+    -- if type(rhs["callback"]) == "function" then
+    --   print("_callback")
+    --   print(vim.inspect(vim.api.nvim_get_mode()))
+    --   rhs["callback"]()
+    --   if rhs.silent == 0 then
+    --     vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
+    --   end
+    -- else
+    --   vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+    -- end
       vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
-    end
   end
   local mode = current.mode
   if
