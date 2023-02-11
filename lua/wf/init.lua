@@ -64,7 +64,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-      vim.schedule(funciton()
+      vim.schedule(function()
         vim.cmd("stopinsert")
       end)
     end
