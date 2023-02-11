@@ -611,7 +611,11 @@ local function select(items, opts, on_choice)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
-      on_choice_wraped(items[choice], choice)
+      async = vim.loop.new_async(function()
+        on_choice_wraped(items[choice], choice)
+        async:close()
+      end)
+      async:send()
     elseif type(choice) == "number" and items[choice] ~= nil then
       on_choice_wraped(items[choice], choice)
     else
