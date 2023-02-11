@@ -404,7 +404,9 @@ local function which_setup(
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         obj_handlers.del()
-        callback(match.id)
+        vim.schedule(function()
+          callback(match.id)
+        end)
       end
     end
   end, "match")
