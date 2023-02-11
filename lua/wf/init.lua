@@ -388,6 +388,7 @@ local function which_setup(
     if id ~= nil then
       obj_handlers.del()
         -- callback(id, text)
+      vim.schedule(function()vim.cmd("startinsert") end)
       au(_g, "User", function()
         callback(id, text)
       end, { pattern = "WFSelect" })
@@ -577,7 +578,7 @@ local function setup_objs(choices_obj, callback, opts_)
   --   -- print(vim.inspect(vim.api.nvim_get_mode()))
   --   -- vim.fn.feedkeys('A', 'n')
   -- end))()
-  async(function()
+  vim.schedule(function()
     vim.cmd("startinsert!")
   end)()
 
