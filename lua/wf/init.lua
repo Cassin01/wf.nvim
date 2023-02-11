@@ -60,7 +60,7 @@ end
 -- del()が4回もよばれるのはおかしい
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
-  local del = function() -- deliminator of the whole process
+  local del = vim.schedule_wrap(function() -- deliminator of the whole process
     print("del called")
     vim.schedule(function()
       -- autocommands contained in this group will also be deleted and cleared
@@ -69,9 +69,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-      vim.schedule(function() -- これがないと謎modeに入ってしまう。
+      -- vim.schedule(function() -- これがないと謎modeに入ってしまう。
         vim.cmd("stopinsert")
-      end)
+      -- end)
     end
 
     vim.schedule(function()
@@ -112,7 +112,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
         end
       end
     end)
-  end
+  end)
 
   -- for _, o in ipairs(objs) do
   --   au(_g, "BufWinLeave", function()
@@ -602,8 +602,8 @@ local function select(items, opts, on_choice)
     end
   end)()
 
-  -- local on_choice_wraped = async(vim.schedule_wrap(on_choice))
-  local on_choice_wraped = async(on_choice)
+  local on_choice_wraped = vim.schedule_wrap(on_choice)
+  -- local on_choice_wraped = async(on_choice)
   local callback = vim.schedule_wrap(function(choice, text)
     if cells then
       on_choice_wraped(text, choice)
