@@ -201,7 +201,9 @@ function M.feedkeys(lhs, count, current, noremap)
     if type(rhs["callback"]) == "function" then
       print("_callback")
       print(vim.inspect(vim.api.nvim_get_mode()))
-      M.async(rhs["callback"])()
+      vim.schedule(function()
+        M.async(rhs["callback"])()
+      end)
       if rhs.silent == 0 then
         vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
       end
