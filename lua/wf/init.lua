@@ -620,7 +620,7 @@ local function select(items, opts, on_choice)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
-      local gg = vim.api.nvim_create_augroup
+      local gg = vim.api.nvim_create_augroup("WFSelect", {clear=true})
       vim.api.nvim_create_autocmd("User", {
         callback = function()
           on_choice_wraped(items[choice], choice)
