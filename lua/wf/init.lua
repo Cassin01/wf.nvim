@@ -373,6 +373,9 @@ local function which_setup(
     )
   end, { buffer = which_obj.buf })
   au(_g, { "TextChangedI", "TextChanged" }, function()
+    print("TextChangedI")
+    print(vim.inspect(vim.api.nvim_get_mode()))
+
     local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
     if id ~= nil then
       obj_handlers.del()
@@ -505,8 +508,6 @@ local function _callback(
     return
   end
   leave_check(which_obj, fuzzy_obj, output_obj, obj_handlers.del)
-  print("_callback")
-  print(vim.inspect(vim.api.nvim_get_mode()))
 end
 
 local function setup_objs(choices_obj, callback, opts_)
@@ -557,11 +558,11 @@ local function setup_objs(choices_obj, callback, opts_)
   --     event = "InsertEnter",
   -- })
   -- print(vim.inspect(autocommands))
-  async(vim.schedule_wrap(function()
+  vim.schedule(function()
     vim.cmd("startinsert!")
     -- print(vim.inspect(vim.api.nvim_get_mode()))
     -- vim.fn.feedkeys('A', 'n')
-  end))()
+  end)
 
   -- async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
   _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
