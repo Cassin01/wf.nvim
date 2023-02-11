@@ -69,9 +69,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-      vim.schedule(function()
+      -- vim.schedule(function()
         vim.cmd("stopinsert")
-      end)
+      -- end)
     end
 
     vim.schedule(function()
@@ -572,6 +572,7 @@ local function setup_objs(choices_obj, callback, opts_)
     -- print(vim.inspect(vim.api.nvim_get_mode()))
     -- vim.fn.feedkeys('A', 'n')
   end))()
+  vim.cmd("startinsert!")
 
   async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
   -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
