@@ -271,5 +271,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [license-shield]: https://img.shields.io/github/license/Cassin01/wf.nvim.svg?style=for-the-badge
 [license-url]: https://github.com/Cassin01/wf.nvim/blob/main/LICENSE.txt
 [ci-shield]: https://img.shields.io/github/actions/workflow/status/Cassin01/wf.nvim/main.yml?style=for-the-badge
-[ci-url]: https://github.com/Cassin01/wf.nvim/.github/workflows/main.yml
+[ci-url]: https://github.com/Cassin01/wf.nvim/actions/workflow/status/Cassin01/wf.nvim/main.yml
 [product-screenshot]: https://user-images.githubusercontent.com/42632201/213849418-3cddb8bb-7323-4af7-b201-1ce2de07d3b9.png
