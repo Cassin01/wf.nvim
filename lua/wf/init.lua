@@ -56,15 +56,22 @@ local function leave_check(which_obj, fuzzy_obj, output_obj, del)
   )
 end
 
+-- FIXME:
+-- del()が4回もよばれるのはおかしい
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
   local del = function() -- deliminator of the whole process
+    print("del called")
     vim.schedule(function()
+      -- autocommands contained in this group will also be deleted and cleared
       vim.api.nvim_del_augroup_by_name(augname_leave_check)
+      -- restore only the autogroup
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-      vim.cmd("stopinsert")
+      vim.schedule(function() -- これがないと謎modeに入ってしまう。
+        vim.cmd("stopinsert")
+      end)
     end
 
     vim.schedule(function()
@@ -107,11 +114,11 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     end)
   end
 
-  for _, o in ipairs(objs) do
-    au(_g, "BufWinLeave", function()
-      del()
-    end, { buffer = o.buf })
-  end
+  -- for _, o in ipairs(objs) do
+  --   au(_g, "BufWinLeave", function()
+  --     del()
+  --   end, { buffer = o.buf })
+  -- end
 
   local to_which = function()
     vim.api.nvim_set_current_win(which_obj.win)
@@ -171,12 +178,12 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
         return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
       end
     end)()
+    local match_ = nil
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         del()
-        vim.schedule(function()
-          callback(match.id, match.text)
-        end)
+        callback(match.id, match.text)
+        return
       end
     end
   end
@@ -372,31 +379,37 @@ local function which_setup(
       "Normal:WFComment,FloatBorder:WFFloatBorder"
     )
   end, { buffer = which_obj.buf })
-  au(_g, { "TextChangedI", "TextChanged" }, function()
+  au(_g, { "TextChangedI", "TextChanged" }, vim.schedule_wrap(function()
+    print("TextChangedI")
+    print(vim.inspect(vim.api.nvim_get_mode()))
+    print(vim.api.nvim_buf_get_lines(which_obj.buf,0,-1, true)[1])
+
     local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
     if id ~= nil then
       obj_handlers.del()
-      callback(id, text)
+        -- callback(id, text)
+        async(callback)(id, text)
     end
-  end, { buffer = which_obj.buf })
+  end), { buffer = which_obj.buf })
   au(_g, "WinEnter", winenter, { buffer = which_obj.buf })
-  bmap(which_obj.buf, { "n", "i" }, "<CR>", function()
-    local fuzzy_line = vim.api.nvim_buf_get_lines(fuzzy_obj.buf, 0, -1, true)[1]
-    local which_line = vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1]
-    local fuzzy_matched_obj = (function()
-      if fuzzy_line == "" then
-        return choices_obj
-      else
-        return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
-      end
-    end)()
-    for _, match in ipairs(fuzzy_matched_obj) do
-      if match.key == which_line then
-        obj_handlers.del()
-        callback(match.id)
-      end
-    end
-  end, "match")
+  -- bmap(which_obj.buf, { "n", "i" }, "<CR>", function()
+  --   local fuzzy_line = vim.api.nvim_buf_get_lines(fuzzy_obj.buf, 0, -1, true)[1]
+  --   local which_line = vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1]
+  --   local fuzzy_matched_obj = (function()
+  --     if fuzzy_line == "" then
+  --       return choices_obj
+  --     else
+  --       return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
+  --     end
+  --   end)()
+  --   for _, match in ipairs(fuzzy_matched_obj) do
+  --     if match.key == which_line then
+  --       obj_handlers.del()
+  --       callback(match.id)
+  --       return
+  --     end
+  --   end
+  -- end, "match")
   bmap(which_obj.buf, { "i" }, "<C-H>", function()
     local pos = vim.api.nvim_win_get_cursor(which_obj.win)
     local line = vim.api.nvim_buf_get_lines(which_obj.buf, pos[1] - 1, pos[1], true)[1]
@@ -555,14 +568,19 @@ local function setup_objs(choices_obj, callback, opts_)
   --     event = "InsertEnter",
   -- })
   -- print(vim.inspect(autocommands))
+  -- async(vim.schedule_wrap(function()
+  --   print("startinsert!")
+  --   vim.cmd("startinsert!")
+  --   -- print(vim.inspect(vim.api.nvim_get_mode()))
+  --   -- vim.fn.feedkeys('A', 'n')
+  -- end))()
   vim.schedule(function()
     vim.cmd("startinsert!")
-    -- print(vim.inspect(vim.api.nvim_get_mode()))
-    -- vim.fn.feedkeys('A', 'n')
+  -- vim.fn.feedkeys("A", "n")
   end)
 
-  -- async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
-  _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
+  async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
+  -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
 local function select(items, opts, on_choice)
@@ -587,19 +605,20 @@ local function select(items, opts, on_choice)
     end
   end)()
 
-  local on_choice_wraped = async(vim.schedule_wrap(on_choice))
-  local callback = vim.schedule_wrap(function(choice, text)
+  -- local on_choice_wraped = vim.schedule_wrap(on_choice)
+  local on_choice_wraped = on_choice
+  -- local callback = vim.schedule_wrap(function(choice, text)
+  local callback = function(choice, text)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
-      print(vim.inspect(vim.api.nvim_get_mode()))
       on_choice_wraped(items[choice], choice)
     elseif type(choice) == "number" and items[choice] ~= nil then
       on_choice_wraped(items[choice], choice)
     else
       print("invalid choice")
     end
-  end)
+  end
   setup_objs(choices, callback, opts)
 end
 
