@@ -56,13 +56,17 @@ local function leave_check(which_obj, fuzzy_obj, output_obj, del)
   )
 end
 
+-- FIXME:
+-- del()が4回もよばれるのはおかしい
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
   local del = function() -- deliminator of the whole process
     print("del called")
     vim.schedule(function()
+      -- autocommands contained in this group will also be deleted and cleared
       vim.api.nvim_del_augroup_by_name(augname_leave_check)
-      -- lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
+      -- restore only the autogroup
+      lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
       vim.schedule(function()
@@ -110,11 +114,11 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     end)
   end
 
-  for _, o in ipairs(objs) do
-    au(_g, "BufWinLeave", function()
-      del()
-    end, { buffer = o.buf })
-  end
+  -- for _, o in ipairs(objs) do
+  --   au(_g, "BufWinLeave", function()
+  --     del()
+  --   end, { buffer = o.buf })
+  -- end
 
   local to_which = function()
     vim.api.nvim_set_current_win(which_obj.win)
