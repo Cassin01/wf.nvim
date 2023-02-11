@@ -404,9 +404,8 @@ local function which_setup(
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         obj_handlers.del()
-        async(function()
-          callback(match.id)
-        end)
+        callback(match.id)
+        return
       end
     end
   end, "match")
