@@ -574,12 +574,6 @@ local function setup_objs(choices_obj, callback, opts_)
   -- end))()
 
   async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
-  vim.schedule_wrap(function()
-    print("startinsert!")
-    vim.cmd("startinsert!")
-    -- print(vim.inspect(vim.api.nvim_get_mode()))
-    -- vim.fn.feedkeys('A', 'n')
-  end)
   -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
@@ -618,6 +612,12 @@ local function select(items, opts, on_choice)
     end
   end)
   setup_objs(choices, callback, opts)
+  vim.schedule(function()
+    print("startinsert!")
+    vim.cmd("startinsert!")
+    -- print(vim.inspect(vim.api.nvim_get_mode()))
+    -- vim.fn.feedkeys('A', 'n')
+  end)
 end
 
 return { select = select, setup = setup }
