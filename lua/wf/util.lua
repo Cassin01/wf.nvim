@@ -147,8 +147,8 @@ function M.async(callback)
   local function run(...)
     local args = { ... }
     local handle
-    -- handle = vim.loop.new_async(vim.schedule_wrap(function()
-    handle = vim.loop.new_async(function()
+    handle = vim.loop.new_async(vim.schedule_wrap(function()
+    -- handle = vim.loop.new_async(function()
       if #args > 0 then
         callback(unpack(args))
       else
@@ -157,7 +157,7 @@ function M.async(callback)
       if not handle:is_closing() then
         handle:close()
       end
-    end)
+    end))
     handle:send()
     return handle
   end
