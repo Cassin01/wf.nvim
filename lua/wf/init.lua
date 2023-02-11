@@ -604,9 +604,10 @@ local function select(items, opts, on_choice)
     end
   end)()
 
-  local on_choice_wraped = vim.schedule_wrap(on_choice)
-  -- local on_choice_wraped = async(on_choice)
-  local callback = vim.schedule_wrap(function(choice, text)
+  -- local on_choice_wraped = vim.schedule_wrap(on_choice)
+  local on_choice_wraped = on_choice
+  -- local callback = vim.schedule_wrap(function(choice, text)
+  local callback = function(choice, text)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
@@ -616,7 +617,7 @@ local function select(items, opts, on_choice)
     else
       print("invalid choice")
     end
-  end)
+  end
   setup_objs(choices, callback, opts)
 end
 
