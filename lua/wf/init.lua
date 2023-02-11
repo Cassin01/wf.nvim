@@ -59,6 +59,7 @@ end
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
   local del = function() -- deliminator of the whole process
+    print("del called")
     vim.schedule(function()
       vim.api.nvim_del_augroup_by_name(augname_leave_check)
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
@@ -510,7 +511,7 @@ local function _callback(
     obj_handlers.del()
     return
   end
-  -- leave_check(which_obj, fuzzy_obj, output_obj, obj_handlers.del)
+  leave_check(which_obj, fuzzy_obj, output_obj, obj_handlers.del)
 end
 
 local function setup_objs(choices_obj, callback, opts_)
