@@ -505,6 +505,8 @@ local function _callback(
     return
   end
   leave_check(which_obj, fuzzy_obj, output_obj, obj_handlers.del)
+  print("_callback")
+  print(vim.inspect(vim.api.nvim_get_mode()))
 end
 
 local function setup_objs(choices_obj, callback, opts_)
@@ -592,7 +594,6 @@ local function select(items, opts, on_choice)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
-      print(vim.inspect(vim.api.nvim_get_mode()))
       on_choice_wraped(items[choice], choice)
     elseif type(choice) == "number" and items[choice] ~= nil then
       on_choice_wraped(items[choice], choice)
