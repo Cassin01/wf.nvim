@@ -47,8 +47,12 @@ end
 T["setup()"]["overrides default values"] = function()
     child.lua([[require('wf').setup({
         -- write all the options with a value different than the default ones
-        theme = chad,
+        theme = "chad",
     })]])
+    eq_config(child, "theme", "chad")
+    eq_type_config(child, "theme", "string")
+
+
     -- child.lua([[require('wf').setup({
     --     -- write all the options with a value different than the default ones
     --     debug = true,

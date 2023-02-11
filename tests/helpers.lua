@@ -34,7 +34,9 @@ Helpers.expect.global_type_equality = MiniTest.new_expectation(
 Helpers.expect.config_equality = MiniTest.new_expectation(
     "config option matches",
     function(child, field, value)
-        return Helpers.expect.global_equality(child, "_G.Wf.config." .. field, value)
+        local full_name = require("wf.static").full_name
+        return Helpers.expect.global_equality(child, 'vim.g["' .. full_name .. "#" .. field .. '"]', value)
+        -- return Helpers.expect.global_equality(child, "_G.Wf.config." .. field, value)
     end,
     errorMessage
 )
@@ -44,7 +46,9 @@ Helpers.expect.config_equality = MiniTest.new_expectation(
 Helpers.expect.config_type_equality = MiniTest.new_expectation(
     "config option type matches",
     function(child, field, value)
-        return Helpers.expect.global_equality(child, "type(_G.Wf.config." .. field .. ")", value)
+        local full_name = require("wf.static").full_name
+        return Helpers.expect.global_equality(child, 'type(vim.g["' .. full_name .. "#" .. field .. '"])', value)
+        -- return Helpers.expect.global_equality(child, "type(_G.Wf.config." .. field .. ")", value)
     end,
     errorMessage
 )
