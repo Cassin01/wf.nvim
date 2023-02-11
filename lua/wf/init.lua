@@ -181,9 +181,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         del()
-        async(function()
+        vim.schedule(function()
           callback(match.id, match.text)
-        end)()
+        end)
       end
     end
   end
@@ -404,7 +404,7 @@ local function which_setup(
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         obj_handlers.del()
-        vim.schedule(function()
+        async(function()
           callback(match.id)
         end)
       end
