@@ -219,9 +219,13 @@ function M.feedkeys(lhs, count, current, noremap)
         if current_mode == "i" then
             -- feed CTRL-O again i called from CTRL-O
             if mode == "nii" or mode == "nir" or mode == "niv" or mode == "vs" then
+                print("temporally stopinsert from @util")
                 vim.api.nvim_feedkeys(M.rt("<C-O>"), "n", false)
             else
-                vim.api.nvim_feedkeys(M.rt("<Esc>"), "n", false)
+                print("stopinsert from @util")
+                vim.cmd("stopinsert")
+                -- stopinert()
+                -- vim.api.nvim_feedkeys(M.rt("<Esc>"), "n", false)
             end
 
             -- feed the keys with remap

@@ -70,18 +70,33 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
         vim.schedule(function()
             local cursor_valid, original_cursor = pcall(vim.api.nvim_win_get_cursor, caller_obj.win)
             if vim.api.nvim_win_is_valid(caller_obj.win) then
-                pcall(vim.api.nvim_set_current_win, caller_obj.win)
-                if
-                    cursor_valid
-                    and vim.api.nvim_get_mode().mode == "i"
-                    and caller_obj.mode ~= "i"
-                then
-                    pcall(
-                        vim.api.nvim_win_set_cursor,
-                        caller_obj.win,
-                        { original_cursor[1], original_cursor[2] }
+                vim.api.nvim_set_current_win(caller_obj.win)
+                vim.api.nvim_win_set_cursor(
+                    caller_obj.win,
+                    { original_cursor[1], original_cursor[2] }
                     )
-                end
+                -- pcall(vim.api.nvim_set_current_win, caller_obj.win)
+                -- pcall(
+                --     vim.api.nvim_win_set_cursor,
+                --     caller_obj.win,
+                --     { original_cursor[1], original_cursor[2] }
+                --     )
+                
+                -- if
+                --     cursor_valid
+                --     and vim.api.nvim_get_mode().mode == "i"
+                --     and caller_obj.mode ~= "i"
+                -- then
+                --     print("original cursor")
+                --     print(vim.inspect(original_cursor))
+                --     print("current cursor")
+                --     print(vim.inspect(vim.api.nvim_win_get_cursor(0)))
+                --     pcall(
+                --         vim.api.nvim_win_set_cursor,
+                --         caller_obj.win,
+                --         { original_cursor[1], original_cursor[2] }
+                --     )
+                -- end
             end
             for _, o in ipairs(objs) do
                 if vim.api.nvim_buf_is_valid(o.buf) then
@@ -162,7 +177,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
         for _, match in ipairs(fuzzy_matched_obj) do
             if match.key == which_line then
                 del()
-                callback(match.id, match.text)
+                vim.schedule(function() callback(match.id, match.text) end)
             end
         end
     end
@@ -537,12 +552,14 @@ local function setup_objs(choices_obj, callback, opts_)
     local which_obj = which.input_obj_gen(opts, opts.selector == "which")
     local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
     vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
-    local autocommands = vim.api.nvim_get_autocmds({
-        event = "InsertEnter",
-    })
-    print(vim.inspect(autocommands))
+    -- local autocommands = vim.api.nvim_get_autocmds({
+    --     event = "InsertEnter",
+    -- })
+    -- print(vim.inspect(autocommands))
     vim.schedule(function()
         vim.cmd("startinsert!")
+        -- print(vim.inspect(vim.api.nvim_get_mode()))
+        -- vim.fn.feedkeys('A', 'n')
     end)
 
     -- async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
@@ -571,11 +588,12 @@ local function select(items, opts, on_choice)
         end
     end)()
 
-    local on_choice_wraped = vim.schedule_wrap(on_choice)
+    local on_choice_wraped = async(vim.schedule_wrap(on_choice))
     local callback = vim.schedule_wrap(function(choice, text)
         if cells then
             on_choice_wraped(text, choice)
         elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
+            print(vim.inspect(vim.api.nvim_get_mode()))
             on_choice_wraped(items[choice], choice)
         elseif type(choice) == "number" and items[choice] ~= nil then
             on_choice_wraped(items[choice], choice)

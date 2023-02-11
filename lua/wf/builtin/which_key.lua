@@ -76,7 +76,7 @@ local function which_key(opts)
             --         vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
             --     end
             -- else
-                feedkeys(lhs, count, { win = win, buf = buf, mode = mode }, false)
+            feedkeys(lhs, count, { win = win, buf = buf, mode = mode }, false)
             -- end
         end)
     end
