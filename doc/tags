@@ -1,0 +1,5 @@
+Wf.disable()	wf.txt	/*Wf.disable()*
+Wf.enable()	wf.txt	/*Wf.enable()*
+Wf.options	wf.txt	/*Wf.options*
+Wf.setup()	wf.txt	/*Wf.setup()*
+Wf.toggle()	wf.txt	/*Wf.toggle()*
