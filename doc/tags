@@ -1,0 +1,5 @@
+Wf.disable()	neovim-plugin-boilerplate.txt	/*Wf.disable()*
+Wf.enable()	neovim-plugin-boilerplate.txt	/*Wf.enable()*
+Wf.options	neovim-plugin-boilerplate.txt	/*Wf.options*
+Wf.setup()	neovim-plugin-boilerplate.txt	/*Wf.setup()*
+Wf.toggle()	neovim-plugin-boilerplate.txt	/*Wf.toggle()*
