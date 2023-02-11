@@ -388,11 +388,7 @@ local function which_setup(
     if id ~= nil then
       obj_handlers.del()
         -- callback(id, text)
-      vim.schedule(function()vim.cmd("startinsert") end)
-      au(_g, "User", function()
-        callback(id, text)
-      end, { pattern = "WFSelect" })
-    vim.cmd("doautocmd User WFSelect")
+        async(callback)(id, text)
     end
   end, { buffer = which_obj.buf })
   au(_g, "WinEnter", winenter, { buffer = which_obj.buf })
