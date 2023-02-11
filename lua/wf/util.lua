@@ -199,6 +199,8 @@ function M.feedkeys(lhs, count, current, noremap)
   local rhs = vim.fn.maparg(M.rt(lhs), mode_shortname, false, true)
   local _feedkeys = vim.schedule_wrap(function()
     if type(rhs["callback"]) == "function" then
+      print("_callback")
+      print(vim.inspect(vim.api.nvim_get_mode()))
       rhs["callback"]()
       if rhs.silent == 0 then
         vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
@@ -216,30 +218,30 @@ function M.feedkeys(lhs, count, current, noremap)
     if count and count ~= 0 then
       lhs = count .. lhs
     end
-    if current_mode == "i" then
-      -- feed CTRL-O again i called from CTRL-O
-      if mode == "nii" or mode == "nir" or mode == "niv" or mode == "vs" then
-        print("temporally stopinsert from @util")
-        vim.api.nvim_feedkeys(M.rt("<C-O>"), "n", false)
-      else
-        print("stopinsert from @util")
-        vim.cmd("stopinsert")
-        -- stopinert()
-        -- vim.api.nvim_feedkeys(M.rt("<Esc>"), "n", false)
-      end
+    -- if current_mode == "i" then
+    --   -- feed CTRL-O again i called from CTRL-O
+    --   if mode == "nii" or mode == "nir" or mode == "niv" or mode == "vs" then
+    --     print("temporally stopinsert from @util")
+    --     vim.api.nvim_feedkeys(M.rt("<C-O>"), "n", false)
+    --   else
+    --     print("stopinsert from @util")
+    --     vim.cmd("stopinsert")
+    --     -- stopinert()
+    --     -- vim.api.nvim_feedkeys(M.rt("<Esc>"), "n", false)
+    --   end
 
-      -- feed the keys with remap
-      -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
-      _feedkeys()
-    elseif current_mode == "n" then
+    --   -- feed the keys with remap
+    --   -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+    --   _feedkeys()
+    -- elseif current_mode == "n" then
       if mode == "n" then
         -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
         _feedkeys()
       end
-    else
-      print("current mode: ", current_mode, "\n", "mode: ", mode)
-      print("which-key: mode is not n or i")
-    end
+    -- else
+    --   print("current mode: ", current_mode, "\n", "mode: ", mode)
+    --   print("which-key: mode is not n or i")
+    -- end
   end
 end
 
