@@ -382,13 +382,13 @@ local function which_setup(
   au(_g, { "TextChangedI", "TextChanged" }, function()
     print("TextChangedI")
     print(vim.inspect(vim.api.nvim_get_mode()))
-    print(vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1])
+    print(vim.api.nvim_buf_get_lines(which_obj.buf,0,-1, true)[1])
 
     local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
     if id ~= nil then
       obj_handlers.del()
-      -- callback(id, text)
-      async(callback)(id, text)
+        -- callback(id, text)
+        async(callback)(id, text)
     end
   end, { buffer = which_obj.buf })
   au(_g, "WinEnter", winenter, { buffer = which_obj.buf })
@@ -467,7 +467,7 @@ local function _callback(
   opts
 )
   local obj_handlers =
-  objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
+    objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   which_setup(
     which_obj,
     fuzzy_obj,
@@ -574,20 +574,11 @@ local function setup_objs(choices_obj, callback, opts_)
   --   -- print(vim.inspect(vim.api.nvim_get_mode()))
   --   -- vim.fn.feedkeys('A', 'n')
   -- end))()
-  -- vim.schedule(function()
-  vim.cmd("startinsert!")
-  -- end)
+  vim.schedule(function()
+    vim.cmd("startinsert!")
+  end)
 
-  async(_callback)(
-    caller_obj,
-    fuzzy_obj,
-    which_obj,
-    output_obj,
-    choices_obj,
-    groups_obj,
-    callback,
-    opts
-  )
+  async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
   -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
@@ -620,15 +611,7 @@ local function select(items, opts, on_choice)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
-      local gg = vim.api.nvim_create_augroup("WFSelect", {clear=true})
-      vim.api.nvim_create_autocmd("User", {
-        callback = function()
-          on_choice_wraped(items[choice], choice)
-        end,
-        group = gg,
-        pattern = "WFSelect",
-      })
-    vim.cmd("doautocmd User WFSelect")
+      on_choice_wraped(items[choice], choice)
     elseif type(choice) == "number" and items[choice] ~= nil then
       on_choice_wraped(items[choice], choice)
     else
