@@ -62,7 +62,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     print("del called")
     vim.schedule(function()
       vim.api.nvim_del_augroup_by_name(augname_leave_check)
-      lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
+      -- lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
       vim.schedule(function()
