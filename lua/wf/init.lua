@@ -379,7 +379,7 @@ local function which_setup(
       "Normal:WFComment,FloatBorder:WFFloatBorder"
     )
   end, { buffer = which_obj.buf })
-  au(_g, { "TextChangedI", "TextChanged" }, function()
+  au(_g, { "TextChangedI", "TextChanged" }, vim.fn.schedule_wrap(function()
     print("TextChangedI")
     print(vim.inspect(vim.api.nvim_get_mode()))
     print(vim.api.nvim_buf_get_lines(which_obj.buf,0,-1, true)[1])
@@ -390,7 +390,7 @@ local function which_setup(
         -- callback(id, text)
         async(callback)(id, text)
     end
-  end, { buffer = which_obj.buf })
+  end), { buffer = which_obj.buf })
   au(_g, "WinEnter", winenter, { buffer = which_obj.buf })
   -- bmap(which_obj.buf, { "n", "i" }, "<CR>", function()
   --   local fuzzy_line = vim.api.nvim_buf_get_lines(fuzzy_obj.buf, 0, -1, true)[1]
