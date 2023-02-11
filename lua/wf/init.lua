@@ -580,7 +580,7 @@ local function setup_objs(choices_obj, callback, opts_)
   -- end))()
   vim.schedule(function()
     vim.cmd("startinsert!")
-  end)()
+  end)
 
   async(_callback)(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
   -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
