@@ -69,9 +69,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
-      -- vim.schedule(function() -- これがないと謎modeに入ってしまう。
+      vim.schedule(function() -- これがないと謎modeに入ってしまう。
         vim.cmd("stopinsert")
-      -- end)
+      end)
     end
 
     vim.schedule(function()
@@ -178,12 +178,12 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
         return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
       end
     end)()
+    local match_ = nil
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         del()
-        vim.schedule(function()
-          callback(match.id, match.text)
-        end)
+        callback(match.id, match.text)
+        return
       end
     end
   end
@@ -387,28 +387,32 @@ local function which_setup(
     local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
     if id ~= nil then
       obj_handlers.del()
-      callback(id, text)
+        -- callback(id, text)
+      au(_g, "User", function()
+        callback(id, text)
+      end, { pattern = "WFSelect" })
+    vim.cmd("doautocmd User WFSelect")
     end
   end, { buffer = which_obj.buf })
   au(_g, "WinEnter", winenter, { buffer = which_obj.buf })
-  bmap(which_obj.buf, { "n", "i" }, "<CR>", function()
-    local fuzzy_line = vim.api.nvim_buf_get_lines(fuzzy_obj.buf, 0, -1, true)[1]
-    local which_line = vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1]
-    local fuzzy_matched_obj = (function()
-      if fuzzy_line == "" then
-        return choices_obj
-      else
-        return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
-      end
-    end)()
-    for _, match in ipairs(fuzzy_matched_obj) do
-      if match.key == which_line then
-        obj_handlers.del()
-        callback(match.id)
-        return
-      end
-    end
-  end, "match")
+  -- bmap(which_obj.buf, { "n", "i" }, "<CR>", function()
+  --   local fuzzy_line = vim.api.nvim_buf_get_lines(fuzzy_obj.buf, 0, -1, true)[1]
+  --   local which_line = vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1]
+  --   local fuzzy_matched_obj = (function()
+  --     if fuzzy_line == "" then
+  --       return choices_obj
+  --     else
+  --       return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
+  --     end
+  --   end)()
+  --   for _, match in ipairs(fuzzy_matched_obj) do
+  --     if match.key == which_line then
+  --       obj_handlers.del()
+  --       callback(match.id)
+  --       return
+  --     end
+  --   end
+  -- end, "match")
   bmap(which_obj.buf, { "i" }, "<C-H>", function()
     local pos = vim.api.nvim_win_get_cursor(which_obj.win)
     local line = vim.api.nvim_buf_get_lines(which_obj.buf, pos[1] - 1, pos[1], true)[1]
