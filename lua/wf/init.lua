@@ -566,6 +566,7 @@ local function setup_objs(choices_obj, callback, opts_)
   --     event = "InsertEnter",
   -- })
   -- print(vim.inspect(autocommands))
+  print("startinsert called")
   vim.schedule(function()
     vim.cmd("startinsert!")
     -- print(vim.inspect(vim.api.nvim_get_mode()))
