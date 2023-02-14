@@ -141,7 +141,7 @@ end
 local function output_obj_gen(opts)
   local style = opts.style
   local buf, win =
-    gen_obj(row_offset_() + style.input_win_row_offset + style.input_win_row_offset, opts, false)
+    gen_obj(row_offset_() + style.input_win_row_offset + style.input_win_row_offset, opts, false, "nofile")
   vim.api.nvim_buf_set_option(buf, "filetype", plug_name .. "output")
   local wcnf = vim.api.nvim_win_get_config(win)
   vim.api.nvim_win_set_config(
