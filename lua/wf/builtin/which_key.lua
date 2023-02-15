@@ -44,6 +44,7 @@ local function _get_bmap(buf, mode)
   return choices
 end
 
+---@param opts? table
 local function which_key(opts)
   local core = function()
     local buf = vim.api.nvim_get_current_buf()

@@ -475,7 +475,7 @@ local function _callback(
   opts
 )
   local obj_handlers =
-  objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
+    objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   which_setup(
     which_obj,
     fuzzy_obj,
@@ -587,22 +587,22 @@ local function setup_objs(choices_obj, callback, opts_)
     -- vim.fn.feedkeys("A", "n")
   end)
 
-  async(_callback)(
-    caller_obj,
-    fuzzy_obj,
-    which_obj,
-    output_obj,
-    choices_obj,
-    groups_obj,
-    callback,
-    opts
-  )
-  -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
+  -- async(_callback)(
+  --   caller_obj,
+  --   fuzzy_obj,
+  --   which_obj,
+  --   output_obj,
+  --   choices_obj,
+  --   groups_obj,
+  --   callback,
+  --   opts
+  -- )
+  _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
 ---@param items items
----@param the options for wf
----@param on_choice A callback that will be carried
+---@param opts the options for wf
+---@param on_choice a callback that will be carried
 ---@usage `require("wf").select(items, opts, on_choice)`
 local function select(items, opts, on_choice)
   vim.validate({
