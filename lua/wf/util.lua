@@ -148,7 +148,7 @@ function M.async(callback)
     local args = { ... }
     local handle
     handle = vim.loop.new_async(vim.schedule_wrap(function()
-    -- handle = vim.loop.new_async(function()
+      -- handle = vim.loop.new_async(function()
       if #args > 0 then
         callback(unpack(args))
       else
@@ -210,7 +210,7 @@ function M.feedkeys(lhs, count, current, noremap)
     -- else
     --   vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
     -- end
-      vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+    vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
   end
   local mode = current.mode
   if
@@ -237,10 +237,10 @@ function M.feedkeys(lhs, count, current, noremap)
     --   -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
     --   _feedkeys()
     -- elseif current_mode == "n" then
-      if mode == "n" then
-        -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
-        _feedkeys()
-      end
+    if mode == "n" then
+      -- vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+      _feedkeys()
+    end
     -- else
     --   print("current mode: ", current_mode, "\n", "mode: ", mode)
     --   print("which-key: mode is not n or i")
