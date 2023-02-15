@@ -1,2 +1,5 @@
+bookmark()	wf.txt	/*bookmark()*
+buffer()	wf.txt	/*buffer()*
+register()	wf.txt	/*register()*
 select()	wf.txt	/*select()*
 which_key()	wf.txt	/*which_key()*
