@@ -19,6 +19,8 @@ local types = {
   ["V"] = "l",
   [""] = "u",
 }
+
+---@param opts? table
 local function register(opts)
   local function _register()
     local choices = {}
