@@ -1,13 +1,19 @@
 ==============================================================================
 ------------------------------------------------------------------------------
+                                                                   *which_key()*
+                              `which_key`({opts})
+Parameters~
+{opts} `(optional)` `(table)`
+
+
+==============================================================================
+------------------------------------------------------------------------------
                                                                       *select()*
                      `select`({items}, {opts}, {on_choice})
-Define your wf setup.
-
 Parameters~
 {items} items
-{the} options for wf
-{on_choice} A callback that will be carried
+{opts} the options for wf
+{on_choice} a callback that will be carried
 Usage~
 `require("wf").select(items, opts, on_choice)`
 
