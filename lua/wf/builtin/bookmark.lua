@@ -7,6 +7,8 @@ end
 
 local ok, devicon = pcall(require_deviocon)
 
+---@param bookmark_dirs table
+---@param opts? table
 local function bookmark(bookmark_dirs, opts)
   local function _bookmark()
     opts = opts or {}

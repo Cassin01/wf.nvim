@@ -8,7 +8,7 @@ end
 local ok, devicon = pcall(require_deviocon)
 
 local function get_active_buffers()
-  local blist = vim.fn.getbufinfo({ bufloadled = 1, buflisted = 0 })
+  local blist = vim.fn.getbufinfo({ bufloadled = 1, buflisted = 1 })
   local res = {}
   local bs = {}
   for _, b in ipairs(blist) do
@@ -20,6 +20,7 @@ local function get_active_buffers()
   return res, bs
 end
 
+---@param opts? table
 local function buffer(opts)
   local function _buffer()
     local choices, bs = get_active_buffers()

@@ -227,15 +227,14 @@ local function fuzzy_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups
       "Normal:WFFocus,FloatBorder:WFFloatBorderFocus"
     )
 
-    -- TEMP: disable sign
-    -- vim.fn.sign_unplace(sign_group_prompt .. "fuzzyfreeze", { buffer = fuzzy_obj.buf })
-    -- vim.fn.sign_place(
-    --   0,
-    --   sign_group_prompt .. "fuzzy",
-    --   sign_group_prompt .. "fuzzy",
-    --   fuzzy_obj.buf,
-    --   { lnum = 1, priority = 10 }
-    -- )
+    vim.fn.sign_unplace(sign_group_prompt .. "fuzzyfreeze", { buffer = fuzzy_obj.buf })
+    vim.fn.sign_place(
+      0,
+      sign_group_prompt .. "fuzzy",
+      sign_group_prompt .. "fuzzy",
+      fuzzy_obj.buf,
+      { lnum = 1, priority = 10 }
+    )
 
     -- vim.schedule(function()
     --     vim.api.nvim_win_set_option(fuzzy_obj.win, "foldcolumn", "1")
