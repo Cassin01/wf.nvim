@@ -333,7 +333,7 @@ local function which_setup(
     --   { lnum = 1, priority = 10 }
     -- )
     -- TMP: remove me }}}
- 
+
     -- vim.schedule(function()
     --     vim.api.nvim_win_set_option(which_obj.win, "foldcolumn", "1")
     --     vim.api.nvim_win_set_option(which_obj.win, "signcolumn", "yes:2")
@@ -389,7 +389,7 @@ local function which_setup(
     --   which_obj.buf,
     --   { lnum = 1, priority = 10 }
     -- )
-  -- TMP: remove me }}}
+    -- TMP: remove me }}}
     vim.api.nvim_win_set_option(
       which_obj.win,
       "winhl",
