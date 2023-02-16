@@ -71,7 +71,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     end)
     if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
       if callback_ ~= nil then
-        au("ModeChanged", callback_, { once = true, pattern = "*:n" })
+        au(vim.api.nvim_create_augroup("WFCallbackModeChanged", {clear = true}), "ModeChanged", callback_, { once = true, pattern = "*:n" })
       end
       vim.schedule(function() -- これがないと謎modeに入ってしまう。
         vim.cmd("stopinsert")
