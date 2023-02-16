@@ -69,8 +69,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       -- restore only the autogroup
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
-    print(caller_obj.mode, "submode")
-    if caller_obj.mode.sub(1, 1) == "n" then
+    if caller_obj.mode == "n" then
       if callback_ ~= nil then
         au(
           vim.api.nvim_create_augroup("WFCallbackModeChanged", { clear = true }),
