@@ -72,6 +72,8 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       vim.schedule(function() -- これがないと謎modeに入ってしまう。
         vim.cmd("stopinsert")
       end)
+    else
+      print('insert modeに入りませんでした. mode:', caller_obj.mode)
     end
 
     vim.schedule(function()
