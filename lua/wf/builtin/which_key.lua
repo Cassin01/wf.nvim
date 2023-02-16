@@ -52,7 +52,7 @@ local function feedkeys(lhs, count, caller, noremap)
     and caller.buf == vim.api.nvim_get_current_buf()
     and caller_mode == get_mode():sub(1, 1)
   then
-    local rhs = vim.fn.maparg(M.rt(lhs), mode_shortname, false, true)
+    local rhs = vim.fn.maparg(rt(lhs), mode_shortname, false, true)
     if type(rhs["callback"]) == "function" then
       for _ = 1, count do
         rhs["callback"]()
@@ -64,7 +64,7 @@ local function feedkeys(lhs, count, caller, noremap)
       if count and count ~= 0 then
         lhs = count .. lhs
       end
-      vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+      vim.api.nvim_feedkeys(rt(lhs), noremap and "n" or "m", false)
     end
   else
     print("caller mode: ", caller_mode, "\n", "mode: ", get_mode():sub(1, 1))
