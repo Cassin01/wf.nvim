@@ -10,13 +10,14 @@
 <br />
 <div align="center">
   <a href="https://github.com/Cassin01/wf.nvim">
-    <img src=".github/images/logo.png" alt="Logo" width="80" height="80">
+    <!-- <img src=".github/images/logo.png" alt="Logo" width="80" height="80"> -->
+    <img src=".github/images/logo.png" alt="Logo" width="200" height="200">
   </a>
 
-  <h3 align="center">wf.nvim</h3>
+  <!-- <h3 align="center">wf.nvim</h3> -->
 
   <p align="center">
-    A which-key with a fuzzy-find.
+    <!-- A which-key with a fuzzy-find. -->
     <br />
     <a href="https://github.com/Cassin01/wf.nvim"><strong>Explore the docs »</strong></a>
     <br />
