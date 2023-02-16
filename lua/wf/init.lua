@@ -411,7 +411,6 @@ local function which_setup(
 
       local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
       if id ~= nil then
-        vim.cmd("stopinsert")
         obj_handlers.del()
         callback(id, text)
         -- async(callback)(id, text)
@@ -650,8 +649,8 @@ local function select(items, opts, on_choice)
 
   -- local on_choice_wraped = vim.schedule_wrap(on_choice)
   local on_choice_wraped = on_choice
-  -- local callback = vim.schedule_wrap(function(choice, text)
-  local callback = function(choice, text)
+  local callback = vim.schedule_wrap(function(choice, text)
+  -- local callback = function(choice, text)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
