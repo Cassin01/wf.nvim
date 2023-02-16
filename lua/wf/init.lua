@@ -215,7 +215,9 @@ local function swap_win_pos(up, down, style)
   )
   for _, o in ipairs({ up, down }) do
     vim.api.nvim_win_set_option(o.win, "foldcolumn", "1")
-    vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:2")
+    --TODO: remove me {{{
+    -- vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:2")
+    --TODO: remove me }}}
   end
 end
 
