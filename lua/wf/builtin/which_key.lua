@@ -1,4 +1,4 @@
--- local util = require("wf.util")
+local util = require("wf.util")
 local extend = util.extend
 local ingect_deeply = util.ingect_deeply
 local rt = util.rt
