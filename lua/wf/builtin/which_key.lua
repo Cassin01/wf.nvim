@@ -67,7 +67,7 @@ local function feedkeys(lhs, count, caller, noremap)
       vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
     end
   else
-    print("current mode: ", current_mode, "\n", "mode: ", mode)
+    print("current mode: ", caller_mode, "\n", "mode: ", get_mode():sub(1,1))
     print("which-key: mode is not n or i")
   end
 
