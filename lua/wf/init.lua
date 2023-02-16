@@ -215,9 +215,9 @@ local function swap_win_pos(up, down, style)
   )
   for _, o in ipairs({ up, down }) do
     vim.api.nvim_win_set_option(o.win, "foldcolumn", "1")
-    --TODO: remove me {{{
-    -- vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:2")
-    --TODO: remove me }}}
+    --TMP: remove me {{{
+    vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:2")
+    --TMP: remove me }}}
   end
 end
 
@@ -232,13 +232,13 @@ local function fuzzy_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups
     vim.fn.sign_unplace(sign_group_prompt .. "fuzzyfreeze", { buffer = fuzzy_obj.buf })
 
     -- TMP: remove me {{{
-    -- vim.fn.sign_place(
-    --   0,
-    --   sign_group_prompt .. "fuzzy",
-    --   sign_group_prompt .. "fuzzy",
-    --   fuzzy_obj.buf,
-    --   { lnum = 1, priority = 10 }
-    -- )
+    vim.fn.sign_place(
+      0,
+      sign_group_prompt .. "fuzzy",
+      sign_group_prompt .. "fuzzy",
+      fuzzy_obj.buf,
+      { lnum = 1, priority = 10 }
+    )
     -- TMP: remove me }}}
 
     -- vim.schedule(function()
@@ -269,13 +269,13 @@ local function fuzzy_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups
       winenter()
 
       -- TMP: remove me {{{
-      -- vim.fn.sign_place(
-      --   0,
-      --   sign_group_prompt .. "whichfreeze",
-      --   sign_group_prompt .. "whichfreeze",
-      --   which_obj.buf,
-      --   { lnum = 1, priority = 10 }
-      -- )
+      vim.fn.sign_place(
+        0,
+        sign_group_prompt .. "whichfreeze",
+        sign_group_prompt .. "whichfreeze",
+        which_obj.buf,
+        { lnum = 1, priority = 10 }
+      )
       -- TMP: remove me }}}
       local _, _ = pcall(function()
         require("cmp").setup.buffer({ enabled = false })
@@ -291,13 +291,13 @@ local function fuzzy_setup(which_obj, fuzzy_obj, output_obj, choices_obj, groups
     vim.fn.sign_unplace(sign_group_prompt .. "fuzzyfreeze", { buffer = fuzzy_obj.buf })
     vim.fn.sign_unplace(sign_group_prompt .. "fuzzy", { buffer = fuzzy_obj.buf })
     -- TMP: remove me {{{
-    -- vim.fn.sign_place(
-    --   0,
-    --   sign_group_prompt .. "fuzzyfreeze",
-    --   sign_group_prompt .. "fuzzyfreeze",
-    --   fuzzy_obj.buf,
-    --   { lnum = 1, priority = 10 }
-    -- )
+    vim.fn.sign_place(
+      0,
+      sign_group_prompt .. "fuzzyfreeze",
+      sign_group_prompt .. "fuzzyfreeze",
+      fuzzy_obj.buf,
+      { lnum = 1, priority = 10 }
+    )
     -- TMP: remove me }}}
     vim.api.nvim_win_set_option(
       fuzzy_obj.win,
@@ -327,13 +327,13 @@ local function which_setup(
       "Normal:WFFocus,FloatBorder:WFFloatBorderFocus"
     )
     -- TMP: remove me {{{
-    -- vim.fn.sign_place(
-    --   0,
-    --   sign_group_prompt .. "which",
-    --   sign_group_prompt .. "which",
-    --   which_obj.buf,
-    --   { lnum = 1, priority = 10 }
-    -- )
+    vim.fn.sign_place(
+      0,
+      sign_group_prompt .. "which",
+      sign_group_prompt .. "which",
+      which_obj.buf,
+      { lnum = 1, priority = 10 }
+    )
     -- TMP: remove me }}}
 
     -- vim.schedule(function()
@@ -360,13 +360,13 @@ local function which_setup(
     vim.schedule(function()
       winenter()
       -- TMP: remove me {{{
-      -- vim.fn.sign_place(
-      --   0,
-      --   sign_group_prompt .. "fuzzyfreeze",
-      --   sign_group_prompt .. "fuzzyfreeze",
-      --   fuzzy_obj.buf,
-      --   { lnum = 1, priority = 10 }
-      -- )
+      vim.fn.sign_place(
+        0,
+        sign_group_prompt .. "fuzzyfreeze",
+        sign_group_prompt .. "fuzzyfreeze",
+        fuzzy_obj.buf,
+        { lnum = 1, priority = 10 }
+      )
       -- TMP: remove me }}}
       local _, _ = pcall(function()
         require("cmp").setup.buffer({ enabled = false })
@@ -384,13 +384,13 @@ local function which_setup(
 
     vim.fn.sign_unplace(sign_group_prompt .. "which", { buffer = which_obj.buf })
     -- TMP: remove me {{{
-    -- vim.fn.sign_place(
-    --   0,
-    --   sign_group_prompt .. "whichfreeze",
-    --   sign_group_prompt .. "whichfreeze",
-    --   which_obj.buf,
-    --   { lnum = 1, priority = 10 }
-    -- )
+    vim.fn.sign_place(
+      0,
+      sign_group_prompt .. "whichfreeze",
+      sign_group_prompt .. "whichfreeze",
+      which_obj.buf,
+      { lnum = 1, priority = 10 }
+    )
     -- TMP: remove me }}}
     vim.api.nvim_win_set_option(
       which_obj.win,
@@ -470,13 +470,13 @@ local function which_setup(
     vim.api.nvim_buf_set_lines(which_obj.buf, pos[1] - 1, pos[1], true, { new_front .. back })
     vim.api.nvim_win_set_cursor(which_obj.win, { pos[1], vim.fn.strwidth(new_front) })
     -- TMP: remove me {{{
-    -- vim.fn.sign_place(
-    --   0,
-    --   sign_group_prompt .. "which",
-    --   sign_group_prompt .. "which",
-    --   which_obj.buf,
-    --   { lnum = 1, priority = 10 }
-    -- )
+    vim.fn.sign_place(
+      0,
+      sign_group_prompt .. "which",
+      sign_group_prompt .. "which",
+      which_obj.buf,
+      { lnum = 1, priority = 10 }
+    )
     -- TMP: remove me }}}
   end, "<C-h>")
 end

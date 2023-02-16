@@ -6,7 +6,7 @@ local au = require("wf.util").au
 
 local function input_obj_gen(opts, cursor)
   local _row_offset = row_offset() + opts.style.input_win_row_offset
-  local buf, win = gen_obj(_row_offset, opts, cursor, "prompt")
+  local buf, win = gen_obj(_row_offset, opts, cursor, "nofile")
 
   au(_g, "BufEnter", function()
     local _, _ = pcall(function()
@@ -15,7 +15,7 @@ local function input_obj_gen(opts, cursor)
     end)
   end, { buffer = buf })
 
-  vim.fn.prompt_setprompt(buf, opts.style.icons.fuzzy_prompt)
+  -- vim.fn.prompt_setprompt(buf, opts.style.icons.fuzzy_prompt)
   local wcnf = vim.api.nvim_win_get_config(win)
   vim.api.nvim_win_set_config(
     win,
