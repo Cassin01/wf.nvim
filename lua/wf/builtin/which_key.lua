@@ -54,8 +54,12 @@ local function feedkeys(lhs, count, caller, noremap)
   then
     local rhs = vim.fn.maparg(rt(lhs), caller_mode, false, true)
     if type(rhs["callback"]) == "function" then
-      for _ = 1, count do
-        rhs["callback"]()
+      if count and count ~= 0 then
+        for _ = 1, count do
+          rhs["callback"]()
+        end
+      else
+          rhs["callback"]()
       end
       if rhs.silent == 0 then
         vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
