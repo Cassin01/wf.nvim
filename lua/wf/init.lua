@@ -660,7 +660,7 @@ local function select(items, opts, on_choice)
     else
       print("invalid choice")
     end
-  end
+  end)
   setup_objs(choices, callback, opts)
 end
 
