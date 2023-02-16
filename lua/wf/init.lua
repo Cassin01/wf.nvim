@@ -185,7 +185,9 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         del()
-        callback(match.id, match.text)
+        vim.schedule(function()
+          callback(match.id, match.text)
+        end)
         return
       end
     end
@@ -649,8 +651,8 @@ local function select(items, opts, on_choice)
 
   -- local on_choice_wraped = vim.schedule_wrap(on_choice)
   local on_choice_wraped = on_choice
-  local callback = vim.schedule_wrap(function(choice, text)
-  -- local callback = function(choice, text)
+  -- local callback = vim.schedule_wrap(function(choice, text)
+  local callback = function(choice, text)
     if cells then
       on_choice_wraped(text, choice)
     elseif type(choice) == "string" and vim.fn.has_key(items, choice) then
@@ -660,7 +662,7 @@ local function select(items, opts, on_choice)
     else
       print("invalid choice")
     end
-  end)
+  end
   setup_objs(choices, callback, opts)
 end
 
