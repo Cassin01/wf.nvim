@@ -210,6 +210,7 @@ function M.feedkeys(lhs, count, current, noremap)
     -- else
     --   vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
     -- end
+    print("feedkeys")
     vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
   end
   local mode = current.mode

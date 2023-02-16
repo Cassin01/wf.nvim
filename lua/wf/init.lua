@@ -402,9 +402,9 @@ local function which_setup(
     _g,
     { "TextChangedI", "TextChanged" },
     vim.schedule_wrap(function()
-      print("TextChangedI")
-      print(vim.inspect(vim.api.nvim_get_mode()))
-      print(vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1], "huga")
+      -- print("TextChangedI")
+      -- print(vim.inspect(vim.api.nvim_get_mode()))
+      -- print(vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1], "huga")
 
       local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
       if id ~= nil then
