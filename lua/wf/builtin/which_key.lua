@@ -44,9 +44,34 @@ local function _get_bmap(buf, mode)
   return choices
 end
 
-local function feedkeys(lhs, count, current, noremap)
-  local mode_shortname = current.mode:sub(1, 1)
-  print(mode_shortname)
+local function feedkeys(lhs, count, caller, noremap)
+  local caller_mode = caller.mode:sub(1, 1)
+  -- check if the current state is the same as the caller's state
+  if
+    caller.win == vim.api.nvim_get_current_win()
+    and caller.buf == vim.api.nvim_get_current_buf()
+    and caller_mode == get_mode():sub(1, 1)
+  then
+    local rhs = vim.fn.maparg(M.rt(lhs), mode_shortname, false, true)
+    if type(rhs["callback"]) == "function" then
+      for _ = 1, count do
+        rhs["callback"]()
+      end
+      if rhs.silent == 0 then
+        vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
+      end
+    else
+      if count and count ~= 0 then
+        lhs = count .. lhs
+      end
+      vim.api.nvim_feedkeys(M.rt(lhs), noremap and "n" or "m", false)
+    end
+  else
+    print("current mode: ", current_mode, "\n", "mode: ", mode)
+    print("which-key: mode is not n or i")
+  end
+
+
 end
 
 ---@param opts? table
