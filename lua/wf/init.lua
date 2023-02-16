@@ -409,8 +409,8 @@ local function which_setup(
       local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
       if id ~= nil then
         obj_handlers.del()
-        -- callback(id, text)
-        async(callback)(id, text)
+        callback(id, text)
+        -- async(callback)(id, text)
       end
     end),
     { buffer = which_obj.buf }
