@@ -1,6 +1,7 @@
 local util = require("wf.util")
 local au = util.au
 local rt = util.rt
+local get_mode = util.get_mode
 local async = util.async
 local ingect_deeply = util.ingect_deeply
 local match_from_tail = util.match_from_tail
@@ -60,7 +61,7 @@ end
 -- del()が4回もよばれるのはおかしい
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
-  local del = function() -- deliminator of the whole process
+  local del = function(callback_) -- deliminator of the whole process
     print("del called")
     vim.schedule(function()
       -- autocommands contained in this group will also be deleted and cleared
@@ -68,7 +69,15 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       -- restore only the autogroup
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
-    if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
+    if caller_obj.mode.sub(1, 1) == "n" then
+      if callback_ ~= nil then
+        au(
+          vim.api.nvim_create_augroup("WFCallbackModeChanged", { clear = true }),
+          "ModeChanged",
+          callback_,
+          { once = true, pattern = "*:n" }
+        )
+      end
       vim.schedule(function() -- これがないと謎modeに入ってしまう。
         vim.cmd("stopinsert")
       end)
@@ -402,14 +411,15 @@ local function which_setup(
     _g,
     { "TextChangedI", "TextChanged" },
     vim.schedule_wrap(function()
-      print("TextChangedI")
-      print(vim.inspect(vim.api.nvim_get_mode()))
-      print(vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1], "huga")
+      -- print("TextChangedI")
+      -- print(vim.inspect(vim.api.nvim_get_mode()))
+      -- print(vim.api.nvim_buf_get_lines(which_obj.buf, 0, -1, true)[1], "huga")
 
       local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
       if id ~= nil then
-        obj_handlers.del()
-        callback(id, text)
+        obj_handlers.del(function()
+          callback(id, text)
+        end)
         -- async(callback)(id, text)
       end
     end),
@@ -574,9 +584,10 @@ local function setup_objs(choices_obj, callback, opts_)
     return {
       win = win,
       buf = vim.api.nvim_get_current_buf(),
-      original_mode = vim.api.nvim_get_mode().mode,
+      -- original_mode = vim.api.nvim_get_mode().mode,
       cursor = vim.api.nvim_win_get_cursor(win),
-      mode = vim.api.nvim_get_mode().mode,
+      -- mode = vim.api.nvim_get_mode().mode,
+      mode = get_mode(),
     }
   end)()
 

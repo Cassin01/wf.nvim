@@ -2,7 +2,7 @@ local util = require("wf.util")
 local extend = util.extend
 local ingect_deeply = util.ingect_deeply
 local rt = util.rt
-local feedkeys = util.feedkeys
+-- local feedkeys = util.feedkeys
 local secret_key = util.secret_key
 local get_mode = util.get_mode
 local select = require("wf").select
@@ -44,6 +44,38 @@ local function _get_bmap(buf, mode)
   return choices
 end
 
+local function feedkeys(lhs, count, caller, noremap)
+  local caller_mode = caller.mode:sub(1, 1)
+  -- check if the current state is the same as the caller's state
+  if
+    caller.win == vim.api.nvim_get_current_win()
+    and caller.buf == vim.api.nvim_get_current_buf()
+    and caller_mode == get_mode():sub(1, 1)
+  then
+    local rhs = vim.fn.maparg(rt(lhs), caller_mode, false, true)
+    if type(rhs["callback"]) == "function" then
+      if count and count ~= 0 then
+        for _ = 1, count do
+          rhs["callback"]()
+        end
+      else
+        rhs["callback"]()
+      end
+      if rhs.silent == 0 then
+        vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})
+      end
+    else
+      if count and count ~= 0 then
+        lhs = count .. lhs
+      end
+      vim.api.nvim_feedkeys(rt(lhs), noremap and "n" or "m", false)
+    end
+  else
+    print("caller mode: ", caller_mode, "\n", "mode: ", get_mode():sub(1, 1))
+    print("which-key: mode is not n or i")
+  end
+end
+
 ---@param opts? table
 local function which_key(opts)
   local core = function()
@@ -71,6 +103,7 @@ local function which_key(opts)
 
     select(choices, opts_, function(_, lhs)
       local rhs = vim.fn.maparg(rt(lhs), mode_shortname, false, true)
+      print("selected")
       -- if type(rhs["callback"]) == "function" then
       --     rhs["callback"]()
       --     if rhs.silent == 0 then
