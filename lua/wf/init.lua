@@ -411,6 +411,7 @@ local function which_setup(
 
       local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
       if id ~= nil then
+        vim.cmd("stopinsert")
         obj_handlers.del()
         callback(id, text)
         -- async(callback)(id, text)
