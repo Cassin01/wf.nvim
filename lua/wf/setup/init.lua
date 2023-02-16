@@ -112,8 +112,8 @@ local themes = {
 }
 
 local function setup(opts)
-  opts = opts or { theme = "chad" }
-  opts.highlight = themes[opts["theme"] or "default"].highlight
+  opts = opts or { theme = "default" }
+  opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
 
   for k, v in pairs(opts.highlight) do
     if type(v) == "string" then
