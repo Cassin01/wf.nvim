@@ -215,7 +215,7 @@ vim.keymap.set(
 
 ```lua
 require("wf").setup({
-    -- you can copy the full list from lua/wf/config.lua
+    -- you can copy the full list from lua/wf/setup/init.lua
 })
 ```
 
