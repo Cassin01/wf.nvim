@@ -59,7 +59,7 @@ local function feedkeys(lhs, count, caller, noremap)
           rhs["callback"]()
         end
       else
-          rhs["callback"]()
+        rhs["callback"]()
       end
       if rhs.silent == 0 then
         vim.api.nvim_echo({ { rhs.lhsraw, "Normal" } }, false, {})

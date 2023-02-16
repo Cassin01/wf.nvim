@@ -69,16 +69,18 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
       -- restore only the autogroup
       lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
     end)
-    if caller_obj.mode ~= "i" and caller_obj.mode ~= "t" then
+    if caller_obj.mode.sub(1, 1) == "n" then
       if callback_ ~= nil then
-        au(vim.api.nvim_create_augroup("WFCallbackModeChanged", {clear = true}), "ModeChanged", callback_, { once = true, pattern = "*:n" })
+        au(
+          vim.api.nvim_create_augroup("WFCallbackModeChanged", { clear = true }),
+          "ModeChanged",
+          callback_,
+          { once = true, pattern = "*:n" }
+        )
       end
       vim.schedule(function() -- これがないと謎modeに入ってしまう。
         vim.cmd("stopinsert")
       end)
-      print("normal mode に行きます")
-    else
-      print('insert modeです. mode:', caller_obj.mode)
     end
 
     vim.schedule(function()
@@ -415,7 +417,7 @@ local function which_setup(
 
       local id, text = core(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
       if id ~= nil then
-        obj_handlers.del(function() 
+        obj_handlers.del(function()
           callback(id, text)
         end)
         -- async(callback)(id, text)
