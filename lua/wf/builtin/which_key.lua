@@ -1,8 +1,8 @@
-local util = require("wf.util")
+-- local util = require("wf.util")
 local extend = util.extend
 local ingect_deeply = util.ingect_deeply
 local rt = util.rt
-local feedkeys = util.feedkeys
+-- local feedkeys = util.feedkeys
 local secret_key = util.secret_key
 local get_mode = util.get_mode
 local select = require("wf").select
@@ -42,6 +42,11 @@ local function _get_bmap(buf, mode)
     end
   end
   return choices
+end
+
+local function feedkeys(lhs, count, current, noremap)
+  local mode_shortname = current.mode:sub(1, 1)
+  print(mode_shortname)
 end
 
 ---@param opts? table
