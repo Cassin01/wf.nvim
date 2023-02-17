@@ -208,6 +208,7 @@ local function swap_win_pos(up, down, style)
     vim.fn.extend(wcnf, {
       row = row - style.input_win_row_offset,
       border = style.borderchars.center,
+      title_pos = "center",
       title = { { up.name, up.name == " Which Key " and "WFTitleWhich" or "WFTitleFuzzy" } },
     })
   )
