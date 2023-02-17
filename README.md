@@ -55,7 +55,8 @@
     <!-- > Drag your video (<10MB) here to host it for free on GitHub. -->
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://github.com/Cassin01/wf.nvim) -->
-[![Product Name Screen Shot][product-video]](https://youtu.be/S3aKshSPyiQ)
+
+https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-a10e-ddae151af5c2.mp4
 
 </div>
 
@@ -63,7 +64,7 @@
 
 <!-- > Videos don't work on GitHub mobile, so a GIF alternative can help users. -->
 
-_[GIF version of the showcase video for mobile users](SHOWCASE_GIF_LINK)_
+[Youtube video link for mobile users](https://youtu.be/S3aKshSPyiQ)
 
 </div>
 
