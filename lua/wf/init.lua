@@ -57,8 +57,6 @@ local function leave_check(which_obj, fuzzy_obj, output_obj, del)
   )
 end
 
--- FIXME:
--- del()が4回もよばれるのはおかしい
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
   local del = function(callback_) -- deliminator of the whole process
@@ -225,7 +223,8 @@ local function swap_win_pos(up, down, style)
   for _, o in ipairs({ up, down }) do
     vim.api.nvim_win_set_option(o.win, "foldcolumn", "1")
     --TMP: remove me {{{
-    vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:2")
+    vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:" .. tostring(vim.fn.strwidth(o.prompt)))
+    -- vim.api.nvim_win_set_option(o.win, "signcolumn", "yes:2")
     --TMP: remove me }}}
   end
 end
