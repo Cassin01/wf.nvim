@@ -68,7 +68,6 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 </div>
 
-This plugin is yet another `vim.ui.select` alternative. This plugin also provides `which-key`, `marker`, `bookmark`, `buffer` pikers.
 `wf.nvim` is a new which-key plugin for Neovim.
 
 ✨ Features
