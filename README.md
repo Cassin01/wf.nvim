@@ -54,7 +54,8 @@
 <div align="center">
     <!-- > Drag your video (<10MB) here to host it for free on GitHub. -->
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/Cassin01/wf.nvim)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://github.com/Cassin01/wf.nvim) -->
+[![Product Name Screen Shot][product-video]](https://youtu.be/S3aKshSPyiQ)
 
 </div>
 
@@ -274,3 +275,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [ci-shield]: https://img.shields.io/github/actions/workflow/status/Cassin01/wf.nvim/main.yml?style=for-the-badge
 [ci-url]: https://github.com/Cassin01/wf.nvim/actions/workflows/main.yml
 [product-screenshot]: https://user-images.githubusercontent.com/42632201/213849418-3cddb8bb-7323-4af7-b201-1ce2de07d3b9.png
+[product-video]: .github/images/theme.mp4
