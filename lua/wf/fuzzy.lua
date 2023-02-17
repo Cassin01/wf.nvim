@@ -21,7 +21,7 @@ local function input_obj_gen(opts, cursor)
     win,
     vim.fn.extend(wcnf, { title = opts.style.borderchars.bottom[2] })
   )
-  return { buf = buf, win = win, name = " Fuzzy Finder " }
+  return { buf = buf, win = win, name = " Fuzzy Finder ", prompt = opts.style.icons.which_prompt }
 end
 
 return { input_obj_gen = input_obj_gen }

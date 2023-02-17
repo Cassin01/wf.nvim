@@ -11,8 +11,8 @@ function M.new(theme)
       },
       icons = {
         separator = "➜", -- symbol used between a key and it's label
-        fuzzy_prompt = "> ",
-        which_prompt = "> ",
+        fuzzy_prompt = ">",
+        which_prompt = ">",
       },
       input_win_row_offset = 3, -- shift up output-window's row with input-window's height
       width = vim.o.columns > default_width * 2 and default_width or math.ceil(vim.o.columns * 0.5),
@@ -21,13 +21,14 @@ function M.new(theme)
       border = "rounded",
       borderchars = {
         top = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-        center = { "╭", "─", "╮", "│", "┤", "─", "├", "│" },
+        -- center = { "╭", "─", "╮", "│", "┤", "─", "├", "│" },
+        center = { "╭", "─", "╮", "│", "│", "─", "│", "│" },
         bottom = { "", "", "", "│", "╯", "─", "╰", "│" },
       },
       icons = {
-        separator = "➜", -- symbol used between a key and it's label
-        fuzzy_prompt = "> ",
-        which_prompt = "> ",
+        separator = "│", -- symbol used between a key and it's label
+        fuzzy_prompt = ">",
+        which_prompt = ">",
       },
       input_win_row_offset = 3, -- shift up output-window's row with input-window's height
       width = vim.o.columns > default_width * 2 and default_width or math.ceil(vim.o.columns * 0.5),

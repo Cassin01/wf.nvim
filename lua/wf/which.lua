@@ -18,9 +18,9 @@ local function input_obj_gen(opts, cursor)
   local wcnf = vim.api.nvim_win_get_config(win)
   vim.api.nvim_win_set_config(
     win,
-    vim.fn.extend(wcnf, { title_pos = "center", title = opts.style.borderchars.center[2] })
+    vim.fn.extend(wcnf, { title = opts.style.borderchars.center[2] })
   )
-  return { buf = buf, win = win, name = " Which Key " }
+  return { buf = buf, win = win, name = " Which Key ", prompt = opts.style.icons.fuzzy_prompt }
 end
 
 return { input_obj_gen = input_obj_gen }
