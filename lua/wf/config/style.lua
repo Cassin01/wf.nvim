@@ -25,7 +25,7 @@ function M.new(theme)
         bottom = { "", "", "", "│", "╯", "─", "╰", "│" },
       },
       icons = {
-        separator = "➜", -- symbol used between a key and it's label
+        separator = "│", -- symbol used between a key and it's label
         fuzzy_prompt = ">",
         which_prompt = ">",
       },
