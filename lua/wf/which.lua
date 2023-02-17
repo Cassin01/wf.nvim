@@ -20,7 +20,7 @@ local function input_obj_gen(opts, cursor)
     win,
     vim.fn.extend(wcnf, { title = opts.style.borderchars.center[2] })
   )
-  return { buf = buf, win = win, name = " Which Key ", prompt = opts.icons.fuzzy_prompt }
+  return { buf = buf, win = win, name = " Which Key ", prompt = opts.sytle.icons.fuzzy_prompt }
 end
 
 return { input_obj_gen = input_obj_gen }
