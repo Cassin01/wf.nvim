@@ -64,7 +64,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 <!-- > Videos don't work on GitHub mobile, so a GIF alternative can help users. -->
 
-[Youtube video link for mobile users](https://youtu.be/S3aKshSPyiQ)
+[the video link for mobile users](https://youtu.be/S3aKshSPyiQ)
 
 </div>
 
@@ -274,5 +274,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [license-url]: https://github.com/Cassin01/wf.nvim/blob/main/LICENSE.txt
 [ci-shield]: https://img.shields.io/github/actions/workflow/status/Cassin01/wf.nvim/main.yml?style=for-the-badge
 [ci-url]: https://github.com/Cassin01/wf.nvim/actions/workflows/main.yml
+[document-shield]: https://img.shields.io/github/actions/workflow/status/Cassin01/wf.nvim/main.yml?style=for-the-badge
+[document-url]: https://github.com/Cassin01/wf.nvim/actions/workflows/main.yml
 [product-screenshot]: https://user-images.githubusercontent.com/42632201/213849418-3cddb8bb-7323-4af7-b201-1ce2de07d3b9.png
 [product-video]: .github/images/theme.mp4

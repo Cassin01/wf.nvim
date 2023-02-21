@@ -103,7 +103,7 @@ local function which_key(opts)
 
     select(choices, opts_, function(_, lhs)
       local rhs = vim.fn.maparg(rt(lhs), mode_shortname, false, true)
-      print("selected")
+      -- print("selected")
       -- if type(rhs["callback"]) == "function" then
       --     rhs["callback"]()
       --     if rhs.silent == 0 then
