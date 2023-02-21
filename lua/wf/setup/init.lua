@@ -124,22 +124,22 @@ local function setup(opts)
   end
   vim.g[full_name .. "#theme"] = opts.theme
 
-  vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
-    text = opts.style.icons.fuzzy_prompt,
-    texthl = "WFFuzzyPrompt",
-  })
-  vim.fn.sign_define(sign_group_prompt .. "which", {
-    text = opts.style.icons.which_prompt,
-    texthl = "WFWhich",
-  })
-  vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
-    text = opts.style.icons.fuzzy_prompt,
-    texthl = "WFFreeze",
-  })
-  vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
-    text = opts.style.icons.which_prompt,
-    texthl = "WFFreeze",
-  })
+  -- vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
+  --   text = opts.style.icons.fuzzy_prompt,
+  --   texthl = "WFFuzzyPrompt",
+  -- })
+  -- vim.fn.sign_define(sign_group_prompt .. "which", {
+  --   text = opts.style.icons.which_prompt,
+  --   texthl = "WFWhich",
+  -- })
+  -- vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
+  --   text = opts.style.icons.fuzzy_prompt,
+  --   texthl = "WFFreeze",
+  -- })
+  -- vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
+  --   text = opts.style.icons.which_prompt,
+  --   texthl = "WFFreeze",
+  -- })
 end
 
 return { setup = setup }
