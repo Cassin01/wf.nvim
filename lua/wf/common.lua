@@ -10,6 +10,10 @@ local function open_win(buf, height, row_offset, opts, cursor)
     title_pos = "center",
     noautocmd = true,
   }
+  if vim.v.version <= 800 then
+    conf_["title"] = nil
+    conf_["title_pos"] = nil
+  end
   local conf = vim.fn.extend(conf_, {
     height = height,
     row = vim.o.lines - height - row_offset - 1,
