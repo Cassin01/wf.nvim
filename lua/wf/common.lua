@@ -22,10 +22,10 @@ local function open_win(buf, height, row_offset, opts, cursor, title)
   return vim.api.nvim_open_win(buf, cursor or false, conf)
 end
 
-local function gen_obj(row_offset, opts, cursor, buftype)
+local function gen_obj(row_offset, opts, cursor, buftype, title)
   local buf = vim.api.nvim_create_buf(false, true)
   local height = vim.api.nvim_buf_line_count(buf)
-  local win = open_win(buf, height, row_offset, opts, cursor)
+  local win = open_win(buf, height, row_offset, opts, cursor, title)
   vim.api.nvim_win_set_option(win, "winhl", "Normal:WFNormal,FloatBorder:WFFloatBorder")
   vim.api.nvim_win_set_option(win, "wrap", false)
   vim.api.nvim_buf_set_option(buf, "buftype", buftype)
