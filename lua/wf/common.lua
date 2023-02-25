@@ -1,4 +1,4 @@
-local function open_win(buf, height, row_offset, opts, cursor)
+local function open_win(buf, height, row_offset, opts, cursor, title)
   print("border", vim.inspect(opts.style.border))
   local conf_ = {
     width = opts.style.width,
@@ -6,7 +6,7 @@ local function open_win(buf, height, row_offset, opts, cursor)
     anchor = "NW",
     style = "minimal",
     border = opts.style.border,
-    title = "ff",
+    title = title,
     title_pos = "center",
     noautocmd = true,
   }
