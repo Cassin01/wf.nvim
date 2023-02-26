@@ -146,7 +146,8 @@ local function output_obj_gen(opts)
     row_offset_() + style.input_win_row_offset + style.input_win_row_offset,
     opts,
     false,
-    "nofile"
+    "nofile",
+    style.borderchars.top[2]
   )
   vim.api.nvim_buf_set_option(buf, "filetype", plug_name .. "output")
   local wcnf = vim.api.nvim_win_get_config(win)
@@ -154,8 +155,8 @@ local function output_obj_gen(opts)
     win,
     vim.fn.extend(wcnf, {
       border = style.borderchars.top,
-      title_pos = "center",
-      title = style.borderchars.top[2],
+      -- title_pos = "center",
+      -- title = style.borderchars.top[2],
     })
   )
   return { buf = buf, win = win }
@@ -185,7 +186,8 @@ local function _update_output_obj(
 
   vim.api.nvim_win_set_config(
     obj.win,
-    vim.fn.extend(cnf, { height = height, row = row, title_pos = "center" })
+    vim.fn.extend(cnf, { height = height, row = row })
+    -- vim.fn.extend(cnf, { height = height, row = row, title_pos = "center" })
   )
   set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
   vim.api.nvim_buf_set_option(obj.buf, "modifiable", false)

@@ -5,7 +5,7 @@ local _g = static._g
 local au = require("wf.util").au
 
 local function input_obj_gen(opts, cursor)
-  local buf, win = gen_obj(row_offset(), opts, cursor, "nofile")
+  local buf, win = gen_obj(row_offset(), opts, cursor, "nofile", opts.style.borderchars.center[2])
 
   au(_g, "BufEnter", function()
     local _, _ = pcall(function()
@@ -16,10 +16,10 @@ local function input_obj_gen(opts, cursor)
 
   -- vim.fn.prompt_setprompt(buf, opts.style.icons.which_prompt)
   local wcnf = vim.api.nvim_win_get_config(win)
-  vim.api.nvim_win_set_config(
-    win,
-    vim.fn.extend(wcnf, { title = opts.style.borderchars.center[2] })
-  )
+  -- vim.api.nvim_win_set_config(
+  --   win,
+  --   vim.fn.extend(wcnf, { title = opts.style.borderchars.center[2] })
+  -- )
   return { buf = buf, win = win, name = " Which Key ", prompt = opts.style.icons.fuzzy_prompt }
 end
 

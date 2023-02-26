@@ -87,8 +87,8 @@ local function which_key(opts)
       print("Which Key does not support mode: " .. mode_shortname)
       return
     end
-    local g = _get_gmap("n")
-    local b = _get_bmap(buf, "n")
+    local g = _get_gmap(mode_shortname)
+    local b = _get_bmap(buf, mode_shortname)
     local choices = extend(g, b)
     local count = vim.api.nvim_get_vvar("count")
 
@@ -102,7 +102,7 @@ local function which_key(opts)
     local opts_ = ingect_deeply(_opts, opts)
 
     select(choices, opts_, function(_, lhs)
-      local rhs = vim.fn.maparg(rt(lhs), mode_shortname, false, true)
+      -- local rhs = vim.fn.maparg(rt(lhs), mode_shortname, false, true)
       -- print("selected")
       -- if type(rhs["callback"]) == "function" then
       --     rhs["callback"]()

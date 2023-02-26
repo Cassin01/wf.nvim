@@ -22,20 +22,6 @@ local core = require("wf.core").core
 local setup = require("wf.setup").setup
 local input = require("wf.input").input
 
--- FIXME: 起動時直後に入力した文字を適切に消化できてない
--- current windowをwhich_obj or fuzzy_objに移動しない状態でstartinsertに入っている.
--- この方法では呼び出し元のbufferが直後に入力した文字に書き換えられてしまう可能性がある。
--- これを防ぐため、vim.scheduleでstartinsertを囲んだが、
--- 今度は直後に入力した文字がnormalモードのコマンドとして、どこかのwindowで消化されてしまうことがわかった.
--- また、呼び出し元のbufferがイミュータブルになっている場合も考慮する必要がある。
--- TODO: これをどうにかする
--- 方法1: 起動時に文字一つを読み込むinputを起動する。この結果を
--- 方法2: insert modeに入るまでに呼び出し先へのあらゆる入力を禁止する。
---      - この方法はユーザの入力をブロックするので、ユーザは遅延を感じやすい.
-
--- 追記
--- ウィンドウ起動時にカーソルを移動することである程度早くなった。
-
 -- if cursor not on the objects then quit wf.
 local lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
 local function leave_check(which_obj, fuzzy_obj, output_obj, del)
@@ -60,7 +46,6 @@ end
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
   local del = function(callback_) -- deliminator of the whole process
-    print("del called")
     vim.schedule(function()
       -- autocommands contained in this group will also be deleted and cleared
       vim.api.nvim_del_augroup_by_name(augname_leave_check)
@@ -202,25 +187,53 @@ end
 local function swap_win_pos(up, down, style)
   local height = 1
   local row = vim.o.lines - height - row_offset() - 1
-  local wcnf = vim.api.nvim_win_get_config(up.win)
+
+  local cnf_up = vim.api.nvim_win_get_config(up.win)
   vim.api.nvim_win_set_config(
     up.win,
-    vim.fn.extend(wcnf, {
-      row = row - style.input_win_row_offset,
-      border = style.borderchars.center,
-      title_pos = "center",
-      title = { { up.name, up.name == " Which Key " and "WFTitleWhich" or "WFTitleFuzzy" } },
-    })
+    vim.fn.extend(
+      cnf_up,
+      (function()
+        if vim.v.version < 800 then
+          return {
+            row = row - style.input_win_row_offset,
+            border = style.borderchars.center,
+          }
+        else
+          return {
+            row = row - style.input_win_row_offset,
+            border = style.borderchars.center,
+            title_pos = "center",
+            title = { { up.name, up.name == " Which Key " and "WFTitleWhich" or "WFTitleFuzzy" } },
+          }
+        end
+      end)()
+    )
   )
-  local fcnf = vim.api.nvim_win_get_config(down.win)
+
+  local cnf_down = vim.api.nvim_win_get_config(down.win)
   vim.api.nvim_win_set_config(
     down.win,
-    vim.fn.extend(fcnf, {
-      row = row,
-      border = style.borderchars.bottom,
-      title = { { down.name, "WFTitleFreeze" } },
-    })
+    vim.fn.extend(
+      cnf_down,
+      (function()
+        if vim.v.version < 800 then
+          return {
+            row = row,
+            border = style.borderchars.bottom,
+          }
+        else
+          return {
+            row = row,
+            border = style.borderchars.bottom,
+            title_pos = "center",
+            title = { { down.name, "WFTitleFreeze" } },
+          }
+        end
+      end)()
+    )
   )
+
   for _, o in ipairs({ up, down }) do
     vim.api.nvim_win_set_option(o.win, "foldcolumn", "1")
     --TMP: remove me {{{
@@ -354,7 +367,9 @@ local function which_setup(
       output_obj.win,
       vim.fn.extend(wcnf, {
         title = (function()
-          if opts.title ~= nil then
+          if vim.v.version < 801 then
+            return nil
+          elseif opts.title ~= nil then
             return { { " " .. opts.title .. " ", "WFTitleOutputWhich" } }
           else
             return opts.style.borderchars.top[2]
@@ -557,41 +572,38 @@ local function _callback(
 end
 
 local function setup_objs(choices_obj, callback, opts_)
-  -- print(vim.fn.nr2char(vim.fn.getchar()))
 
   local _opts = vim.deepcopy(require("wf.config"))
   local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
 
-  -- vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
-  --   text = opts.style.icons.fuzzy_prompt,
-  --   texthl = "WFFuzzyPrompt",
-  -- })
-  -- vim.fn.sign_define(sign_group_prompt .. "which", {
-  --   text = opts.style.icons.which_prompt,
-  --   texthl = "WFWhich",
-  -- })
-  -- vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
-  --   text = opts.style.icons.fuzzy_prompt,
-  --   texthl = "WFFreeze",
-  -- })
-  -- vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
-  --   text = opts.style.icons.which_prompt,
-  --   texthl = "WFFreeze",
-  -- })
+  vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
+    text = opts.style.icons.fuzzy_prompt,
+    texthl = "WFFuzzyPrompt",
+  })
+  vim.fn.sign_define(sign_group_prompt .. "which", {
+    text = opts.style.icons.which_prompt,
+    texthl = "WFWhich",
+  })
+  vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
+    text = opts.style.icons.fuzzy_prompt,
+    texthl = "WFFreeze",
+  })
+  vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
+    text = opts.style.icons.which_prompt,
+    texthl = "WFFreeze",
+  })
 
   local caller_obj = (function()
     local win = vim.api.nvim_get_current_win()
     return {
       win = win,
       buf = vim.api.nvim_get_current_buf(),
-      -- original_mode = vim.api.nvim_get_mode().mode,
       cursor = vim.api.nvim_win_get_cursor(win),
-      -- mode = vim.api.nvim_get_mode().mode,
       mode = get_mode(),
     }
   end)()
 
-  -- key group_objをリストに格納
+  -- -- key group_objをリストに格納
   local groups_obj = group.new(opts.key_group_dict)
 
   -- 表示用バッファを作成
@@ -601,31 +613,11 @@ local function setup_objs(choices_obj, callback, opts_)
   local which_obj = which.input_obj_gen(opts, opts.selector == "which")
   local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
   vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
-  -- local autocommands = vim.api.nvim_get_autocmds({
-  --     event = "InsertEnter",
-  -- })
-  -- print(vim.inspect(autocommands))
-  -- async(vim.schedule_wrap(function()
-  --   print("startinsert!")
-  --   vim.cmd("startinsert!")
-  --   -- print(vim.inspect(vim.api.nvim_get_mode()))
-  --   -- vim.fn.feedkeys('A', 'n')
-  -- end))()
+
   vim.schedule(function()
     vim.cmd("startinsert!")
-    -- vim.fn.feedkeys("A", "n")
   end)
 
-  -- async(_callback)(
-  --   caller_obj,
-  --   fuzzy_obj,
-  --   which_obj,
-  --   output_obj,
-  --   choices_obj,
-  --   groups_obj,
-  --   callback,
-  --   opts
-  -- )
   _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
