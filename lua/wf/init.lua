@@ -592,36 +592,33 @@ local function setup_objs(choices_obj, callback, opts_)
     text = opts.style.icons.which_prompt,
     texthl = "WFFreeze",
   })
-print("huga")
 
-  -- local caller_obj = (function()
-  --   local win = vim.api.nvim_get_current_win()
-  --   return {
-  --     win = win,
-  --     buf = vim.api.nvim_get_current_buf(),
-  --     -- original_mode = vim.api.nvim_get_mode().mode,
-  --     cursor = vim.api.nvim_win_get_cursor(win),
-  --     -- mode = vim.api.nvim_get_mode().mode,
-  --     mode = get_mode(),
-  --   }
-  -- end)()
+  local caller_obj = (function()
+    local win = vim.api.nvim_get_current_win()
+    return {
+      win = win,
+      buf = vim.api.nvim_get_current_buf(),
+      cursor = vim.api.nvim_win_get_cursor(win),
+      mode = get_mode(),
+    }
+  end)()
 
-  -- -- -- key group_objをリストに格納
-  -- local groups_obj = group.new(opts.key_group_dict)
+  -- -- key group_objをリストに格納
+  local groups_obj = group.new(opts.key_group_dict)
 
-  -- -- 表示用バッファを作成
-  -- local output_obj = output_obj_gen(opts)
+  -- 表示用バッファを作成
+  local output_obj = output_obj_gen(opts)
 
-  -- -- -- 入力用バッファを作成
-  -- local which_obj = which.input_obj_gen(opts, opts.selector == "which")
-  -- local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
-  -- vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
+  -- -- 入力用バッファを作成
+  local which_obj = which.input_obj_gen(opts, opts.selector == "which")
+  local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
+  vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
 
-  -- vim.schedule(function()
-  --   vim.cmd("startinsert!")
-  -- end)
+  vim.schedule(function()
+    vim.cmd("startinsert!")
+  end)
 
-  -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
+  _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
 ---@param items items
