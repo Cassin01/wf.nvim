@@ -572,19 +572,19 @@ local function _callback(
 end
 
   vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
-    text = ">"
+    text = ">",
     texthl = "WFFuzzyPrompt",
   })
   vim.fn.sign_define(sign_group_prompt .. "which", {
-    text = ">"
+    text = ">",
     texthl = "WFWhich",
   })
   vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
-    text = ">"
+    text = ">",
     texthl = "WFFreeze",
   })
   vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
-    text = ">"
+    text = ">",
     texthl = "WFFreeze",
   })
 
