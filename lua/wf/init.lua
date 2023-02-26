@@ -576,22 +576,22 @@ local function setup_objs(choices_obj, callback, opts_)
   local _opts = vim.deepcopy(require("wf.config"))
   local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
 
-  vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
-    text = opts.style.icons.fuzzy_prompt,
-    texthl = "WFFuzzyPrompt",
-  })
-  vim.fn.sign_define(sign_group_prompt .. "which", {
-    text = opts.style.icons.which_prompt,
-    texthl = "WFWhich",
-  })
-  vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
-    text = opts.style.icons.fuzzy_prompt,
-    texthl = "WFFreeze",
-  })
-  vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
-    text = opts.style.icons.which_prompt,
-    texthl = "WFFreeze",
-  })
+  -- vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
+  --   text = opts.style.icons.fuzzy_prompt,
+  --   texthl = "WFFuzzyPrompt",
+  -- })
+  -- vim.fn.sign_define(sign_group_prompt .. "which", {
+  --   text = opts.style.icons.which_prompt,
+  --   texthl = "WFWhich",
+  -- })
+  -- vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
+  --   text = opts.style.icons.fuzzy_prompt,
+  --   texthl = "WFFreeze",
+  -- })
+  -- vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
+  --   text = opts.style.icons.which_prompt,
+  --   texthl = "WFFreeze",
+  -- })
 
   local caller_obj = (function()
     local win = vim.api.nvim_get_current_win()
@@ -606,8 +606,7 @@ local function setup_objs(choices_obj, callback, opts_)
   end)()
 
   -- -- key group_objをリストに格納
-  -- local groups_obj = group.new(opts.key_group_dict)
-  local groups_obj = {}
+  local groups_obj = group.new(opts.key_group_dict)
 
   -- 表示用バッファを作成
   local output_obj = output_obj_gen(opts)
