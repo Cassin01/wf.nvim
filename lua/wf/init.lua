@@ -592,6 +592,7 @@ local function setup_objs(choices_obj, callback, opts_)
     text = opts.style.icons.which_prompt,
     texthl = "WFFreeze",
   })
+print("huga")
 
   -- local caller_obj = (function()
   --   local win = vim.api.nvim_get_current_win()
