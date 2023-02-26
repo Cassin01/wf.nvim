@@ -202,25 +202,53 @@ end
 local function swap_win_pos(up, down, style)
   local height = 1
   local row = vim.o.lines - height - row_offset() - 1
-  local wcnf = vim.api.nvim_win_get_config(up.win)
+
+  local cnf_up = vim.api.nvim_win_get_config(up.win)
   vim.api.nvim_win_set_config(
     up.win,
-    vim.fn.extend(wcnf, {
-      row = row - style.input_win_row_offset,
-      border = style.borderchars.center,
-      title_pos = "center",
-      title = { { up.name, up.name == " Which Key " and "WFTitleWhich" or "WFTitleFuzzy" } },
-    })
+    vim.fn.extend(
+      cnf_up,
+      (function()
+        if vim.v.version < 800 then
+          return {
+            row = row - style.input_win_row_offset,
+            border = style.borderchars.center,
+          }
+        else
+          return {
+            row = row - style.input_win_row_offset,
+            border = style.borderchars.center,
+            title_pos = "center",
+            title = { { up.name, up.name == " Which Key " and "WFTitleWhich" or "WFTitleFuzzy" } },
+          }
+        end
+      end)()
+    )
   )
-  local fcnf = vim.api.nvim_win_get_config(down.win)
+
+  local cnf_down = vim.api.nvim_win_get_config(down.win)
   vim.api.nvim_win_set_config(
     down.win,
-    vim.fn.extend(fcnf, {
-      row = row,
-      border = style.borderchars.bottom,
-      title = { { down.name, "WFTitleFreeze" } },
-    })
+    vim.fn.extend(
+      cnf_down,
+      (function()
+        if vim.v.version < 800 then
+          return {
+            row = row,
+            border = style.borderchars.bottom,
+          }
+        else
+          return {
+            row = row,
+            border = style.borderchars.bottom,
+            title_pos = "center",
+            title = { { down.name, "WFTitleFreeze" } },
+          }
+        end
+      end)()
+    )
   )
+
   for _, o in ipairs({ up, down }) do
     vim.api.nvim_win_set_option(o.win, "foldcolumn", "1")
     --TMP: remove me {{{
