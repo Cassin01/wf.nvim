@@ -572,11 +572,9 @@ local function _callback(
 end
 
 local function setup_objs(choices_obj, callback, opts_)
-  -- print(vim.fn.nr2char(vim.fn.getchar()))
 
-  -- local _opts = vim.deepcopy(require("wf.config"))
-  -- local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
-  local opts = require("wf.config")
+  local _opts = vim.deepcopy(require("wf.config"))
+  local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
 
   vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
     text = opts.style.icons.fuzzy_prompt,
@@ -607,8 +605,9 @@ local function setup_objs(choices_obj, callback, opts_)
     }
   end)()
 
-  -- key group_objをリストに格納
-  local groups_obj = group.new(opts.key_group_dict)
+  -- -- key group_objをリストに格納
+  -- local groups_obj = group.new(opts.key_group_dict)
+  local groups_obj = {}
 
   -- 表示用バッファを作成
   local output_obj = output_obj_gen(opts)
