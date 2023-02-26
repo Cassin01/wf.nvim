@@ -382,7 +382,9 @@ local function which_setup(
       output_obj.win,
       vim.fn.extend(wcnf, {
         title = (function()
-          if opts.title ~= nil then
+          if vim.v.version < then
+            return nil
+          elseif opts.title ~= nil then
             return { { " " .. opts.title .. " ", "WFTitleOutputWhich" } }
           else
             return opts.style.borderchars.top[2]
