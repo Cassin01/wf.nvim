@@ -87,8 +87,8 @@ local function which_key(opts)
       print("Which Key does not support mode: " .. mode_shortname)
       return
     end
-    local g = {} -- _get_gmap(mode_shortname)
-    local b = {} -- _get_bmap(buf, mode_shortname)
+    local g = _get_gmap(mode_shortname)
+    local b = _get_bmap(buf, mode_shortname)
     local choices = extend(g, b)
     local count = vim.api.nvim_get_vvar("count")
 
