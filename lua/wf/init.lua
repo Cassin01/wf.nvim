@@ -571,6 +571,23 @@ local function _callback(
   leave_check(which_obj, fuzzy_obj, output_obj, obj_handlers.del)
 end
 
+  vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
+    text = ">"
+    texthl = "WFFuzzyPrompt",
+  })
+  vim.fn.sign_define(sign_group_prompt .. "which", {
+    text = ">"
+    texthl = "WFWhich",
+  })
+  vim.fn.sign_define(sign_group_prompt .. "fuzzyfreeze", {
+    text = ">"
+    texthl = "WFFreeze",
+  })
+  vim.fn.sign_define(sign_group_prompt .. "whichfreeze", {
+    text = ">"
+    texthl = "WFFreeze",
+  })
+
 local function setup_objs(choices_obj, callback, opts_)
 
   local _opts = vim.deepcopy(require("wf.config"))
