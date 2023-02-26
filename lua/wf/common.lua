@@ -1,5 +1,4 @@
 local function open_win(buf, height, row_offset, opts, cursor, title)
-  print("border", vim.inspect(opts.style.border))
   local conf_ = {
     width = opts.style.width,
     relative = "editor",

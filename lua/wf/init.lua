@@ -22,20 +22,6 @@ local core = require("wf.core").core
 local setup = require("wf.setup").setup
 local input = require("wf.input").input
 
--- FIXME: 起動時直後に入力した文字を適切に消化できてない
--- current windowをwhich_obj or fuzzy_objに移動しない状態でstartinsertに入っている.
--- この方法では呼び出し元のbufferが直後に入力した文字に書き換えられてしまう可能性がある。
--- これを防ぐため、vim.scheduleでstartinsertを囲んだが、
--- 今度は直後に入力した文字がnormalモードのコマンドとして、どこかのwindowで消化されてしまうことがわかった.
--- また、呼び出し元のbufferがイミュータブルになっている場合も考慮する必要がある。
--- TODO: これをどうにかする
--- 方法1: 起動時に文字一つを読み込むinputを起動する。この結果を
--- 方法2: insert modeに入るまでに呼び出し先へのあらゆる入力を禁止する。
---      - この方法はユーザの入力をブロックするので、ユーザは遅延を感じやすい.
-
--- 追記
--- ウィンドウ起動時にカーソルを移動することである程度早くなった。
-
 -- if cursor not on the objects then quit wf.
 local lg = vim.api.nvim_create_augroup(augname_leave_check, { clear = true })
 local function leave_check(which_obj, fuzzy_obj, output_obj, del)
@@ -60,7 +46,6 @@ end
 local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_obj, callback)
   local objs = { fuzzy_obj, which_obj, output_obj }
   local del = function(callback_) -- deliminator of the whole process
-    print("del called")
     vim.schedule(function()
       -- autocommands contained in this group will also be deleted and cleared
       vim.api.nvim_del_augroup_by_name(augname_leave_check)
