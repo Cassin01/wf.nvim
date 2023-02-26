@@ -612,36 +612,16 @@ local function setup_objs(choices_obj, callback, opts_)
   -- 表示用バッファを作成
   local output_obj = output_obj_gen(opts)
 
-  -- -- 入力用バッファを作成
-  local which_obj = which.input_obj_gen(opts, opts.selector == "which")
-  local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
-  vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
-  -- local autocommands = vim.api.nvim_get_autocmds({
-  --     event = "InsertEnter",
-  -- })
-  -- print(vim.inspect(autocommands))
-  -- async(vim.schedule_wrap(function()
-  --   print("startinsert!")
-  --   vim.cmd("startinsert!")
-  --   -- print(vim.inspect(vim.api.nvim_get_mode()))
-  --   -- vim.fn.feedkeys('A', 'n')
-  -- end))()
-  vim.schedule(function()
-    vim.cmd("startinsert!")
-    -- vim.fn.feedkeys("A", "n")
-  end)
+  -- -- -- 入力用バッファを作成
+  -- local which_obj = which.input_obj_gen(opts, opts.selector == "which")
+  -- local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
+  -- vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
 
-  -- async(_callback)(
-  --   caller_obj,
-  --   fuzzy_obj,
-  --   which_obj,
-  --   output_obj,
-  --   choices_obj,
-  --   groups_obj,
-  --   callback,
-  --   opts
-  -- )
-  _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
+  -- vim.schedule(function()
+  --   vim.cmd("startinsert!")
+  -- end)
+
+  -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
 ---@param items items
