@@ -574,8 +574,8 @@ end
 local function setup_objs(choices_obj, callback, opts_)
   -- print(vim.fn.nr2char(vim.fn.getchar()))
 
-  local _opts = vim.deepcopy(require("wf.config"))
-  local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
+  -- local _opts = vim.deepcopy(require("wf.config"))
+  -- local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
 
   vim.fn.sign_define(sign_group_prompt .. "fuzzy", {
     text = opts.style.icons.fuzzy_prompt,
@@ -612,16 +612,16 @@ local function setup_objs(choices_obj, callback, opts_)
   -- 表示用バッファを作成
   local output_obj = output_obj_gen(opts)
 
-  -- -- -- 入力用バッファを作成
-  -- local which_obj = which.input_obj_gen(opts, opts.selector == "which")
-  -- local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
-  -- vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
+  -- -- 入力用バッファを作成
+  local which_obj = which.input_obj_gen(opts, opts.selector == "which")
+  local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
+  vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
 
-  -- vim.schedule(function()
-  --   vim.cmd("startinsert!")
-  -- end)
+  vim.schedule(function()
+    vim.cmd("startinsert!")
+  end)
 
-  -- _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
+  _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
 ---@param items items
