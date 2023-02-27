@@ -1,5 +1,6 @@
-bookmark()	wf.txt	/*bookmark()*
-buffer()	wf.txt	/*buffer()*
-register()	wf.txt	/*register()*
+builtin.bookmark	wf.txt	/*builtin.bookmark*
+builtin.buffer	wf.txt	/*builtin.buffer*
+builtin.register	wf.txt	/*builtin.register*
+builtin.which_key	wf.txt	/*builtin.which_key*
 select()	wf.txt	/*select()*
-which_key()	wf.txt	/*which_key()*
+wf.nvim	wf.txt	/*wf.nvim*

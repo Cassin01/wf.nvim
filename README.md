@@ -184,10 +184,10 @@ vim.keymap.set(
 
 -- Buffer
 vim.keymap.set(
-    "n",
-    "<Space>wbu",
-    buffer({}),
-    {noremap = true, silent= true, desc = "[wf.nvim] buffer"}
+  "n",
+  "<Space>wbu",
+  buffer({}),
+  {noremap = true, silent= true, desc = "[wf.nvim] buffer"}
 )
 
 -- Which Key

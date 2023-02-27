@@ -1,3 +1,9 @@
+-- MIT License Copyright (c) 2022 Cassin01
+
+-- Documentation ==============================================================
+--- A modern which-key for neovim
+---@tag wf.nvim
+
 local util = require("wf.util")
 local au = util.au
 local rt = util.rt
