@@ -20,6 +20,7 @@ local types = {
   [""] = "u",
 }
 
+---@tag builtin.register
 ---@param opts? table
 local function register(opts)
   local function _register()

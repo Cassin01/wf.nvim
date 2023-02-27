@@ -20,6 +20,7 @@ local function get_active_buffers()
   return res, bs
 end
 
+---@tag builtin.buffer
 ---@param opts? table
 local function buffer(opts)
   local function _buffer()

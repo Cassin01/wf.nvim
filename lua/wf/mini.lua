@@ -5,7 +5,7 @@ H.input = function()
   -- Search in current and recursively in other directories for files with
   -- 'lua' extension
   local res = {}
-  for _, dir_glob in ipairs({ ".", "lua/**", "after/**", "colors/**", "lua/builtin/**" }) do
+  for _, dir_glob in ipairs({ ".", "lua/**", "after/**", "colors/**" }) do
     local files = vim.fn.globpath(dir_glob, "*.lua", false, true)
 
     -- Use full paths
@@ -22,9 +22,11 @@ H.input = function()
         if vim.fn.fnamemodify(b, ":t") == "init.lua" then
           return false
         end
+        return a < b
+      else
+        return vim.fn.fnamemodify(a, ":h") < vim.fn.fnamemodify(b, ":h")
       end
 
-      return a < b
     end)
     table.insert(res, files)
   end

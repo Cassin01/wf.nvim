@@ -76,6 +76,7 @@ local function feedkeys(lhs, count, caller, noremap)
   end
 end
 
+---@tag builtin.which_key
 ---@param opts? table
 local function which_key(opts)
   local core = function()
