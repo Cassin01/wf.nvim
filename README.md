@@ -31,7 +31,7 @@
 </div>
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<!-- <details> -->
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -46,7 +46,7 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#motivations">Motivations</a></li>
   </ol>
-</details>
+<!-- </details> -->
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -64,7 +64,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 <!-- > Videos don't work on GitHub mobile, so a GIF alternative can help users. -->
 
-[the video link for mobile users](https://youtu.be/S3aKshSPyiQ)
+[The video link for mobile users](https://youtu.be/S3aKshSPyiQ)
 
 </div>
 
@@ -154,7 +154,7 @@ require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
 
 ## Getting started
 
-<details>
+<!-- <details> -->
   <summary>Minimal Setup</summary>
 
 ```lua
@@ -191,6 +191,8 @@ vim.keymap.set(
 )
 
 -- Which Key
+-- INFO: Please refer to the wiki for information on setting up wf.nvim
+-- to start immediately after pressing the key.
 vim.keymap.set(
   "n",
   "<Leader>",
@@ -199,7 +201,7 @@ vim.keymap.set(
 )
 ```
 
-</details>
+<!-- </details> -->
 
 <!-- > Describe how to use the plugin the simplest way -->
 
@@ -209,18 +211,19 @@ vim.keymap.set(
 
 <!-- > The configuration list sometimes become cumbersome, making it folded by default reduce the noise of the README file. -->
 
-<details>
+<!-- <details> -->
 <summary>Click to unfold the full list of options with their default values</summary>
 
 <!-- > **Note**: The options are also available in Neovim by calling `:h wf.options` -->
 
 ```lua
 require("wf").setup({
+  theme = "default",
     -- you can copy the full list from lua/wf/setup/init.lua
 })
 ```
 
-</details>
+<!-- </details> -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -254,7 +257,23 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Motivations
+## Credits
+
+Big thank you to all those I borrowed code/ideas from, I read so many dotfiles and
+plugin codes that I probably forgot where I found some samples from so if I missed
+your name feel free to contact me and I'll add it bellow:
+
+- [shortcuts/neovim-plugin-boilerplate](https://github.com/shortcuts/neovim-plugin-boilerplate)
+- [ibhagwan/fzf-lua](https://github.com/ibhagwan/fzf-lua)
+- [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+- [Shougo/ddu-ui-ff](https://github.com/Shougo/ddu-ui-ff)
+- [yuki-yano/fzf-preview.vim](https://github.com/yuki-yano/fzf-preview.vim)
+- [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
+- [liuchengxu/vim-which-key](https://github.com/liuchengxu/vim-which-key)
+- [justbuf/emacs-which-key](https://github.com/justbur/emacs-which-key)
+- [helix-editor/helix](https://github.com/helix-editor/helix)
+- [syl20bnr/spacemacs](https://github.com/syl20bnr/spacemacs)
+- [NvChad/NvChad](https://github.com/NvChad/NvChad)
 
 <!-- > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others. -->
 
