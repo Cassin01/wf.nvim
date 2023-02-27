@@ -572,7 +572,6 @@ local function _callback(
 end
 
 local function setup_objs(choices_obj, callback, opts_)
-
   local _opts = vim.deepcopy(require("wf.config"))
   local opts = ingect_deeply(_opts, opts_ or vim.emptydict())
 
