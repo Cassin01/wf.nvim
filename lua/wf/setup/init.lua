@@ -127,10 +127,6 @@ end
 ---@param rhs string|function
 ---@praram opts table
 local function nowait_keymap_set(param, lhs, rhs, opts)
-  if vim.g["wf_nowait_keymaps"] == nil then
-    vim.g["wf_nowait_keymaps"] = {}
-  end
-  opts["nowait"] = true
   local map = function()
     vim.keymap.set(param, lhs, rhs, opts)
   end
@@ -138,16 +134,16 @@ local function nowait_keymap_set(param, lhs, rhs, opts)
     opts["buffer"] = true
     vim.keymap.set(param, lhs, rhs, opts)
   end
-  table.insert(vim.g["wf_nowait_keymaps"], { map = map, bmap = bmap, lhs = lhs })
+  return { map = map, bmap = bmap, lhs = lhs }
 end
 
-local function setup_keymap()
+local function setup_keymap(keymaps)
+  local _keymaps = {}
+  for _, v in keymaps do
+    table.insert(_keymaps, nowait_keymap_set(v.param, v.lhs, v.rhs, v.opts))
+  end
   timeout(100, function()
-    print(vim.inspect(vim.g["wf_nowait_keymaps"]))
-    -- if vim.g["wf_nowait_keymaps"] == nil then
-    --   return
-    -- end
-    for _, v in ipairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
+    for _, v in ipairs(_keymaps) do
       v.map()
     end
   end)
@@ -155,10 +151,7 @@ local function setup_keymap()
     group = vim.api.nvim_create_augroup("wf_nowait_keymaps", { clear = true }),
     callback = function()
       timeout(100, function()
-        if vim.g["wf_nowait_keymaps"] == nil then
-          return
-        end
-        for _, v in ipairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
+        for _, v in ipairs(_keymaps) do
           v.bmap()
         end
       end)
@@ -170,6 +163,7 @@ end
 local function setup(opts)
   opts = opts or { theme = "default" }
   opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
+  local keymaps = opts["keymaps"] or {}
 
   for k, v in pairs(opts.highlight) do
     if type(v) == "string" then
@@ -180,8 +174,8 @@ local function setup(opts)
   end
   vim.g[full_name .. "#theme"] = opts.theme
 
-  setup_keymap()
+  setup_keymap(keymaps)
 end
 
 -- return { setup = setup }
-return { setup = setup, nowait_keymap_set = nowait_keymap_set }
+return { setup = setup }
