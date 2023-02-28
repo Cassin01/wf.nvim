@@ -141,7 +141,7 @@ local function nowait_keymap_set(param, lhs, rhs, opts)
   vim.g["wf_nowait_keymaps"][lhs] = { map = map, bmap = bmap }
 end
 
----@param opts table
+---@param opts? WFConfig
 local function setup(opts)
   opts = opts or { theme = "default" }
   opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
