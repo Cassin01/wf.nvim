@@ -77,7 +77,7 @@ local function feedkeys(lhs, count, caller, noremap)
 end
 
 ---@tag builtin.which_key
----@param opts? table
+---@param opts? WFOptions
 local function which_key(opts)
   local core = function()
     local buf = vim.api.nvim_get_current_buf()

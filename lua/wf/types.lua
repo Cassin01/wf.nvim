@@ -2,7 +2,6 @@
 
 ---@class WFHighlight
 ---@field WFNormal string
----@field WFNormal string
 ---@field WFFloatBorder string
 ---@field WFFloatBorderFocus string
 ---@field WFComment string
