@@ -143,11 +143,11 @@ end
 
 local function setup_keymap()
   timeout(100, function()
+    print(vim.inspect(vim.g["wf_nowait_keymaps"]))
     if vim.g["wf_nowait_keymaps"] == nil then
       return
     end
     for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
-      print(v.lhs)
       v.map()
     end
   end)
