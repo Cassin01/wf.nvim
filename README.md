@@ -22,7 +22,7 @@
     <a href="https://github.com/Cassin01/wf.nvim"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Cassin01/wf.nvim">View Demo</a>
+    <a href="https://youtu.be/S3aKshSPyiQ">View Demo</a>
     ·
     <a href="https://github.com/Cassin01/wf.nvim/issues">Report Bug</a>
     ·
