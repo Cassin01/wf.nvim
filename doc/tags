@@ -2,5 +2,7 @@ builtin.bookmark	wf.txt	/*builtin.bookmark*
 builtin.buffer	wf.txt	/*builtin.buffer*
 builtin.register	wf.txt	/*builtin.register*
 builtin.which_key	wf.txt	/*builtin.which_key*
+nowait_keymap_set()	wf.txt	/*nowait_keymap_set()*
 select()	wf.txt	/*select()*
+setup()	wf.txt	/*setup()*
 wf.nvim	wf.txt	/*wf.nvim*

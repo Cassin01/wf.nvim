@@ -16,6 +16,41 @@ Usage~
 
 ==============================================================================
 ------------------------------------------------------------------------------
+Class~
+{WFHighlight}
+Fields~
+{WFNormal} `(string)`
+{WFNormal} `(string)`
+{WFFloatBorder} `(string)`
+{WFFloatBorderFocus} `(string)`
+{WFComment} `(string)`
+{WFWhichRem} `(string)`
+{WFWhichOn} `(string)`
+{WFFuzzy} `(string)`
+{WFFuzzyPrompt} `(string)`
+{WFFocus} `(string)`
+{WFFreeze} `(string)`
+{WFWhichObjCounter} `(string)`
+{WFWhichDesc} `(string)`
+{WFSeparator} `(string)`
+{WFGroup} `(string)`
+{WFWhichUnique} `(string)`
+{WFExpandable} `(string)`
+{WFTitleOutput} `(string)`
+{WFTitleWhich} `(string)`
+{WFTitleFuzzy} `(string)`
+{WFTitleFreeze} `(string)`
+
+------------------------------------------------------------------------------
+Class~
+{WFConfig}
+Fields~
+{theme} `(optional)` "default"|"space"|"chad"
+{highlight} `(optional)` WFHighlight
+
+
+==============================================================================
+------------------------------------------------------------------------------
                                                               *builtin.bookmark*
                       `bookmark`({bookmark_dirs}, {opts})
 Parameters~
@@ -45,6 +80,23 @@ Parameters~
                               `which_key`({opts})
 Parameters~
 {opts} `(optional)` `(table)`
+
+
+==============================================================================
+------------------------------------------------------------------------------
+                                                           *nowait_keymap_set()*
+               `nowait_keymap_set`({param}, {lhs}, {rhs}, {opts})
+Parameters~
+{param} `(string|table)`
+{lhs} `(string)`
+{rhs} `(string|function)`
+opts table
+
+------------------------------------------------------------------------------
+                                                                       *setup()*
+                                `setup`({opts})
+Parameters~
+{opts} `(optional)` WFConfig
 
 
  vim:tw=78:ts=8:noet:ft=help:norl:
