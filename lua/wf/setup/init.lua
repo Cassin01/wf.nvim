@@ -143,6 +143,7 @@ end
 
 local function setup_keymap()
   if vim.g["wf_nowait_keymaps"] == nil then
+    print("wf_nowait_keymaps is nil")
     return
   end
 

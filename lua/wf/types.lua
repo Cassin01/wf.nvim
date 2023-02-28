@@ -26,3 +26,5 @@
 ---@class WFConfig
 ---@field theme? WFTheme
 ---@field highlight? WFHighlight
+
+---@class WFOptions

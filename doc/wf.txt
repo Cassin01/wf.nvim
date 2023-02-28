@@ -8,8 +8,8 @@ A modern which-key for neovim
                      `select`({items}, {opts}, {on_choice})
 Parameters~
 {items} items
-{opts} the options for wf
-{on_choice} a callback that will be carried
+{opts} WFOptions
+{on_choice} `(fun(string, table)|fun(num,)` table)
 Usage~
 `require("wf").select(items, opts, on_choice)`
 
@@ -47,6 +47,10 @@ Class~
 Fields~
 {theme} `(optional)` "default"|"space"|"chad"
 {highlight} `(optional)` WFHighlight
+
+------------------------------------------------------------------------------
+Class~
+{WFOptions}
 
 
 ==============================================================================

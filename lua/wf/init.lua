@@ -627,8 +627,8 @@ local function setup_objs(choices_obj, callback, opts_)
 end
 
 ---@param items items
----@param opts the options for wf
----@param on_choice a callback that will be carried
+---@param opts WFOptions
+---@param on_choice fun(string, table)|fun(num, table)
 ---@usage `require("wf").select(items, opts, on_choice)`
 local function select(items, opts, on_choice)
   vim.validate({
