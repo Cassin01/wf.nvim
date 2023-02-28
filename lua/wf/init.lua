@@ -669,4 +669,4 @@ local function select(items, opts, on_choice)
   setup_objs(choices, callback, opts)
 end
 
-return { select = select, setup = setup.setup, nowait_keymap_set = setup.nowait_keymap_set }
+return { select = select, setup = setup.setup, prefix_set = setup.nowait_keymap_set }
