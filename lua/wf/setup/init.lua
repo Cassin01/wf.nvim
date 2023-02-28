@@ -180,5 +180,5 @@ local function setup(opts)
   setup_keymap()
 end
 
-return { setup = setup }
--- return { setup = setup, nowait_keymap_set = nowait_keymap_set }
+-- return { setup = setup }
+return { setup = setup, nowait_keymap_set = nowait_keymap_set }

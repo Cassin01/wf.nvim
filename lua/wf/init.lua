@@ -25,7 +25,7 @@ local cell = require("wf.cell")
 local which_insert_map = require("wf.which_map").setup
 local group = require("wf.group")
 local core = require("wf.core").core
-local setup = require("wf.setup").setup
+local setup = require("wf.setup")
 local input = require("wf.input").input
 
 -- if cursor not on the objects then quit wf.
@@ -669,4 +669,4 @@ local function select(items, opts, on_choice)
   setup_objs(choices, callback, opts)
 end
 
-return { select = select, setup = setup }
+return { select = select, setup = setup.setup, nowait_keymap_set = setup.nowait_keymap_set }
