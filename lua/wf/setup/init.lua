@@ -141,19 +141,10 @@ local function nowait_keymap_set(param, lhs, rhs, opts)
   vim.g["wf_nowait_keymaps"][lhs] = { map = map, bmap = bmap }
 end
 
----@param opts? WFConfig
-local function setup(opts)
-  opts = opts or { theme = "default" }
-  opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
-
-  for k, v in pairs(opts.highlight) do
-    if type(v) == "string" then
-      vim.api.nvim_set_hl(0, k, { default = true, link = v })
-    elseif type(v) == "table" then
-      vim.api.nvim_set_hl(0, k, v)
-    end
+local function setup_keymap()
+  if vim.g["wf_nowait_keymaps"] == nil then
+    return
   end
-  vim.g[full_name .. "#theme"] = opts.theme
 
   timeout(100, function()
     for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
@@ -170,6 +161,23 @@ local function setup(opts)
       end)
     end,
   })
+end
+
+---@param opts? WFConfig
+local function setup(opts)
+  opts = opts or { theme = "default" }
+  opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
+
+  for k, v in pairs(opts.highlight) do
+    if type(v) == "string" then
+      vim.api.nvim_set_hl(0, k, { default = true, link = v })
+    elseif type(v) == "table" then
+      vim.api.nvim_set_hl(0, k, v)
+    end
+  end
+  vim.g[full_name .. "#theme"] = opts.theme
+
+  setup_keymap()
 end
 
 return { setup = setup }
