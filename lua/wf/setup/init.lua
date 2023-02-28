@@ -122,17 +122,17 @@ local function timeout(ms, callback)
   uv.timer_start(timer, ms, 0, _callback)
 end
 
----@param mode string|table
----@lhs string
----@rhs string|function
----@opts table
+---@param param string|table
+---@param lhs string
+---@param rhs string|function
+---@praram opts table
 local function nowait_keymap_set(param, lhs, rhs, opts)
   if vim.g["wf_nowait_keymaps"] == nil then
     vim.g["wf_nowait_keymaps"] = {}
   end
   opts["nowait"] = true
   local map = function()
-    vim.keymap.set(praram, lhs, rhs, opts)
+    vim.keymap.set(param, lhs, rhs, opts)
   end
   local bmap = function()
     opts["buffer"] = true
