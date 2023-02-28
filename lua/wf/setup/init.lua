@@ -174,7 +174,7 @@ local function setup(opts)
   end
   vim.g[full_name .. "#theme"] = opts.theme
 
-  setup_keymap(keymaps)
+  -- setup_keymap(keymaps)
 end
 
 -- return { setup = setup }
