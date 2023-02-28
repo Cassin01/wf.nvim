@@ -172,4 +172,5 @@ local function setup(opts)
   })
 end
 
-return { setup = setup, nowait_keymap_set = nowait_keymap_set }
+return setup
+-- return { setup = setup, nowait_keymap_set = nowait_keymap_set }
