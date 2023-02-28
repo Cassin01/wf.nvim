@@ -8,8 +8,8 @@ A modern which-key for neovim
                      `select`({items}, {opts}, {on_choice})
 Parameters~
 {items} items
-{opts} the options for wf
-{on_choice} a callback that will be carried
+{opts} WFOptions
+{on_choice} `(fun(string, table)|fun(num,)` table)
 Usage~
 `require("wf").select(items, opts, on_choice)`
 
@@ -48,6 +48,10 @@ Fields~
 {theme} `(optional)` "default"|"space"|"chad"
 {highlight} `(optional)` WFHighlight
 
+------------------------------------------------------------------------------
+Class~
+{WFOptions}
+
 
 ==============================================================================
 ------------------------------------------------------------------------------
@@ -83,15 +87,6 @@ Parameters~
 
 
 ==============================================================================
-------------------------------------------------------------------------------
-                                                           *nowait_keymap_set()*
-               `nowait_keymap_set`({param}, {lhs}, {rhs}, {opts})
-Parameters~
-{param} `(string|table)`
-{lhs} `(string)`
-{rhs} `(string|function)`
-opts table
-
 ------------------------------------------------------------------------------
                                                                        *setup()*
                                 `setup`({opts})

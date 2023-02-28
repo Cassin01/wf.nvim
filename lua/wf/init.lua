@@ -25,7 +25,7 @@ local cell = require("wf.cell")
 local which_insert_map = require("wf.which_map").setup
 local group = require("wf.group")
 local core = require("wf.core").core
-local setup = require("wf.setup").setup
+local setup = require("wf.setup")
 local input = require("wf.input").input
 
 -- if cursor not on the objects then quit wf.
@@ -627,8 +627,8 @@ local function setup_objs(choices_obj, callback, opts_)
 end
 
 ---@param items items
----@param opts the options for wf
----@param on_choice a callback that will be carried
+---@param opts WFOptions
+---@param on_choice fun(string, table)|fun(num, table)
 ---@usage `require("wf").select(items, opts, on_choice)`
 local function select(items, opts, on_choice)
   vim.validate({
@@ -669,4 +669,4 @@ local function select(items, opts, on_choice)
   setup_objs(choices, callback, opts)
 end
 
-return { select = select, setup = setup }
+return { select = select, setup = setup.setup }
