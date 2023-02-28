@@ -9,7 +9,7 @@ local ok, devicon = pcall(require_deviocon)
 
 ---@tag builtin.bookmark
 ---@param bookmark_dirs table
----@param opts? table
+---@param opts? WFOptions
 local function bookmark(bookmark_dirs, opts)
   local function _bookmark()
     opts = opts or {}

@@ -21,7 +21,7 @@ local function get_active_buffers()
 end
 
 ---@tag builtin.buffer
----@param opts? table
+---@param opts? WFOptions
 local function buffer(opts)
   local function _buffer()
     local choices, bs = get_active_buffers()

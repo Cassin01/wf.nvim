@@ -21,7 +21,7 @@ local types = {
 }
 
 ---@tag builtin.register
----@param opts? table
+---@param opts? WFOptions
 local function register(opts)
   local function _register()
     local choices = {}

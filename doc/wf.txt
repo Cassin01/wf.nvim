@@ -20,7 +20,6 @@ Class~
 {WFHighlight}
 Fields~
 {WFNormal} `(string)`
-{WFNormal} `(string)`
 {WFFloatBorder} `(string)`
 {WFFloatBorderFocus} `(string)`
 {WFComment} `(string)`
@@ -59,7 +58,7 @@ Class~
                       `bookmark`({bookmark_dirs}, {opts})
 Parameters~
 {bookmark_dirs} `(table)`
-{opts} `(optional)` `(table)`
+{opts} `(optional)` WFOptions
 
 
 ==============================================================================
@@ -67,7 +66,7 @@ Parameters~
                                                                 *builtin.buffer*
                                 `buffer`({opts})
 Parameters~
-{opts} `(optional)` `(table)`
+{opts} `(optional)` WFOptions
 
 
 ==============================================================================
@@ -75,7 +74,7 @@ Parameters~
                                                               *builtin.register*
                                `register`({opts})
 Parameters~
-{opts} `(optional)` `(table)`
+{opts} `(optional)` WFOptions
 
 
 ==============================================================================
@@ -83,7 +82,7 @@ Parameters~
                                                              *builtin.which_key*
                               `which_key`({opts})
 Parameters~
-{opts} `(optional)` `(table)`
+{opts} `(optional)` WFOptions
 
 
 ==============================================================================
