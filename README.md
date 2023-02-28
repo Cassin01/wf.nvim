@@ -199,6 +199,38 @@ vim.keymap.set(
   which_key({ text_insert_in_advance = "<Leader>" }),
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
+
+-- start up which_key immediately after pressing the key.
+local function timeout(ms, callback)
+  local uv = vim.loop
+  local timer = uv.new_timer()
+  local _callback = vim.schedule_wrap(function()
+    uv.timer_stop(timer)
+    uv.close(timer)
+    callback()
+  end)
+  uv.timer_start(timer, ms, 0, _callback)
+end
+timeout(100, function()
+  vim.keymap.set(
+    "n",
+    "<Leader>",
+    which_key({ text_insert_in_advance = "<Leader>" }),
+    { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
+  )
+end)
+vim.api.nvim_create_autocmd({"BufEnter", "BufAdd"}, {
+  group = vim.api.nvim_create_augroup("my_wf", { clear = true }),
+  callback = function()
+    timeout(100, function()
+      vim.keymap.set(
+        "n",
+        "<Leader>",
+        which_key({ text_insert_in_advance = "<Leader>" }),
+        { noremap = true, silent = true, desc = "[wf.nvim] which-key /", buffer = true })
+    end)
+  end
+})
 ```
 
 <!-- </details> -->
