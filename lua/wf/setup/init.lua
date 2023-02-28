@@ -122,10 +122,6 @@ local function timeout(ms, callback)
   uv.timer_start(timer, ms, 0, _callback)
 end
 
----@param param string|table
----@param lhs string
----@param rhs string|function
----@praram opts table
 local function nowait_keymap_set(param, lhs, rhs, opts)
   local map = function()
     vim.keymap.set(param, lhs, rhs, opts)

@@ -88,15 +88,6 @@ Parameters~
 
 ==============================================================================
 ------------------------------------------------------------------------------
-                                                           *nowait_keymap_set()*
-               `nowait_keymap_set`({param}, {lhs}, {rhs}, {opts})
-Parameters~
-{param} `(string|table)`
-{lhs} `(string)`
-{rhs} `(string|function)`
-opts table
-
-------------------------------------------------------------------------------
                                                                        *setup()*
                                 `setup`({opts})
 Parameters~
