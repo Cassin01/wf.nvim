@@ -142,12 +142,11 @@ local function nowait_keymap_set(param, lhs, rhs, opts)
 end
 
 local function setup_keymap()
-  if vim.g["wf_nowait_keymaps"] == nil then
-    print("wf_nowait_keymaps is nil")
-    return
-  end
-
   timeout(100, function()
+    if vim.g["wf_nowait_keymaps"] == nil then
+      print("wf_nowait_keymaps is nil")
+      return
+    end
     for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
       v.map()
     end
@@ -156,6 +155,10 @@ local function setup_keymap()
     group = vim.api.nvim_create_augroup("wf_nowait_keymaps", { clear = true }),
     callback = function()
       timeout(100, function()
+        if vim.g["wf_nowait_keymaps"] == nil then
+          print("wf_nowait_keymaps is nil")
+          return
+        end
         for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
           v.bmap()
         end
