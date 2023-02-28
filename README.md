@@ -244,7 +244,7 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufAdd"}, {
 <!-- > The configuration list sometimes become cumbersome, making it folded by default reduce the noise of the README file. -->
 
 <!-- <details> -->
-<summary>Click to unfold the full list of options with their default values</summary>
+<!-- <summary>Click to unfold the full list of options with their default values</summary> -->
 
 <!-- > **Note**: The options are also available in Neovim by calling `:h wf.options` -->
 
