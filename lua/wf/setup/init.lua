@@ -138,7 +138,7 @@ local function nowait_keymap_set(param, lhs, rhs, opts)
     opts["buffer"] = true
     vim.keymap.set(param, lhs, rhs, opts)
   end
-  vim.g["wf_nowait_keymaps"][lhs] = { map = map, bmap = bmap, lhs = lhs }
+  table.insert(vim.g["wf_nowait_keymaps"], { map = map, bmap = bmap, lhs = lhs })
 end
 
 local function setup_keymap()
@@ -147,7 +147,7 @@ local function setup_keymap()
     if vim.g["wf_nowait_keymaps"] == nil then
       return
     end
-    for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
+    for _, v in ipairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
       v.map()
     end
   end)
@@ -158,7 +158,7 @@ local function setup_keymap()
         if vim.g["wf_nowait_keymaps"] == nil then
           return
         end
-        for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
+        for _, v in ipairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
           v.bmap()
         end
       end)
