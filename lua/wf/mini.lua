@@ -23,9 +23,9 @@ H.input = function()
           return false
         end
         return a < b
-      else
-        return vim.fn.fnamemodify(a, ":h") < vim.fn.fnamemodify(b, ":h")
       end
+
+      return vim.fn.fnamemodify(a, ":h") < vim.fn.fnamemodify(b, ":h")
     end)
     table.insert(res, files)
   end

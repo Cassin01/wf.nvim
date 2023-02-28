@@ -111,6 +111,37 @@ local themes = {
   },
 }
 
+local function timeout(ms, callback)
+  local uv = vim.loop
+  local timer = uv.new_timer()
+  local _callback = vim.schedule_wrap(function()
+    uv.timer_stop(timer)
+    uv.close(timer)
+    callback()
+  end)
+  uv.timer_start(timer, ms, 0, _callback)
+end
+
+---@param param string|table
+---@param lhs string
+---@param rhs string|function
+---@praram opts table
+local function nowait_keymap_set(param, lhs, rhs, opts)
+  if vim.g["wf_nowait_keymaps"] == nil then
+    vim.g["wf_nowait_keymaps"] = {}
+  end
+  opts["nowait"] = true
+  local map = function()
+    vim.keymap.set(param, lhs, rhs, opts)
+  end
+  local bmap = function()
+    opts["buffer"] = true
+    vim.keymap.set(param, lhs, rhs, opts)
+  end
+  vim.g["wf_nowait_keymaps"][lhs] = { map = map, bmap = bmap }
+end
+
+---@param opts table
 local function setup(opts)
   opts = opts or { theme = "default" }
   opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
@@ -123,6 +154,22 @@ local function setup(opts)
     end
   end
   vim.g[full_name .. "#theme"] = opts.theme
+
+  timeout(100, function()
+    for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
+      v.map()
+    end
+  end)
+  vim.api.nvim_create_autocmd({ "BufEnter", "BufAdd" }, {
+    group = vim.api.nvim_create_augroup("wf_nowait_keymaps", { clear = true }),
+    callback = function()
+      timeout(100, function()
+        for _, v in pairs(vim.api.nvim_eval("g:wf_nowait_keymaps")) do
+          v.bmap()
+        end
+      end)
+    end,
+  })
 end
 
-return { setup = setup }
+return { setup = setup, nowait_keymap_set = nowait_keymap_set }
