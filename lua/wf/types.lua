@@ -46,7 +46,7 @@
 ---@field border string
 ---Style of window border. This can either be a string or an array.
 ---:h nvim_open_win
----@field borderchars table @field top center bottom 
+---@field borderchars table @field top center bottom
 ---The array will specifify the eight chars building up the border in a clockwise fashion starting with the top-left corner.
 ---:h nvim_open_win
 ---@field icons table @field separator fuzzy_prompt which_prompt
@@ -58,6 +58,7 @@
 ---@field selector "which"|"fuzzy"
 ---@field text_insert_in_advance string
 ---@field key_group_dict table
+---@usage key_group_dict = { "<leader>l"="vimtex", "<leader>e"="conjure" }
 ---@field prefix_size number
 ---@field sorter function
 ---@field behavior WFBehavior

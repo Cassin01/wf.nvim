@@ -79,7 +79,7 @@ Fields~
 {border} `(string)`
 of window border. This can either be a string or an array.
 nvim_open_win
-{borderchars} `(table)` @field top center bottom 
+{borderchars} `(table)` @field top center bottom
 array will specifify the eight chars building up the border in a clockwise fashion starting with the top-left corner.
 nvim_open_win
 {icons} `(table)` @field separator fuzzy_prompt which_prompt
@@ -94,6 +94,8 @@ Fields~
 {selector} "which"|"fuzzy"
 {text_insert_in_advance} `(string)`
 {key_group_dict} `(table)`
+Usage~
+key_group_dict = { "<leader>l"="vimtex", "<leader>e"="conjure" }
 {prefix_size} `(number)`
 {sorter} `(function)`
 {behavior} WFBehavior
@@ -107,6 +109,8 @@ Fields~
                       `bookmark`({bookmark_dirs}, {opts})
 Parameters~
 {bookmark_dirs} `(table)`
+Usage~
+bookmark({nvim="~/.config/nvim", zsh="~/.zshrc"})
 {opts} `(optional)` WFOptions
 
 
