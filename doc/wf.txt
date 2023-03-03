@@ -17,28 +17,32 @@ Usage~
 ==============================================================================
 ------------------------------------------------------------------------------
 Class~
+{hl_group} string Highlight group name, e.g. "ErrorMsg"
+
+------------------------------------------------------------------------------
+Class~
 {WFHighlight}
 Fields~
-{WFNormal} `(string)`
-{WFFloatBorder} `(string)`
-{WFFloatBorderFocus} `(string)`
-{WFComment} `(string)`
-{WFWhichRem} `(string)`
-{WFWhichOn} `(string)`
-{WFFuzzy} `(string)`
-{WFFuzzyPrompt} `(string)`
-{WFFocus} `(string)`
-{WFFreeze} `(string)`
-{WFWhichObjCounter} `(string)`
-{WFWhichDesc} `(string)`
-{WFSeparator} `(string)`
-{WFGroup} `(string)`
-{WFWhichUnique} `(string)`
-{WFExpandable} `(string)`
-{WFTitleOutput} `(string)`
-{WFTitleWhich} `(string)`
-{WFTitleFuzzy} `(string)`
-{WFTitleFreeze} `(string)`
+{WFNormal} hl_group
+{WFFloatBorder} hl_group
+{WFFloatBorderFocus} hl_group
+{WFComment} hl_group
+{WFWhichRem} hl_group
+{WFWhichOn} hl_group
+{WFFuzzy} hl_group
+{WFFuzzyPrompt} hl_group
+{WFFocus} hl_group
+{WFFreeze} hl_group
+{WFWhichObjCounter} hl_group
+{WFWhichDesc} hl_group
+{WFSeparator} hl_group
+{WFGroup} hl_group
+{WFWhichUnique} hl_group
+{WFExpandable} hl_group
+{WFTitleOutput} hl_group
+{WFTitleWhich} hl_group
+{WFTitleFuzzy} hl_group
+{WFTitleFreeze} hl_group
 
 ------------------------------------------------------------------------------
 Class~
@@ -49,7 +53,52 @@ Fields~
 
 ------------------------------------------------------------------------------
 Class~
+{WFBehavior}
+Fields~
+{skip_front_duplication} `(boolean)`
+{skip_back_duplication} `(boolean)`
+
+------------------------------------------------------------------------------
+Class~
+{Cell}
+Fields~
+{key} `(string)`
+{id} `(string)`
+{text} `(string)`
+{type} "key"|"group"
+
+------------------------------------------------------------------------------
+Class~
+{Chunks}
+list of [text, hl_group] arrays, each representing a text chunk with specified highlight. hl_group element can not be omitted for not
+
+------------------------------------------------------------------------------
+Class~
+{WFStyle}
+Fields~
+{border} `(string)`
+of window border. This can either be a string or an array.
+nvim_open_win
+{borderchars} `(table)` @field top center bottom 
+array will specifify the eight chars building up the border in a clockwise fashion starting with the top-left corner.
+nvim_open_win
+{icons} `(table)` @field separator fuzzy_prompt which_prompt
+{input_win_row_offset} `(number)` The width for shift up output-window's row with input-window's height.
+number a width for windows
+
+------------------------------------------------------------------------------
+Class~
 {WFOptions}
+Fields~
+{title} `(string?)`
+{selector} "which"|"fuzzy"
+{text_insert_in_advance} `(string)`
+{key_group_dict} `(table)`
+{prefix_size} `(number)`
+{sorter} `(function)`
+{behavior} WFBehavior
+{output_obj_which_mode_desc_format} `(fun(match_obj:Cell[]):Chunks)`
+{style} WFStyle
 
 
 ==============================================================================
