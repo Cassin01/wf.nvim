@@ -40,11 +40,10 @@
     <li><a href="#installation">Installation</a></li>
     <li><a href="#getting-started">Getting started</a></li>
     <li><a href="#configuration">Configuration</a></li>
-    <li><a href="#Wiki">Wiki</a></li>
+    <li><a href="#Documentation">Documentation</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#motivations">Motivations</a></li>
+    <li><a href="#Credits">Credits</a></li>
   </ol>
 <!-- </details> -->
 
@@ -259,9 +258,9 @@ require("wf").setup({
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Document
+## Documentation
 
-You can find guides the plugin on [the docs](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
+You can find guides for the plugin on [document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -301,7 +300,6 @@ end
 
 -- set keymap for each plugins
 ---------------------------------------
-
 -- lambdalisue/fern.vim
 nmaps("<space>n", "fern",
 {{"p", "<cmd>Fern . -drawer -toggle<cr>", "open fern on a current working directory"},
@@ -320,9 +318,8 @@ nmaps("<space>t", "telescope"
 
 -- set keymap for calling which-key
 ---------------------------------------
-
-vim.set.keymap("n", "<Space>, which_key({text_insert_in_advance="<space>",
-key_group_dict=_G.__key_prefixes["n"]}), 
+vim.set.keymap("n", "<Space>",
+which_key({text_insert_in_advance="<space>", key_group_dict=_G.__key_prefixes["n"]}),
 {noremap = true, silent = tre, desc = "which-key space", nowait = true})
 ```
 
@@ -332,16 +329,17 @@ key_group_dict=_G.__key_prefixes["n"]}),
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+3. Generate document, format codes and test codes (`make push`)
+4. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+5. Push to the Branch (`git push origin feature/AmazingFeature`)
+6. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
