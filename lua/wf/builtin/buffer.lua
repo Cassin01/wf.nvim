@@ -47,16 +47,19 @@ local function buffer(opts)
         if id == current_buf then
           return { { "  ", "Identifier" }, { desc, hldesc } }
         end
+        local function fnamemodify(fname)
+          return vim.fn.fnamemodify(fname, ":.")
+        end
         if ok then
           local icon, color = devicon.get_icon_color(desc)
           if icon ~= nil then
             local sp = vim.fn.strwidth(icon) > 1 and (icon .. "") or (icon .. " ")
-            return { { sp .. " ", gen_highlight(desc, color) }, { desc, hldesc } }
+            return { { sp .. " ", gen_highlight(desc, color) }, { fnamemodify(desc), hldesc } }
           else
-            return { { "  ", "Identifier" }, { desc, hldesc } }
+            return { { "  ", "Identifier" }, { fnamemodify(desc), hldesc } }
           end
         else
-          return { { desc, hldesc } }
+          return { { fnamemodify(desc), hldesc } }
         end
       end,
     }
