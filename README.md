@@ -259,9 +259,68 @@ require("wf").setup({
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Wiki
+## Document
 
-You can find guides and showcase of the plugin on [the Wiki](https://github.com/cassin/wf.nvim/wiki)
+You can find guides the plugin on [the docs](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Tips
+
+### Holding specific key pattern on which_key
+
+It may be a bit arrogant to call it tips, but here is my init.lua setup.
+
+```lua
+-- setup table for prefixes
+---------------------------------------
+if _G.__key_prefixes == nil then
+  _G.__key_prefixes = {
+    n = {},
+    i = {},
+  }
+end
+
+-- utility function for setting keymaps
+---------------------------------------
+local function nmaps(prefix, desc, tbl)
+  local sign = "["..name.."]"
+  table.insert(_G.__key_prefixes["n"], prefix, sign)
+  local set = function(key, cmd, desc, opt)
+    local _opt = opt or {}
+    _opt["desc"] = desc..sign
+    _opt["noremap"] = true
+    vim.keymap.set("n", prefix .. key, cmd, _opt)
+  end
+  for _, v in ipairs(tbl)  do
+    set(unpack tbl)
+  end
+end
+
+
+-- set keymap for each plugins
+---------------------------------------
+
+-- lambdalisue/fern.vim
+nmaps("<space>n", "fern",
+{{"p", "<cmd>Fern . -drawer -toggle<cr>", "open fern on a current working directory"},
+ {"d", "<cmd>Fern %:h -drawer -toggle<cr>", "open fern on a parent directory of a current buffer"}})
+
+-- nvim-telescope/telescope.nvim
+nmaps("<space>t", "telescope"
+{{"f", "<cmd>Telescope find_files<cr>", "find files"},
+ {"g", "<cmd>Telescope live_grep<cr>", "live grep"},
+ {"b", "<cmd>Telescope buffers<cr>", "buffers"},
+ {"h", "<cmd>Telescope help_tags<cr>", "help tags"},
+ {"t", "<cmd>Telescope<cr>", "telescope"},
+ {"o", "<cmd>Telescope oldfiles<cr>", "old files"},
+ {"r", "<cmd>Telescope file_browser<cr>", "file_browser"}})
+
+-- set keymap for calling which-key
+vim.set.keymap("n", "<Space>, which_key({text_insert_in_advance="<space>",
+key_group_dict=_G.__key_prefixes["n"]}), 
+{noremap = true, silent = tre, desc = "which-key space", nowait = true})
+```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
