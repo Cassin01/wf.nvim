@@ -318,7 +318,7 @@ nmaps("<space>t", "telescope"
  {"r", "<cmd>Telescope file_browser<cr>", "file_browser"}})
 
 
-- set keymap for calling which-key
+-- set keymap for calling which-key
 ---------------------------------------
 
 vim.set.keymap("n", "<Space>, which_key({text_insert_in_advance="<space>",
