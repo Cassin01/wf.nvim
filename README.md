@@ -354,23 +354,15 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Credits
 
-Thank you to all those I borrowed code/ideas from, I read so many dotfiles and
-plugin codes that I probably forgot where I found some samples from so if I missed
-your name feel free to contact me and I'll add it bellow:
-
 - [shortcuts/neovim-plugin-boilerplate](https://github.com/shortcuts/neovim-plugin-boilerplate)
-- [ibhagwan/fzf-lua](https://github.com/ibhagwan/fzf-lua)
 - [echasnovski/mini.nvim](https://github.com/echasnovski/mini.nvim)
 - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- [Shougo/ddu-ui-ff](https://github.com/Shougo/ddu-ui-ff)
-- [yuki-yano/fzf-preview.vim](https://github.com/yuki-yano/fzf-preview.vim)
 - [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
 - [liuchengxu/vim-which-key](https://github.com/liuchengxu/vim-which-key)
 - [justbuf/emacs-which-key](https://github.com/justbur/emacs-which-key)
 - [helix-editor/helix](https://github.com/helix-editor/helix)
 - [syl20bnr/spacemacs](https://github.com/syl20bnr/spacemacs)
 - [NvChad/NvChad](https://github.com/NvChad/NvChad)
-- [kuuote/dotvim](https://github.com/kuuote/dotvim)
 
 <!-- > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others. -->
 
