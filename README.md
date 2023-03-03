@@ -153,6 +153,11 @@ require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
 
 ## Getting started
 
+There is no required dependencies on `wf.nvim` but Neovim >= 0.8.1 and
+[nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) is recommended
+for enjoying all the features of `wf.nvim`.
+
+
 <!-- <details> -->
   <summary>Minimal Setup</summary>
 
