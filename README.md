@@ -281,6 +281,7 @@ if _G.__key_prefixes == nil then
   }
 end
 
+
 -- utility function for setting keymaps
 ---------------------------------------
 local function nmaps(prefix, desc, tbl)
@@ -316,7 +317,10 @@ nmaps("<space>t", "telescope"
  {"o", "<cmd>Telescope oldfiles<cr>", "old files"},
  {"r", "<cmd>Telescope file_browser<cr>", "file_browser"}})
 
--- set keymap for calling which-key
+
+- set keymap for calling which-key
+---------------------------------------
+
 vim.set.keymap("n", "<Space>, which_key({text_insert_in_advance="<space>",
 key_group_dict=_G.__key_prefixes["n"]}), 
 {noremap = true, silent = tre, desc = "which-key space", nowait = true})
