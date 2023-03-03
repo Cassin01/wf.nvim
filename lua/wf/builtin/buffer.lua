@@ -48,6 +48,9 @@ local function buffer(opts)
           return { { "  ", "Identifier" }, { desc, hldesc } }
         end
         local function fnamemodify(fname)
+          print(fname)
+          print(vim.fn.fnamemodify(fname, ":."))
+          print("----------")
           return vim.fn.fnamemodify(fname, ":.")
         end
         if ok then
