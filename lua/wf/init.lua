@@ -2,6 +2,26 @@
 
 -- Documentation ==============================================================
 --- A modern which-key for neovim
+---
+--- # Getting started~
+---
+--- Getting started with wf.nvim:
+---  1. Put a `require('wf').setup()` call somewhere in your neovim config.
+---  2. Read |wf.setup| to check what config keys are aviable and what you can put
+---     inside the setup call
+---  3. Read |wf.builtin| to check which builtin pickers are offered and what
+---     options these implement
+---  4. Profit
+---
+--- # Keymapping~
+---
+--- The default key assignments are shown in the table below.
+---
+--- tag	char	action
+--- *i_CTRL-T*	CTRL-T	Toggle the which-key with fuzzy-finder
+--- *n_CTRL-T*	CTRL-T	Toggle the which-key with fuzzy-finder
+--- *n_<ESC>*	<ESC>	Quit the which-key
+---
 ---@tag wf.nvim
 
 local util = require("wf.util")

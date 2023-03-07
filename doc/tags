@@ -2,6 +2,9 @@ builtin.bookmark	wf.txt	/*builtin.bookmark*
 builtin.buffer	wf.txt	/*builtin.buffer*
 builtin.register	wf.txt	/*builtin.register*
 builtin.which_key	wf.txt	/*builtin.which_key*
+i_CTRL-T	wf.txt	/*i_CTRL-T*
+n_<ESC>	wf.txt	/*n_<ESC>*
+n_CTRL-T	wf.txt	/*n_CTRL-T*
 select()	wf.txt	/*select()*
-setup()	wf.txt	/*setup()*
 wf.nvim	wf.txt	/*wf.nvim*
+wf.setup	wf.txt	/*wf.setup*

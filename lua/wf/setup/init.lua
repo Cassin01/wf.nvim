@@ -155,6 +155,7 @@ local function setup_keymap(keymaps)
   })
 end
 
+---@tag wf.setup
 ---@param opts? WFConfig
 local function setup(opts)
   opts = opts or { theme = "default" }
