@@ -20,7 +20,8 @@
 --- tag	char	action
 --- *i_CTRL-T*	CTRL-T	Toggle the which-key with fuzzy-finder
 --- *n_CTRL-T*	CTRL-T	Toggle the which-key with fuzzy-finder
---- *n_<ESC>*	<ESC>	Quit the which-key
+--- *n_<ESC>*	<ESC>	Quit wf.nvim
+--- *n_CTRL-C*	CTRL-C	Quit wf.nvim
 ---
 ---@tag wf.nvim
 
@@ -196,7 +197,6 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
         return vim.fn.matchfuzzy(choices_obj, fuzzy_line, { key = "text" })
       end
     end)()
-    local match_ = nil
     for _, match in ipairs(fuzzy_matched_obj) do
       if match.key == which_line then
         del()
