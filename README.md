@@ -19,7 +19,7 @@
   <p align="center">
     <!-- A which-key with a fuzzy-find. -->
     <br />
-    <a href="https://github.com/Cassin01/wf.nvim"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://youtu.be/S3aKshSPyiQ">View Demo</a>
@@ -40,10 +40,12 @@
     <li><a href="#installation">Installation</a></li>
     <li><a href="#getting-started">Getting started</a></li>
     <li><a href="#configuration">Configuration</a></li>
-    <li><a href="#Documentation">Documentation</a></li>
+    <li><a href="#default-shortcut-%2F-key-bindings-assignments">Default Shortcut / Key
+    Bindings Assignments</a></li>
+    <li><a href="#documentation">Documentation</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#Credits">Credits</a></li>
+    <li><a href="#credits">Credits</a></li>
   </ol>
 <!-- </details> -->
 
@@ -70,10 +72,10 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 `wf.nvim` is a new which-key plugin for Neovim.
 
 ✨ Features
-* Builtin Fuzzy finder
-* Using Neovim's "docs" feature
+* Builtin fuzzy-finder
+* Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
 * Skip duplicate characters
-* `which-key`, `marker`, `bookmark`, `buffer` builtin pikers
+* Builtin pickers (`which-key`, `marker`, `bookmark`, `buffer`)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -260,6 +262,26 @@ require("wf").setup({
 ```
 
 <!-- </details> -->
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Default Shortcut / Key Bindings Assignments
+
+The default key assignments are shown in the table below.
+
+### Normal mode
+
+| Modifiers | Key | Action |
+| - | - | - |
+|  | Esc | Close wf.nvim |
+| Ctrl | t | Toggle the which-key with the fuzzy-find |
+
+### Insert mode
+
+| Modifiers | Key | Action |
+| - | - | - |
+| Ctrl | t | Toggle the which-key with the fuzzy-find |
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
