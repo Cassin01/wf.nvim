@@ -24,7 +24,7 @@ tag	char	action
 
 
 ------------------------------------------------------------------------------
-                                                                      *select()*
+                                                                     *wf.select*
                      `select`({items}, {opts}, {on_choice})
 Parameters~
 {items} items
@@ -32,6 +32,49 @@ Parameters~
 {on_choice} `(fun(string, table)|fun(num,)` table)
 Usage~
 `require("wf").select(items, opts, on_choice)`
+
+
+==============================================================================
+------------------------------------------------------------------------------
+                                                                      *wf.setup*
+                                `setup`({opts})
+Parameters~
+{opts} `(optional)` WFConfig
+
+
+==============================================================================
+------------------------------------------------------------------------------
+                                                           *wf.builtin.bookmark*
+                      `bookmark`({bookmark_dirs}, {opts})
+Parameters~
+{bookmark_dirs} `(table)`
+Usage~
+bookmark({nvim="~/.config/nvim", zsh="~/.zshrc"})
+{opts} `(optional)` WFOptions
+
+
+==============================================================================
+------------------------------------------------------------------------------
+                                                             *wf.builtin.buffer*
+                                `buffer`({opts})
+Parameters~
+{opts} `(optional)` WFOptions
+
+
+==============================================================================
+------------------------------------------------------------------------------
+                                                           *wf.builtin.register*
+                               `register`({opts})
+Parameters~
+{opts} `(optional)` WFOptions
+
+
+==============================================================================
+------------------------------------------------------------------------------
+                                                          *wf.builtin.which_key*
+                              `which_key`({opts})
+Parameters~
+{opts} `(optional)` WFOptions
 
 
 ==============================================================================
@@ -121,49 +164,6 @@ key_group_dict = { "<leader>l"="vimtex", "<leader>e"="conjure" }
 {behavior} WFBehavior
 {output_obj_which_mode_desc_format} `(fun(match_obj:Cell[]):Chunks)`
 {style} WFStyle
-
-
-==============================================================================
-------------------------------------------------------------------------------
-                                                              *builtin.bookmark*
-                      `bookmark`({bookmark_dirs}, {opts})
-Parameters~
-{bookmark_dirs} `(table)`
-Usage~
-bookmark({nvim="~/.config/nvim", zsh="~/.zshrc"})
-{opts} `(optional)` WFOptions
-
-
-==============================================================================
-------------------------------------------------------------------------------
-                                                                *builtin.buffer*
-                                `buffer`({opts})
-Parameters~
-{opts} `(optional)` WFOptions
-
-
-==============================================================================
-------------------------------------------------------------------------------
-                                                              *builtin.register*
-                               `register`({opts})
-Parameters~
-{opts} `(optional)` WFOptions
-
-
-==============================================================================
-------------------------------------------------------------------------------
-                                                             *builtin.which_key*
-                              `which_key`({opts})
-Parameters~
-{opts} `(optional)` WFOptions
-
-
-==============================================================================
-------------------------------------------------------------------------------
-                                                                      *wf.setup*
-                                `setup`({opts})
-Parameters~
-{opts} `(optional)` WFConfig
 
 
  vim:tw=78:ts=8:noet:ft=help:norl:

@@ -7,7 +7,7 @@ end
 
 local ok, devicon = pcall(require_deviocon)
 
----@tag builtin.bookmark
+---@tag wf.builtin.bookmark
 ---@param bookmark_dirs table
 ---@usage bookmark({nvim="~/.config/nvim", zsh="~/.zshrc"})
 ---@param opts? WFOptions

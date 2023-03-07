@@ -646,6 +646,7 @@ local function setup_objs(choices_obj, callback, opts_)
   _callback(caller_obj, fuzzy_obj, which_obj, output_obj, choices_obj, groups_obj, callback, opts)
 end
 
+---@tag wf.select
 ---@param items items
 ---@param opts WFOptions
 ---@param on_choice fun(string, table)|fun(num, table)
