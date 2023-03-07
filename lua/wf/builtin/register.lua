@@ -20,7 +20,7 @@ local types = {
   [""] = "u",
 }
 
----@tag builtin.register
+---@tag wf.builtin.register
 ---@param opts? WFOptions
 local function register(opts)
   local function _register()

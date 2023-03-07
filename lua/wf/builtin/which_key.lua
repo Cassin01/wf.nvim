@@ -76,7 +76,7 @@ local function feedkeys(lhs, count, caller, noremap)
   end
 end
 
----@tag builtin.which_key
+---@tag wf.builtin.which_key
 ---@param opts? WFOptions
 local function which_key(opts)
   local core = function()

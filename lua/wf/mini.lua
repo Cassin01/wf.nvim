@@ -1,35 +1,28 @@
 local H = {}
 
--- Default documentation targets ----------------------------------------------
-H.input = function()
-  -- Search in current and recursively in other directories for files with
-  -- 'lua' extension
+local _swallow = function(dir_glob)
+  local files = vim.fn.globpath(dir_glob, "*.lua", false, true)
+  files = vim.tbl_map(function(x)
+    return vim.fn.fnamemodify(x, ":p")
+  end, files)
+
+  return files
+end
+
+H.custom_input = function()
   local res = {}
-  for _, dir_glob in ipairs({ ".", "lua/**", "after/**", "colors/**" }) do
-    local files = vim.fn.globpath(dir_glob, "*.lua", false, true)
-
-    -- Use full paths
-    files = vim.tbl_map(function(x)
-      return vim.fn.fnamemodify(x, ":p")
-    end, files)
-
-    -- Put 'init.lua' first among files from same directory
-    table.sort(files, function(a, b)
-      if vim.fn.fnamemodify(a, ":h") == vim.fn.fnamemodify(b, ":h") then
-        if vim.fn.fnamemodify(a, ":t") == "init.lua" then
-          return true
-        end
-        if vim.fn.fnamemodify(b, ":t") == "init.lua" then
-          return false
-        end
-        return a < b
-      end
-
-      return vim.fn.fnamemodify(a, ":h") < vim.fn.fnamemodify(b, ":h")
-    end)
-    table.insert(res, files)
+  for _, dir_glob in ipairs({
+    "lua/wf/init.lua",
+    "lua/wf/setup/**",
+    "lua/wf/builtin/**",
+    "lua/wf/types.lua",
+  }) do
+    if string.match(dir_glob, ".+%.lua$") then
+      table.insert(res, vim.fn.fnamemodify(dir_glob, ":p"))
+    else
+      table.insert(res, _swallow(dir_glob))
+    end
   end
-
   return vim.tbl_flatten(res)
 end
 
