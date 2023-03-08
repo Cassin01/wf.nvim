@@ -20,7 +20,8 @@ The default key assignments are shown in the table below.
 tag	char	action
 *i_CTRL-T*	CTRL-T	Toggle the which-key with fuzzy-finder
 *n_CTRL-T*	CTRL-T	Toggle the which-key with fuzzy-finder
-*n_<ESC>*	<ESC>	Quit the which-key
+*n_<ESC>*	<ESC>	Quit wf.nvim
+*n_CTRL-C*	CTRL-C	Quit wf.nvim
 
 
 ------------------------------------------------------------------------------

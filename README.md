@@ -40,7 +40,7 @@
     <li><a href="#installation">Installation</a></li>
     <li><a href="#getting-started">Getting started</a></li>
     <li><a href="#configuration">Configuration</a></li>
-    <li><a href="#default-shortcut-%2F-key-bindings-assignments">Default Shortcut / Key
+    <li><a href="#key-bindings-assignments">Default Shortcut / Key
     Bindings Assignments</a></li>
     <li><a href="#documentation">Documentation</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -265,22 +265,15 @@ require("wf").setup({
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Default Shortcut / Key Bindings Assignments
+## Key Bindings Assignments
 
 The default key assignments are shown in the table below.
 
-### Normal mode
-
-| Modifiers | Key | Action |
+| Mode | Key | Action |
 | - | - | - |
-|  | Esc | Close wf.nvim |
-| Ctrl | t | Toggle the which-key with the fuzzy-find |
-
-### Insert mode
-
-| Modifiers | Key | Action |
-| - | - | - |
-| Ctrl | t | Toggle the which-key with the fuzzy-find |
+| Normal, Insert | `<c-t>` | Toggle the which-key with the fuzzy-find |
+| Normal | `<esc>` | Close wf.nvim |
+| Normal | `<c-c>` | Close wf.nvim |
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
