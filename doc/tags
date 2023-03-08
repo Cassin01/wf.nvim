@@ -1,5 +1,6 @@
 i_CTRL-T	wf.txt	/*i_CTRL-T*
 n_<ESC>	wf.txt	/*n_<ESC>*
+n_CTRL-C	wf.txt	/*n_CTRL-C*
 n_CTRL-T	wf.txt	/*n_CTRL-T*
 wf.builtin.bookmark	wf.txt	/*wf.builtin.bookmark*
 wf.builtin.buffer	wf.txt	/*wf.builtin.buffer*
