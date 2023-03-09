@@ -4,6 +4,7 @@ n_CTRL-C	wf.txt	/*n_CTRL-C*
 n_CTRL-T	wf.txt	/*n_CTRL-T*
 wf.builtin.bookmark	wf.txt	/*wf.builtin.bookmark*
 wf.builtin.buffer	wf.txt	/*wf.builtin.buffer*
+wf.builtin.mark	wf.txt	/*wf.builtin.mark*
 wf.builtin.register	wf.txt	/*wf.builtin.register*
 wf.builtin.which_key	wf.txt	/*wf.builtin.which_key*
 wf.nvim	wf.txt	/*wf.nvim*
