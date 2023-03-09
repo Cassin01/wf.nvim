@@ -47,8 +47,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     local subs = {}
     for _, line in ipairs(lines) do
       -- TMP: {{{
+      local sub = string.sub(line, 2)
       -- local sub = string.sub(line, 2, prefix_size + 1)
-      local sub = line
       -- }}}
       table.insert(subs, sub)
     end
