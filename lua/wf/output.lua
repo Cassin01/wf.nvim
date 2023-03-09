@@ -46,13 +46,17 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
   if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
     local subs = {}
     for _, line in ipairs(lines) do
-      local sub = string.sub(line, 2, prefix_size + 1)
+      -- TMP: {{{
+      -- local sub = string.sub(line, 2, prefix_size + 1)
+      local sub = line
+      -- }}}
       table.insert(subs, sub)
     end
     local rest = same_text(subs)
-    -- TMP: remove prefix_size dependencies
+    -- TMP: {{{
     if rest ~= "" and #rest < prefix_size then
       -- if rest ~= "" then
+    -- }}}
       duplication = true
       local function _add_rest(text)
         return function()
