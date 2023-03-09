@@ -56,7 +56,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
         return function()
           vim.api.nvim_buf_set_lines(which_obj.buf, 0, -1, true, { text })
           vim.api.nvim_win_set_cursor(which_obj.win, { 1, vim.fn.strwidth(text) })
-          -- TMP: delete me {{{
+          -- MARK: sign place {{{
           vim.fn.sign_place(
             0,
             sign_group_prompt .. "which",
@@ -64,7 +64,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             which_obj.buf,
             { lnum = 1, priority = 10 }
           )
-          -- TMP: delete me }}}
+          -- MARK: sign place }}}
         end
       end
 
