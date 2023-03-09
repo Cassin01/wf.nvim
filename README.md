@@ -168,6 +168,7 @@ local which_key = require("wf.builtin.which_key")
 local register = require("wf.builtin.register")
 local bookmark = require("wf.builtin.bookmark")
 local buffer = require("wf.builtin.buffer")
+local mark = require("wf.builtin.mark")
 
 -- Register
 vim.keymap.set(
@@ -193,11 +194,19 @@ vim.keymap.set(
   "n",
   "<Space>wbu",
   buffer({}),
-  {noremap = true, silent= true, desc = "[wf.nvim] buffer"}
+  {noremap = true, silent = true, desc = "[wf.nvim] buffer"}
+)
+
+-- Mark
+vim.keymap.set(
+    "n"
+    "'"
+    mark(),
+    {nowait = true, noremap = true, silent = true, desc = "[wf.nvim] mark"}
 )
 
 -- Which Key
--- INFO: Please refer to the wiki for information on setting up wf.nvim
+-- INFO: Please refer to the bellow setting for information on setting up wf.nvim
 -- to start immediately after pressing the key.
 vim.keymap.set(
   "n",
