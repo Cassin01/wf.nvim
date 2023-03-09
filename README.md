@@ -74,7 +74,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 ✨ Features
 * Builtin fuzzy-finder
 * Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
-* Skip duplicate characters
+* Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
 * Builtin pickers (`which-key`, `mark`, `bookmark`, `buffer`, `register`)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
