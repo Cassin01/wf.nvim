@@ -30,7 +30,19 @@
 
 ---@class WFBehavior
 ---@field skip_front_duplication boolean
+--- Example:
+--- When there are two lines:
+--- `|123k123`
+--- `|123l123`
+--- then the prefix match is skipped:
+--- `123|k123`
+--- `123|l123`
 ---@field skip_back_duplication boolean
+--- Example:
+--- When there are two lines:
+--- `123`
+--- `123k|j`
+--- At this time, the candidate is uniquely determined, so confirm the candidate before pressiong `j`.
 
 ---@class Cell
 ---@field key string

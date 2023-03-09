@@ -11,7 +11,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
   local current_buf = vim.api.nvim_get_current_buf()
   local prefix_size = opts.prefix_size
   vim.api.nvim_buf_clear_namespace(buf, ns_wf_output_obj_which, 0, -1)
-  -- local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, true)
+
   local heads = {}
   for l = 0, #lines - 1 do
     -- head
@@ -41,7 +41,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     )
   end
 
-  -- skip
+  -- skip duplications
   local duplication = false
   if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
     local subs = {}
@@ -50,7 +50,9 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
       table.insert(subs, sub)
     end
     local rest = same_text(subs)
-    if rest ~= "" and #rest < prefix_size then
+    -- TMP: remove prefix_size dependencies
+    -- if rest ~= "" and #rest < prefix_size then
+    if rest ~= "" then
       duplication = true
       local function _add_rest(text)
         return function()
