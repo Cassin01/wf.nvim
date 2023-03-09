@@ -55,8 +55,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     local rest = same_text(subs)
     -- TMP: {{{
     -- if rest ~= "" and #rest < prefix_size then
-      if rest ~= "" then
-    -- }}}
+    if rest ~= "" then
+      -- }}}
       duplication = true
       local function _add_rest(text)
         return function()
@@ -73,6 +73,18 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
           -- MARK: sign place }}}
         end
       end
+
+      -- TMP: {{{
+      -- pull keys till the key is visible
+      (function()
+        local text_expected = which_line .. rest .. c
+        if #text_expected > prefix_size + #which_line then
+          local text = string.sub(text, 1, prefix_size + #which_line)
+          vim.api.nvim_buf_set_lines(which_obj.buf, 0, -1, true, { text })
+          vim.api.nvim_win_set_cursor(which_obj.win, { 1, vim.fn.strwidth(text) })
+        end
+      end)()
+      -- }}}
 
       local cs = {}
       for l, _ in ipairs(lines) do
