@@ -77,8 +77,9 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
       -- TMP: {{{
       -- pull keys till the key is visible
       (function()
+        local text_expected = which_line .. rest
         if #rest > prefix_size then
-          local text = string.sub(text, 1, prefix_size + #which_line)
+          local text = string.sub(text_expected, 1, prefix_size + #which_line)
           vim.api.nvim_buf_set_lines(which_obj.buf, 0, -1, true, { text })
           vim.api.nvim_win_set_cursor(which_obj.win, { 1, vim.fn.strwidth(text) })
         end
