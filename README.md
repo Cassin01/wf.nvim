@@ -206,8 +206,6 @@ vim.keymap.set(
 )
 
 -- Which Key
--- INFO: Please refer to the bellow setting for information on setting up wf.nvim
--- to start immediately after pressing the key.
 vim.keymap.set(
   "n",
   "<Leader>",
@@ -215,7 +213,8 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
 
--- start up which_key immediately after pressing the key.
+-- set keymaps with `nowait`
+-- see `:h :map-nowait`
 local function timeout(ms, callback)
   local uv = vim.loop
   local timer = uv.new_timer()
