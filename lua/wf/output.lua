@@ -51,8 +51,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     end
     local rest = same_text(subs)
     -- TMP: remove prefix_size dependencies
-    -- if rest ~= "" and #rest < prefix_size then
-    if rest ~= "" then
+    if rest ~= "" and #rest < prefix_size then
+      -- if rest ~= "" then
       duplication = true
       local function _add_rest(text)
         return function()
