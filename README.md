@@ -75,7 +75,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 * Builtin fuzzy-finder
 * Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
 * Skip duplicate characters
-* Builtin pickers (`which-key`, `marker`, `bookmark`, `buffer`)
+* Builtin pickers (`which-key`, `mark`, `bookmark`, `buffer`, `register`)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -289,7 +289,7 @@ The default key assignments are shown in the table below.
 
 ## Documentation
 
-You can find guides for the plugin on [document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
+You can find guides for the plugin on [the document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
