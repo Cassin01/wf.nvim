@@ -4,7 +4,7 @@ local match_from_front = util.match_from_front
 local fill_spaces = util.fill_spaces
 local group = require("wf.group")
 local output_obj_which = require("wf.output_obj_which")
-local _update_output_obj = require("wf.output")._update_output_obj
+local update_output_obj = require("wf.output").update_output_obj
 local prompt_counter_update = require("wf.prompt_counter").update
 local ns_wf_output_obj_fuzzy = vim.api.nvim_create_namespace("wf_output_obj_fuzzy")
 
@@ -102,7 +102,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local _row_offset = vim.o.cmdheight
     + (vim.o.laststatus > 0 and 1 or 0)
     + opts.style.input_win_row_offset
-  _update_output_obj(
+  update_output_obj(
     output_obj,
     texts,
     vim.o.lines,
@@ -141,19 +141,6 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
 
   -- update prompt counter
   prompt_counter_update(which_obj, fuzzy_obj, #choices_obj, #which_matches_obj)
-
-  -- -- when narrowed down to one, return it
-  -- if which_line == "" then
-  --     return nil
-  -- else
-  --     if #ids == 1 and ids[1].key == which_line then
-  --         return ids[1].id
-  --     elseif opts.behavior.skip_back_duplication and #ids == 1 then
-  --         return ids[1].id
-  --     else
-  --         return nil
-  --     end
-  -- end
 end
 
 return { core = core }
