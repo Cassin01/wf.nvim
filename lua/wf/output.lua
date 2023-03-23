@@ -81,7 +81,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
       for l, _ in ipairs(lines) do
         -- c: decision
         local c = subs[l]:sub(1 + #rest, 1 + #rest)
-        local ok, err = pcall(function()
+        -- local ok, err = pcall(function()
+        if c ~= "" then
           vim.api.nvim_buf_set_keymap(
             which_obj.buf,
             "i",
@@ -89,12 +90,13 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             "",
             { callback = _add_rest(which_line .. rest .. c) }
             )
-          end)
-        if not ok then
-          print("c: " .. c .. "|")
-          print("Error: " .. err)
+          table.insert(cs, c)
         end
-        table.insert(cs, c)
+          -- end)
+        -- if not ok then
+          -- print("c: " .. c .. "|")
+          -- print("Error: " .. err)
+        -- end
         table.insert(ret, function()
           vim.api.nvim_buf_add_highlight(
             buf,
