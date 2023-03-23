@@ -119,7 +119,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     for l, head in ipairs(heads) do
       local is_unique = (function()
         for j, head_ in ipairs(heads) do
-          if l ~= j adecision head == head_ then
+          if l ~= j and head == head_ then
             return false
           end
         end
