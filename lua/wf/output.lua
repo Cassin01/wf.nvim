@@ -53,7 +53,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
   if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
     local subs = {}
     for _, line in ipairs(lines) do
-      local sub = string.sub(line, 2, prefix_size + 1)
+      -- local sub = string.sub(line, 2, prefix_size + 1)
+      local sub = string.sub(line, 2) -- FIXED
       table.insert(subs, sub)
     end
     local rest = same_text(subs)
@@ -81,8 +82,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
       for l, _ in ipairs(lines) do
         -- c: decision
         local c = subs[l]:sub(1 + #rest, 1 + #rest)
-        -- local ok, err = pcall(function()
-        if c ~= "" then
+        if c ~= "" then -- TODO: remove this, TMP: not to show the error
           vim.api.nvim_buf_set_keymap(
             which_obj.buf,
             "i",
@@ -92,11 +92,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             )
           table.insert(cs, c)
         end
-          -- end)
-        -- if not ok then
-          -- print("c: " .. c .. "|")
-          -- print("Error: " .. err)
-        -- end
+
         table.insert(ret, function()
           vim.api.nvim_buf_add_highlight(
             buf,
@@ -202,6 +198,12 @@ local function update_output_obj(
   which_line
 )
   vim.api.nvim_buf_set_option(obj.buf, "modifiable", true)
+
+  -- domain layer
+  local tasks = set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
+
+
+  -- application layer
   vim.api.nvim_buf_set_lines(obj.buf, 0, -1, true, choices)
   local cnf = vim.api.nvim_win_get_config(obj.win)
   local height = vim.api.nvim_buf_line_count(obj.buf)
@@ -211,15 +213,13 @@ local function update_output_obj(
     height = lines - row_offset - 1 - top_margin
     row = 0 + top_margin
   end
-
   vim.api.nvim_win_set_config(
     obj.win,
     vim.fn.extend(cnf, { height = height, row = row })
     -- vim.fn.extend(cnf, { height = height, row = row, title_pos = "center" })
   )
 
-  local tasks = set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
-
+  -- set highlights
   for _, task in ipairs(tasks) do
     task()
   end
