@@ -91,7 +91,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             )
           end)
         if not ok then
-          print("c: " .. c "|")
+          print("c: " .. c .. "|")
           print("Error: " .. err)
         end
         table.insert(cs, c)
