@@ -5,7 +5,7 @@ local fill_spaces = util.fill_spaces
 local group = require("wf.group")
 local output_obj_which = require("wf.output_obj_which")
 -- local update_output_obj = require("wf.output").update_output_obj
-local update_output_obj = require("wf.output").set_highlight
+local set_highlight = require("wf.output").set_highlight
 local prompt_counter_update = require("wf.prompt_counter").update
 local ns_wf_output_obj_fuzzy = vim.api.nvim_create_namespace("wf_output_obj_fuzzy")
 
