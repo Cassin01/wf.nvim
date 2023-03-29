@@ -228,4 +228,4 @@ local function update_output_obj(
 end
 
 -- return { update_output_obj = update_output_obj, output_obj_gen = output_obj_gen }
-return { output_obj_gen = output_obj_gen, set_highlight }
+return { output_obj_gen = output_obj_gen, set_highlight = set_highlight }
