@@ -113,7 +113,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
 
 
   -- application layer
-  vim.api.nvim_buf_set_lines(output_obj.buf, 0, -1, true, choices)
+  vim.api.nvim_buf_set_lines(output_obj.buf, 0, -1, true, texts)
 
   local height = vim.api.nvim_buf_line_count(output_obj.buf)
   local row_offset = _row_offset + opts.style.input_win_row_offset
