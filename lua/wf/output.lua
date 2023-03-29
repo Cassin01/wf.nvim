@@ -10,7 +10,7 @@ local augname_skip_front_duplicate = static.augname_skip_front_duplicate
 -- called by  update_output_obj
 -- TODO: make this function Domain
 local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, which_line)
-  local ret = {}
+  local hls = {}
   local current_buf = vim.api.nvim_get_current_buf()
   local prefix_size = opts.prefix_size
   vim.api.nvim_buf_clear_namespace(buf, ns_wf_output_obj_which, 0, -1)
@@ -24,7 +24,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     local till = match ~= nil and #match or 1
 
     -- prefix
-    table.insert(ret, function()
+    table.insert(hls, function()
       vim.api.nvim_buf_add_highlight(
         buf,
         ns_wf_output_obj_which,
@@ -36,7 +36,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
       end)
 
     -- separator
-    table.insert(ret, function()
+    table.insert(hls, function()
       vim.api.nvim_buf_add_highlight(
         buf,
         ns_wf_output_obj_which,
@@ -60,7 +60,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     local rest = same_text(subs)
     -- TMP: remove prefix_size dependencies
     -- if rest ~= "" and #rest < prefix_size then
-    if rest ~= "" then
+    if rest ~= "" then -- FIXED
       duplication = true
       local function _add_rest(text)
         return function()
@@ -79,7 +79,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
       end
 
       local cs = {}
-      for l, _ in ipairs(lines) do
+      for l, line in ipairs(lines) do
         -- c: decision
         local c = subs[l]:sub(1 + #rest, 1 + #rest)
         if c ~= "" then -- TODO: remove this, TMP: not to show the error
@@ -93,7 +93,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
           table.insert(cs, c)
         end
 
-        table.insert(ret, function()
+        table.insert(hls, function()
           vim.api.nvim_buf_add_highlight(
             buf,
             ns_wf_output_obj_which,
@@ -118,7 +118,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     end
   end
 
-  -- head
+  -- highlight heads
   if not duplication and current_buf == which_obj.buf then
     for l, head in ipairs(heads) do
       local is_unique = (function()
@@ -130,7 +130,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
         return true
       end)()
       if is_unique and endup_obj[l]["type"] == "key" and opts.behavior.skip_back_duplication then
-        table.insert(ret, function()
+        table.insert(hls, function()
           vim.api.nvim_buf_add_highlight(
             buf,
             ns_wf_output_obj_which,
@@ -141,7 +141,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             )
           end)
       else
-        table.insert(ret, function()
+        table.insert(hls, function()
           vim.api.nvim_buf_add_highlight(
             buf,
             ns_wf_output_obj_which,
@@ -155,12 +155,12 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
     end
   elseif duplication or current_buf == fuzzy_obj.buf then
     for l, head in ipairs(heads) do
-      table.insert(ret, function()
+      table.insert(hls, function()
         vim.api.nvim_buf_add_highlight(buf, ns_wf_output_obj_which, "WFWhichRem", l - 1, 1, 1 + #head)
       end)
     end
   end
-  return ret
+  return hls
 end
 
 -- generate output object(buf and win)
@@ -200,8 +200,7 @@ local function update_output_obj(
   vim.api.nvim_buf_set_option(obj.buf, "modifiable", true)
 
   -- domain layer
-  local tasks = set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
-
+  local hls = set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
 
   -- application layer
   vim.api.nvim_buf_set_lines(obj.buf, 0, -1, true, choices)
@@ -220,12 +219,13 @@ local function update_output_obj(
   )
 
   -- set highlights
-  for _, task in ipairs(tasks) do
-    task()
+  for _, hl in ipairs(hls) do
+    hl()
   end
 
 
   vim.api.nvim_buf_set_option(obj.buf, "modifiable", false)
 end
 
-return { update_output_obj = update_output_obj, output_obj_gen = output_obj_gen }
+-- return { update_output_obj = update_output_obj, output_obj_gen = output_obj_gen }
+return { output_obj_gen = output_obj_gen, set_highlight }

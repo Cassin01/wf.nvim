@@ -4,7 +4,8 @@ local match_from_front = util.match_from_front
 local fill_spaces = util.fill_spaces
 local group = require("wf.group")
 local output_obj_which = require("wf.output_obj_which")
-local update_output_obj = require("wf.output").update_output_obj
+-- local update_output_obj = require("wf.output").update_output_obj
+local update_output_obj = require("wf.output").set_highlight
 local prompt_counter_update = require("wf.prompt_counter").update
 local ns_wf_output_obj_fuzzy = vim.api.nvim_create_namespace("wf_output_obj_fuzzy")
 
@@ -102,17 +103,52 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local _row_offset = vim.o.cmdheight
     + (vim.o.laststatus > 0 and 1 or 0)
     + opts.style.input_win_row_offset
-  update_output_obj(
-    output_obj,
-    texts,
-    vim.o.lines,
-    _row_offset + opts.style.input_win_row_offset,
-    opts,
-    endup_obj,
-    which_obj,
-    fuzzy_obj,
-    which_line
+
+
+  -- update_output_obj {{{
+  vim.api.nvim_buf_set_option(output_obj.buf, "modifiable", true)
+
+  -- domain layer
+  local hls = set_highlight(output_obj.buf, texts, opts, endup_obj, which_obj, fuzzy_obj, which_line)
+
+
+  -- application layer
+  vim.api.nvim_buf_set_lines(output_obj.buf, 0, -1, true, choices)
+
+  local height = vim.api.nvim_buf_line_count(output_obj.buf)
+  local row_offset = _row_offset + opts.style.input_win_row_offset
+  local row = vim.o.lines - height - row_offset - 1
+  local top_margin = 4
+  if height > lines - row_offset + top_margin then
+    height = lines - row_offset - 1 - top_margin
+    row = 0 + top_margin
+  end
+
+  local cnf = vim.api.nvim_win_get_config(output_obj.win)
+  vim.api.nvim_win_set_config(
+    output_obj.win,
+    vim.fn.extend(cnf, { height = height, row = row })
   )
+
+  -- set highlights
+  for _, hl in ipairs(hls) do
+    hl()
+  end
+
+  vim.api.nvim_buf_set_option(output_obj.buf, "modifiable", false)
+  -- }}}
+
+  -- update_output_obj(
+  --   output_obj,
+  --   texts,
+  --   vim.o.lines,
+  --   _row_offset + opts.style.input_win_row_offset,
+  --   opts,
+  --   endup_obj,
+  --   which_obj,
+  --   fuzzy_obj,
+  --   which_line
+  -- )
 
   -- highlight fuzzy matches
   if vim.api.nvim_get_current_buf() == fuzzy_obj.buf then
