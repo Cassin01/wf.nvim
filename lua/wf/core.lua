@@ -119,8 +119,8 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local row_offset = _row_offset + opts.style.input_win_row_offset
   local row = vim.o.lines - height - row_offset - 1
   local top_margin = 4
-  if height > lines - row_offset + top_margin then
-    height = lines - row_offset - 1 - top_margin
+  if height > vim.o.lines - row_offset + top_margin then
+    height = vim.o.lines - row_offset - 1 - top_margin
     row = 0 + top_margin
   end
 
