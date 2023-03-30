@@ -77,6 +77,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     return vim.fn.strwidth(string.match(sub, "."))
   end
 
+  -- get front duplication
   local subs_ = {}
   for _, match in ipairs(endup_obj) do
     local sub_ = string.sub(match.key, 1 + #which_line)
@@ -88,10 +89,19 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local match_posses = {}
   for i, match in ipairs(endup_obj) do
     -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
-    -- local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_, 2 + #rest_)
     local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
     local striker_position = #rest_ + 1
+    local sub = (function() 
+      if opts.prefix_size >= striker_position then
+        string.sub(sub_, 1, opts.prefix_size)
+      else
+        string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
+      end
+    end)()
     --FIXME: いちがあっているか理論的にかくにんが必要
+    -- rest == ""のときstring.sub(key, 1 + #which_line , opts.prerfix_size + #which_line)
+    -- rest != ""のとき
+    --    opts.prefix_size >= striker_position
     local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
