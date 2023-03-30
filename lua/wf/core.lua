@@ -89,13 +89,20 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local match_posses = {}
   for i, match in ipairs(endup_obj) do
     -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
-    local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
-    local striker_position = #rest_ + 1
     local sub = (function() 
-      if opts.prefix_size >= striker_position then
-        return string.sub(sub_, 1, opts.prefix_size)
+      if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
+        local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
+        local striker_position = #rest_ + 1
+
+        return (function() 
+          if opts.prefix_size >= striker_position then
+            return string.sub(sub_, 1, opts.prefix_size)
+          else
+            return string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
+          end
+        end)()
       else
-        return string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
+        return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
       end
     end)()
     --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
