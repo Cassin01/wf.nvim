@@ -9,6 +9,12 @@ local output_obj_which = require("wf.output_obj_which")
 local prompt_counter_update = require("wf.prompt_counter").update
 local ns_wf_output_obj_fuzzy = vim.api.nvim_create_namespace("wf_output_obj_fuzzy")
 
+local ns_wf_output_obj_which = vim.api.nvim_create_namespace("wf_output_obj_which")
+local same_text = require("wf.skip_front_duplication")
+local static = require("wf.static")
+local sign_group_prompt = static.sign_group_prompt
+local augname_skip_front_duplicate = static.augname_skip_front_duplicate
+
 -- core filtering flow
 local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
   -- filter with fuzzy match
