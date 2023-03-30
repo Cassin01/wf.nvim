@@ -77,12 +77,19 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     return vim.fn.strwidth(string.match(sub, "."))
   end
 
-  -- local ids = {}
+  local subs_ = {}
+  for _, match in ipairs(endup_obj) do
+    local sub_ = string.sub(match.key, 1 + #which_line)
+    table.insert(subs_, sub_)
+  end
+  local rest_ = same_text(subs_)
+
   local texts = {}
   local match_posses = {}
-  for _, match in ipairs(endup_obj) do
-    -- table.insert(ids, { id = match.id, key = match.key })
-    local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
+  for i, match in ipairs(endup_obj) do
+    -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
+    local sub_ = rest_ .. string.sub(sub_[i], 1 + #rest_)
+    local sub = string.sub(sub_, prefix_size >= #sub_ and 1 or #sub_ - prefix_size, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
     local desc = (function()
@@ -198,6 +205,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
             table.insert(cs, c)
           end
 
+          -- FIXME: work on this later
           table.insert(hls, function()
             vim.api.nvim_buf_add_highlight(
               output_obj.buf,
