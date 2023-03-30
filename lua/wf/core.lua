@@ -93,9 +93,9 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     local striker_position = #rest_ + 1
     local sub = (function() 
       if opts.prefix_size >= striker_position then
-        string.sub(sub_, 1, opts.prefix_size)
+        return string.sub(sub_, 1, opts.prefix_size)
       else
-        string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
+        return string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
       end
     end)()
     --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
