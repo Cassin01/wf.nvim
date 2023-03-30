@@ -89,7 +89,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   for i, match in ipairs(endup_obj) do
     -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
     local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
-    local sub = string.sub(sub_, prefix_size >= #sub_ and 1 or #sub_ - prefix_size, #sub_)
+    local sub = string.sub(sub_, opts.prefix_size >= #sub_ and 1 or #sub_ - prefix_size, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
     local desc = (function()
