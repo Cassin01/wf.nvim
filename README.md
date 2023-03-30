@@ -362,6 +362,8 @@ Contributions are what make the open-source community such an amazing place to l
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
+Development flow basically follows [git-flow](https://nvie.com/posts/a-successful-git-branching-model/).
+
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Generate document, format codes and test codes (`make push`)
@@ -380,15 +382,23 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Credits
 
+### CI
 - [shortcuts/neovim-plugin-boilerplate](https://github.com/shortcuts/neovim-plugin-boilerplate)
 - [echasnovski/mini.nvim](https://github.com/echasnovski/mini.nvim)
+### Flowting-window picker
 - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 - [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
 - [liuchengxu/vim-which-key](https://github.com/liuchengxu/vim-which-key)
+### Which-key
 - [justbuf/emacs-which-key](https://github.com/justbur/emacs-which-key)
 - [helix-editor/helix](https://github.com/helix-editor/helix)
 - [syl20bnr/spacemacs](https://github.com/syl20bnr/spacemacs)
+### Theme
 - [NvChad/NvChad](https://github.com/NvChad/NvChad)
+
+### buffer-switcher
+
+- [matbme/JABS.nvim](https://github.com/matbme/JABS.nvim)
 
 <!-- > If alternatives of your plugin exist, you can provide some pros/cons of using yours over the others. -->
 
