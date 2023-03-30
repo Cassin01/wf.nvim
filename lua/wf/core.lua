@@ -98,11 +98,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
       end
     end)()
-    --FIXME: いちがあっているか理論的にかくにんが必要
-    -- rest == ""のときstring.sub(key, 1 + #which_line , opts.prerfix_size + #which_line)
-    -- rest != ""のとき
-    --    opts.prefix_size >= striker_position
-    local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
+    --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
     local desc = (function()
