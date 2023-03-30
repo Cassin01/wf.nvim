@@ -91,7 +91,8 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     -- local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_, 2 + #rest_)
     local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
     local striker_position = #rest_ + 1
-    local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size, #sub_)
+    --FIXME: いちがあっているか理論的にかくにんが必要
+    local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
     local desc = (function()
