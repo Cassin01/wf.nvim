@@ -112,7 +112,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     local hls = {}
     local current_buf = vim.api.nvim_get_current_buf()
     local prefix_size = opts.prefix_size
-    vim.api.nvim_buf_clear_namespace(buf, ns_wf_output_obj_which, 0, -1)
+    vim.api.nvim_buf_clear_namespace(output_obj.buf, ns_wf_output_obj_which, 0, -1)
 
     local heads = {}
     for l = 0, #texts - 1 do
@@ -125,7 +125,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
       -- prefix
       table.insert(hls, function()
         vim.api.nvim_buf_add_highlight(
-          buf,
+          output_obj.buf,
           ns_wf_output_obj_which,
           "WFWhichRem",
           l,
@@ -137,7 +137,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
       -- separator
       table.insert(hls, function()
         vim.api.nvim_buf_add_highlight(
-          buf,
+          output_obj.buf,
           ns_wf_output_obj_which,
           "WFSeparator",
           l,
@@ -194,7 +194,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
 
           table.insert(hls, function()
             vim.api.nvim_buf_add_highlight(
-              buf,
+              output_obj.buf,
               ns_wf_output_obj_which,
               "WFWhichUnique",
               l - 1,
@@ -231,7 +231,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         if is_unique and endup_obj[l]["type"] == "key" and opts.behavior.skip_back_duplication then
           table.insert(hls, function()
             vim.api.nvim_buf_add_highlight(
-              buf,
+              output_obj.buf,
               ns_wf_output_obj_which,
               "WFWhichUnique",
               l - 1,
@@ -242,7 +242,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         else
           table.insert(hls, function()
             vim.api.nvim_buf_add_highlight(
-              buf,
+              output_obj.buf,
               ns_wf_output_obj_which,
               "WFWhichOn",
               l - 1,
@@ -256,7 +256,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
       for l, head in ipairs(heads) do
         table.insert(hls, function()
           vim.api.nvim_buf_add_highlight(
-            buf,
+            output_obj.buf,
             ns_wf_output_obj_which,
             "WFWhichRem",
             l - 1,
