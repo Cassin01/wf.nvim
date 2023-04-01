@@ -92,9 +92,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   for i, match in ipairs(endup_obj) do
     -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
     local sub = (function()
-      if opts.behavior.skip_front_duplication and current_buf == which_obj.buf and
-        striker_position
-        then
+      if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
         -- local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
         return (function()
           if opts.prefix_size >= striker_position then
