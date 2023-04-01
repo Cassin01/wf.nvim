@@ -100,7 +100,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
           if opts.prefix_size >= striker_position then
             return string.sub(subs_[i], 1, opts.prefix_size)
           else
-            return string.sub(sub_, striker_position - opts.prefix_size, striker_position)
+            return string.sub(subs_[i], striker_position - opts.prefix_size, striker_position)
           end
         end)()
       else
