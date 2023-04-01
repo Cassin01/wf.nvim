@@ -191,7 +191,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
 
       -- TMP: remove prefix_size dependencies
       -- if rest ~= "" and #rest < prefix_size then
-      if rest ~= "" then -- FIXED
+      if rest_ ~= "" then -- FIXED
         duplication = true
         local function _add_rest(text)
           return function()
@@ -231,8 +231,8 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
               ns_wf_output_obj_which,
               "WFWhichUnique",
               l - 1,
-              1 + #_rest,
-              2 + #_rest
+              1 + #rest_,
+              2 + #rest_
             )
           end)
         end
