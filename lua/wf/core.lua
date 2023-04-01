@@ -231,6 +231,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
                 1 + #rest_,
                 2 + #rest_)
             end)
+          end
           -- else
           --   table.insert(hls, function()
           --     vim.api.nvim_buf_add_highlight(
