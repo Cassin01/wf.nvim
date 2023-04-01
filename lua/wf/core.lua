@@ -91,7 +91,9 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local match_posses = {}
   for i, match in ipairs(endup_obj) do
     local sub = (function()
-      if opts.behavior.skip_front_duplication and vim.api.nvim_get_current_buf() == which_obj.buf then
+      if
+        opts.behavior.skip_front_duplication and vim.api.nvim_get_current_buf() == which_obj.buf
+      then
         return (function()
           if opts.prefix_size >= striker_position then
             return string.sub(subs_[i], 1, opts.prefix_size)
@@ -176,7 +178,6 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     -- skip duplications
     local duplication = false
     if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
-
       -- local subs = {}
       -- for _, line in ipairs(texts) do
       --   -- local sub = string.sub(line, 2, prefix_size + 1)
@@ -229,7 +230,8 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
                 "WFWhichUnique",
                 l - 1,
                 1 + #rest_,
-                2 + #rest_)
+                2 + #rest_
+              )
             end)
           else
             table.insert(hls, function()
@@ -239,8 +241,9 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
                 "WFWhichUnique",
                 l - 1,
                 opts.prefix_size,
-                opts.prefix_size + 1)
-              end)
+                opts.prefix_size + 1
+              )
+            end)
           end
         end
 
