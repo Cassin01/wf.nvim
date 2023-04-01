@@ -90,25 +90,19 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   local texts = {}
   local match_posses = {}
   for i, match in ipairs(endup_obj) do
-    -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
     local sub = (function()
       if opts.behavior.skip_front_duplication and vim.api.nvim_get_current_buf() == which_obj.buf then
-        -- local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
         return (function()
           if opts.prefix_size >= striker_position then
-            print("here called 正常")
             return string.sub(subs_[i], 1, opts.prefix_size)
           else
-            print("変化", striker_position - opts.prefix_size, striker_position)
             return string.sub(subs_[i], striker_position - opts.prefix_size + 1, striker_position)
           end
         end)()
       else
-        print("ur stupid")
         return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
       end
     end)()
-    --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
     local desc = (function()
@@ -139,7 +133,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   -- update_output_obj {{{
   vim.api.nvim_buf_set_option(output_obj.buf, "modifiable", true)
 
-  -- domain layer
+  -- highlight which buffer
   local hls = (function()
     local hls = {}
     local current_buf = vim.api.nvim_get_current_buf()
@@ -227,17 +221,28 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
           end
 
           -- FIXME: work on this later
-          table.insert(hls, function()
-            vim.api.nvim_buf_add_highlight(
-              output_obj.buf,
-              ns_wf_output_obj_which,
-              "WFWhichUnique",
-              l - 1,
-              1 + #rest_,
-              2 + #rest_
-            )
-          end)
+          if opts.prefix_size >= striker_position then
+            table.insert(hls, function()
+              vim.api.nvim_buf_add_highlight(
+                output_obj.buf,
+                ns_wf_output_obj_which,
+                "WFWhichUnique",
+                l - 1,
+                1 + #rest_,
+                2 + #rest_)
+            end)
+          else
+            table.insert(hls, function()
+              vim.api.nvim_buf_add_highlight(
+                output_obj.buf,
+                ns_wf_output_obj_which,
+                "WFWhichUnique",
+                l - 1,
+                opts.prefix_size,
+                opts.prefix_size + 1)
+              end)
         end
+
         local g = vim.api.nvim_create_augroup(augname_skip_front_duplicate, { clear = true })
         vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
           callback = function()
