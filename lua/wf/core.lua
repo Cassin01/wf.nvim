@@ -94,13 +94,14 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
         local striker_position = #rest_ + 1
 
-        return (function() 
+        local sub = (function() 
           if opts.prefix_size >= striker_position then
             return string.sub(sub_, 1, opts.prefix_size)
           else
             return string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
           end
         end)()
+        return sub
       else
         return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
       end
