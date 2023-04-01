@@ -221,7 +221,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
           end
 
           -- FIXME: work on this later
-          -- if opts.prefix_size >= striker_position then
+          if opts.prefix_size >= striker_position then
             table.insert(hls, function()
               vim.api.nvim_buf_add_highlight(
                 output_obj.buf,
@@ -231,18 +231,18 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
                 1 + #rest_,
                 2 + #rest_)
             end)
+          else
+            table.insert(hls, function()
+              vim.api.nvim_buf_add_highlight(
+                output_obj.buf,
+                ns_wf_output_obj_which,
+                "WFWhichUnique",
+                l - 1,
+                opts.prefix_size,
+                opts.prefix_size + 1)
+              end)
           end
-          -- else
-          --   table.insert(hls, function()
-          --     vim.api.nvim_buf_add_highlight(
-          --       output_obj.buf,
-          --       ns_wf_output_obj_which,
-          --       "WFWhichUnique",
-          --       l - 1,
-          --       opts.prefix_size,
-          --       opts.prefix_size + 1)
-          --     end)
-          -- end
+        end
 
         local g = vim.api.nvim_create_augroup(augname_skip_front_duplicate, { clear = true })
         vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
