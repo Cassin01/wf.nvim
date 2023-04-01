@@ -84,24 +84,25 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     table.insert(subs_, sub_)
   end
   local rest_ = same_text(subs_)
+  -- The shortest #which_line which the decision is uniquely determined
+  local striker_position = #rest_ + 1
 
   local texts = {}
   local match_posses = {}
   for i, match in ipairs(endup_obj) do
     -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
-    local sub = (function() 
-      if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
-        local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
-        local striker_position = #rest_ + 1
-
-        local sub = (function() 
+    local sub = (function()
+      if opts.behavior.skip_front_duplication and current_buf == which_obj.buf and
+        striker_position
+        then
+        -- local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
+        return (function()
           if opts.prefix_size >= striker_position then
-            return string.sub(sub_, 1, opts.prefix_size)
+            return string.sub(subs_[i], 1, opts.prefix_size)
           else
-            return string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
+            return string.sub(sub_, striker_position - opts.prefix_size, striker_position)
           end
         end)()
-        return sub
       else
         return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
       end
@@ -144,7 +145,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     local prefix_size = opts.prefix_size
     vim.api.nvim_buf_clear_namespace(output_obj.buf, ns_wf_output_obj_which, 0, -1)
 
-    local heads = {}
+    local heargds = {}
     for l = 0, #texts - 1 do
       -- head
       local match_ = texts[l + 1]:sub(2, prefix_size + 1)
