@@ -101,7 +101,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
             print("here called 正常")
             return string.sub(subs_[i], 1, opts.prefix_size)
           else
-            print("変化", striker_position - opts.prefix_size, striker_position, )
+            print("変化", striker_position - opts.prefix_size, striker_position)
             return string.sub(subs_[i], striker_position - opts.prefix_size, striker_position)
           end
         end)()
