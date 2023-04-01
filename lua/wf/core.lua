@@ -98,6 +98,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         -- local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
         return (function()
           if opts.prefix_size >= striker_position then
+            print("here called")
             return string.sub(subs_[i], 1, opts.prefix_size)
           else
             return string.sub(subs_[i], striker_position - opts.prefix_size, striker_position)
@@ -107,7 +108,6 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
       end
     end)()
-    assert(sub ~= nil)
     --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
