@@ -180,16 +180,18 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     -- skip duplications
     local duplication = false
     if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
-      local subs = {}
-      for _, line in ipairs(texts) do
-        -- local sub = string.sub(line, 2, prefix_size + 1)
-        local sub = string.sub(line, 2) -- FIXED
-        table.insert(subs, sub)
-      end
-      local rest = same_text(subs)
+
+      -- local subs = {}
+      -- for _, line in ipairs(texts) do
+      --   -- local sub = string.sub(line, 2, prefix_size + 1)
+      --   local sub = string.sub(line, 2) -- FIXED
+      --   table.insert(subs, sub)
+      -- end
+      -- local rest = same_text(subs)
+
       -- TMP: remove prefix_size dependencies
       -- if rest ~= "" and #rest < prefix_size then
-      if rest ~= "" then -- FIXED
+      if rest_ ~= "" then -- FIXED
         duplication = true
         local function _add_rest(text)
           return function()
@@ -210,14 +212,14 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         local cs = {}
         for l, line in ipairs(texts) do
           -- c: decision
-          local c = subs[l]:sub(1 + #rest, 1 + #rest)
+          local c = subs_[l]:sub(1 + #rest_, 1 + #rest_)
           if c ~= "" then -- TODO: remove this, TMP: not to show the error
             vim.api.nvim_buf_set_keymap(
               which_obj.buf,
               "i",
               c,
               "",
-              { callback = _add_rest(which_line .. rest .. c) }
+              { callback = _add_rest(which_line .. rest_ .. c) }
             )
             table.insert(cs, c)
           end
@@ -229,8 +231,8 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
               ns_wf_output_obj_which,
               "WFWhichUnique",
               l - 1,
-              1 + #rest,
-              2 + #rest
+              1 + #rest_,
+              2 + #rest_
             )
           end)
         end
