@@ -5,9 +5,15 @@ local fill_spaces = util.fill_spaces
 local group = require("wf.group")
 local output_obj_which = require("wf.output_obj_which")
 -- local update_output_obj = require("wf.output").update_output_obj
-local set_highlight = require("wf.output").set_highlight
+-- local set_highlight = require("wf.output").set_highlight
 local prompt_counter_update = require("wf.prompt_counter").update
 local ns_wf_output_obj_fuzzy = vim.api.nvim_create_namespace("wf_output_obj_fuzzy")
+
+local ns_wf_output_obj_which = vim.api.nvim_create_namespace("wf_output_obj_which")
+local same_text = require("wf.skip_front_duplication")
+local static = require("wf.static")
+local sign_group_prompt = static.sign_group_prompt
+local augname_skip_front_duplicate = static.augname_skip_front_duplicate
 
 -- core filtering flow
 local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj, opts)
@@ -71,12 +77,36 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     return vim.fn.strwidth(string.match(sub, "."))
   end
 
-  -- local ids = {}
+  -- get front duplication
+  local subs_ = {}
+  for _, match in ipairs(endup_obj) do
+    local sub_ = string.sub(match.key, 1 + #which_line)
+    table.insert(subs_, sub_)
+  end
+  local rest_ = same_text(subs_)
+
   local texts = {}
   local match_posses = {}
-  for _, match in ipairs(endup_obj) do
-    -- table.insert(ids, { id = match.id, key = match.key })
-    local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
+  for i, match in ipairs(endup_obj) do
+    -- local sub = string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
+    local sub = (function() 
+      if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
+        local sub_ = rest_ .. string.sub(subs_[i], 1 + #rest_)
+        local striker_position = #rest_ + 1
+
+        local sub = (function() 
+          if opts.prefix_size >= striker_position then
+            return string.sub(sub_, 1, opts.prefix_size)
+          else
+            return string.sub(sub_, striker_position - opts.prefix_size + 1, striker_position)
+          end
+        end)()
+        return sub
+      else
+        return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
+      end
+    end)()
+    --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
     local desc = (function()
@@ -104,13 +134,173 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     + (vim.o.laststatus > 0 and 1 or 0)
     + opts.style.input_win_row_offset
 
-
   -- update_output_obj {{{
   vim.api.nvim_buf_set_option(output_obj.buf, "modifiable", true)
 
   -- domain layer
-  local hls = set_highlight(output_obj.buf, texts, opts, endup_obj, which_obj, fuzzy_obj, which_line)
+  local hls = (function()
+    local hls = {}
+    local current_buf = vim.api.nvim_get_current_buf()
+    local prefix_size = opts.prefix_size
+    vim.api.nvim_buf_clear_namespace(output_obj.buf, ns_wf_output_obj_which, 0, -1)
 
+    local heads = {}
+    for l = 0, #texts - 1 do
+      -- head
+      local match_ = texts[l + 1]:sub(2, prefix_size + 1)
+      local match = string.match(match_, "^<[%u%l%d%-@]+>") -- matches with <Space>, <CR>, etc
+      table.insert(heads, match ~= nil and match or texts[l + 1]:sub(2, 2))
+      local till = match ~= nil and #match or 1
+
+      -- prefix
+      table.insert(hls, function()
+        vim.api.nvim_buf_add_highlight(
+          output_obj.buf,
+          ns_wf_output_obj_which,
+          "WFWhichRem",
+          l,
+          1 + till,
+          prefix_size + 1
+        )
+      end)
+
+      -- separator
+      table.insert(hls, function()
+        vim.api.nvim_buf_add_highlight(
+          output_obj.buf,
+          ns_wf_output_obj_which,
+          "WFSeparator",
+          l,
+          prefix_size + 4,
+          prefix_size + 5
+        )
+      end)
+    end
+
+    -- skip duplications
+    local duplication = false
+    if opts.behavior.skip_front_duplication and current_buf == which_obj.buf then
+      local subs = {}
+      for _, line in ipairs(texts) do
+        -- local sub = string.sub(line, 2, prefix_size + 1)
+        local sub = string.sub(line, 2) -- FIXED
+        table.insert(subs, sub)
+      end
+      local rest = same_text(subs)
+      -- TMP: remove prefix_size dependencies
+      -- if rest ~= "" and #rest < prefix_size then
+      if rest ~= "" then -- FIXED
+        duplication = true
+        local function _add_rest(text)
+          return function()
+            vim.api.nvim_buf_set_lines(which_obj.buf, 0, -1, true, { text })
+            vim.api.nvim_win_set_cursor(which_obj.win, { 1, vim.fn.strwidth(text) })
+            -- MARK: sign place {{{
+            vim.fn.sign_place(
+              0,
+              sign_group_prompt .. "which",
+              sign_group_prompt .. "which",
+              which_obj.buf,
+              { lnum = 1, priority = 10 }
+            )
+            -- MARK: sign place }}}
+          end
+        end
+
+        local cs = {}
+        for l, line in ipairs(texts) do
+          -- c: decision
+          local c = subs[l]:sub(1 + #rest, 1 + #rest)
+          if c ~= "" then -- TODO: remove this, TMP: not to show the error
+            vim.api.nvim_buf_set_keymap(
+              which_obj.buf,
+              "i",
+              c,
+              "",
+              { callback = _add_rest(which_line .. rest .. c) }
+            )
+            table.insert(cs, c)
+          end
+
+          -- FIXME: work on this later
+          table.insert(hls, function()
+            vim.api.nvim_buf_add_highlight(
+              output_obj.buf,
+              ns_wf_output_obj_which,
+              "WFWhichUnique",
+              l - 1,
+              1 + #rest,
+              2 + #rest
+            )
+          end)
+        end
+        local g = vim.api.nvim_create_augroup(augname_skip_front_duplicate, { clear = true })
+        vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+          callback = function()
+            for _, c in ipairs(cs) do
+              vim.api.nvim_buf_del_keymap(which_obj.buf, "i", c)
+            end
+          end,
+          once = true,
+          buffer = which_obj.buf,
+          group = g,
+        })
+      end
+    end
+
+    -- highlight heads
+    if not duplication and current_buf == which_obj.buf then
+      for l, head in ipairs(heads) do
+        local is_unique = (function()
+          for j, head_ in ipairs(heads) do
+            if l ~= j and head == head_ then
+              return false
+            end
+          end
+          return true
+        end)()
+        if is_unique and endup_obj[l]["type"] == "key" and opts.behavior.skip_back_duplication then
+          table.insert(hls, function()
+            vim.api.nvim_buf_add_highlight(
+              output_obj.buf,
+              ns_wf_output_obj_which,
+              "WFWhichUnique",
+              l - 1,
+              1,
+              1 + #head
+            )
+          end)
+        else
+          table.insert(hls, function()
+            vim.api.nvim_buf_add_highlight(
+              output_obj.buf,
+              ns_wf_output_obj_which,
+              "WFWhichOn",
+              l - 1,
+              1,
+              1 + #head
+            )
+          end)
+        end
+      end
+    elseif duplication or current_buf == fuzzy_obj.buf then
+      for l, head in ipairs(heads) do
+        table.insert(hls, function()
+          vim.api.nvim_buf_add_highlight(
+            output_obj.buf,
+            ns_wf_output_obj_which,
+            "WFWhichRem",
+            l - 1,
+            1,
+            1 + #head
+          )
+        end)
+      end
+    end
+    return hls
+  end)()
+  -- local hls =
+  --   set_highlight(output_obj.buf, texts, opts, endup_obj, which_obj, fuzzy_obj, which_line)
 
   -- application layer
   vim.api.nvim_buf_set_lines(output_obj.buf, 0, -1, true, texts)
@@ -125,10 +315,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   end
 
   local cnf = vim.api.nvim_win_get_config(output_obj.win)
-  vim.api.nvim_win_set_config(
-    output_obj.win,
-    vim.fn.extend(cnf, { height = height, row = row })
-  )
+  vim.api.nvim_win_set_config(output_obj.win, vim.fn.extend(cnf, { height = height, row = row }))
 
   -- set highlights
   for _, hl in ipairs(hls) do

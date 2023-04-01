@@ -32,8 +32,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
         l,
         1 + till,
         prefix_size + 1
-        )
-      end)
+      )
+    end)
 
     -- separator
     table.insert(hls, function()
@@ -44,8 +44,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
         l,
         prefix_size + 4,
         prefix_size + 5
-        )
-      end)
+      )
+    end)
   end
 
   -- skip duplications
@@ -89,7 +89,7 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             c,
             "",
             { callback = _add_rest(which_line .. rest .. c) }
-            )
+          )
           table.insert(cs, c)
         end
 
@@ -101,8 +101,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             l - 1,
             1 + #rest,
             2 + #rest
-            )
-          end)
+          )
+        end)
       end
       local g = vim.api.nvim_create_augroup(augname_skip_front_duplicate, { clear = true })
       vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
@@ -138,8 +138,8 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             l - 1,
             1,
             1 + #head
-            )
-          end)
+          )
+        end)
       else
         table.insert(hls, function()
           vim.api.nvim_buf_add_highlight(
@@ -149,14 +149,21 @@ local function set_highlight(buf, lines, opts, endup_obj, which_obj, fuzzy_obj, 
             l - 1,
             1,
             1 + #head
-            )
-          end)
+          )
+        end)
       end
     end
   elseif duplication or current_buf == fuzzy_obj.buf then
     for l, head in ipairs(heads) do
       table.insert(hls, function()
-        vim.api.nvim_buf_add_highlight(buf, ns_wf_output_obj_which, "WFWhichRem", l - 1, 1, 1 + #head)
+        vim.api.nvim_buf_add_highlight(
+          buf,
+          ns_wf_output_obj_which,
+          "WFWhichRem",
+          l - 1,
+          1,
+          1 + #head
+        )
       end)
     end
   end
@@ -186,46 +193,46 @@ local function output_obj_gen(opts)
   return { buf = buf, win = win }
 end
 
-local function update_output_obj(
-  obj,
-  choices,
-  lines,
-  row_offset,
-  opts,
-  endup_obj,
-  which_obj,
-  fuzzy_obj,
-  which_line
-)
-  vim.api.nvim_buf_set_option(obj.buf, "modifiable", true)
+-- local function update_output_obj(
+--   obj,
+--   choices,
+--   lines,
+--   row_offset,
+--   opts,
+--   endup_obj,
+--   which_obj,
+--   fuzzy_obj,
+--   which_line
+-- )
+--   vim.api.nvim_buf_set_option(obj.buf, "modifiable", true)
 
-  -- domain layer
-  local hls = set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
+--   -- domain layer
+--   local hls = set_highlight(obj.buf, choices, opts, endup_obj, which_obj, fuzzy_obj, which_line)
 
-  -- application layer
-  vim.api.nvim_buf_set_lines(obj.buf, 0, -1, true, choices)
-  local cnf = vim.api.nvim_win_get_config(obj.win)
-  local height = vim.api.nvim_buf_line_count(obj.buf)
-  local row = lines - height - row_offset - 1
-  local top_margin = 4
-  if height > lines - row_offset + top_margin then
-    height = lines - row_offset - 1 - top_margin
-    row = 0 + top_margin
-  end
-  vim.api.nvim_win_set_config(
-    obj.win,
-    vim.fn.extend(cnf, { height = height, row = row })
-    -- vim.fn.extend(cnf, { height = height, row = row, title_pos = "center" })
-  )
+--   -- application layer
+--   vim.api.nvim_buf_set_lines(obj.buf, 0, -1, true, choices)
+--   local cnf = vim.api.nvim_win_get_config(obj.win)
+--   local height = vim.api.nvim_buf_line_count(obj.buf)
+--   local row = lines - height - row_offset - 1
+--   local top_margin = 4
+--   if height > lines - row_offset + top_margin then
+--     height = lines - row_offset - 1 - top_margin
+--     row = 0 + top_margin
+--   end
+--   vim.api.nvim_win_set_config(
+--     obj.win,
+--     vim.fn.extend(cnf, { height = height, row = row })
+--     -- vim.fn.extend(cnf, { height = height, row = row, title_pos = "center" })
+--   )
 
-  -- set highlights
-  for _, hl in ipairs(hls) do
-    hl()
-  end
+--   -- set highlights
+--   for _, hl in ipairs(hls) do
+--     hl()
+--   end
 
-
-  vim.api.nvim_buf_set_option(obj.buf, "modifiable", false)
-end
+--   vim.api.nvim_buf_set_option(obj.buf, "modifiable", false)
+-- end
 
 -- return { update_output_obj = update_output_obj, output_obj_gen = output_obj_gen }
-return { output_obj_gen = output_obj_gen, set_highlight = set_highlight }
+-- return { output_obj_gen = output_obj_gen, set_highlight = set_highlight }
+return { output_obj_gen = output_obj_gen }
