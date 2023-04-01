@@ -107,6 +107,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         return string.sub(match.key, 1 + #which_line, opts.prefix_size + #which_line)
       end
     end)()
+    assert(sub ~= nil)
     --local sub = string.sub(sub_, opts.prefix_size >= striker_position and 1 or striker_position - opts.prefix_size + 1, #sub_)
 
     local str = fill_spaces(sub == "" and "<CR>" or sub, opts.prefix_size)
@@ -145,7 +146,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
     local prefix_size = opts.prefix_size
     vim.api.nvim_buf_clear_namespace(output_obj.buf, ns_wf_output_obj_which, 0, -1)
 
-    local heargds = {}
+    local heads = {}
     for l = 0, #texts - 1 do
       -- head
       local match_ = texts[l + 1]:sub(2, prefix_size + 1)
