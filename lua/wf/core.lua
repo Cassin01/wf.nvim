@@ -240,9 +240,9 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
                 l - 1,
                 opts.prefix_size,
                 opts.prefix_size + 1)
-          end
-          
+              end)
         end
+
         local g = vim.api.nvim_create_augroup(augname_skip_front_duplicate, { clear = true })
         vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
           callback = function()
