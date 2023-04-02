@@ -27,21 +27,6 @@ T["setup()"] = MiniTest.new_set()
 
 T["setup()"]["sets exposed methods and default options value"] = function()
   child.lua([[require('wf').setup()]])
-
-  -- -- global object that holds your plugin information
-  -- eq_type_global(child, "_G.Wf", "table")
-
-  -- -- public methods
-  -- eq_type_global(child, "_G.Wf.toggle", "function")
-  -- eq_type_global(child, "_G.Wf.disable", "function")
-  -- eq_type_global(child, "_G.Wf.enable", "function")
-
-  -- -- config
-  -- eq_type_global(child, "_G.Wf.config", "table")
-
-  -- -- assert the value, and the type
-  -- eq_config(child, "debug", false)
-  -- eq_type_config(child, "debug", "boolean")
 end
 
 T["setup()"]["overrides default values"] = function()
@@ -51,15 +36,6 @@ T["setup()"]["overrides default values"] = function()
     })]])
   eq_config(child, "theme", "chad")
   eq_type_config(child, "theme", "string")
-
-  -- child.lua([[require('wf').setup({
-  --     -- write all the options with a value different than the default ones
-  --     debug = true,
-  -- })]])
-
-  -- -- assert the value, and the type
-  -- eq_config(child, "debug", true)
-  -- eq_type_config(child, "debug", "boolean")
 end
 
 return T
