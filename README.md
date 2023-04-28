@@ -71,13 +71,13 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 `wf.nvim` is a new which-key like plugin for Neovim.
 
-✨ Features
+### ✨ Features
 * Builtin fuzzy-finder
 * Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
 * Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
 * Builtin pickers (`which-key`, `mark`, `bookmark`, `buffer`, `register`)
 
-✨ The difference with [which-key.nvim](https://github.com/folke/which-key.nvim)
+### ✨ The difference with [which-key.nvim](https://github.com/folke/which-key.nvim)
 
 *Pros*  
 - You can use the builtin fuzzy finder to find forgotten shortcuts.
