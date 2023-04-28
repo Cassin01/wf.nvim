@@ -77,6 +77,24 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 * Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
 * Builtin pickers (`which-key`, `mark`, `bookmark`, `buffer`, `register`)
 
+✨ The difference with [which-key.nvim](https://github.com/folke/which-key.nvim)
+
+*Pros*  
+- You can use the builtin fuzzy finder to find forgotten shortcuts.
+- You can write vim.keymap.set anywhere in init.lua.
+    - `which-key.nvim` had to pass all shortcuts up front to wk.register.
+- Three themes(default, space, chad) are offered.
+    - `which-key.nvim` is one theme.
+- Fits any color scheme.
+    - The colors change to match the color scheme.
+- Stress-free selection even when long letters are available as options.
+    - See `skip_front_duplication` and `skip_back_duplication` at the document.
+- Modal selection is made possible by adopting an event-driven architecture instead of waiting for a key with a while loop.
+
+*Cons*  
+- Slower processing speed for larger number of runtime process
+- Weird English
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Installation
