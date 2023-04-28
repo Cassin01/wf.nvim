@@ -81,8 +81,6 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 *Pros*  
 - You can use the builtin fuzzy finder to find forgotten shortcuts.
-- You can write vim.keymap.set anywhere in init.lua.
-    - `which-key.nvim` had to pass all shortcuts up front to wk.register.
 - Three themes(default, space, chad) are offered.
     - `which-key.nvim` is one theme.
 - Fits any color scheme.
