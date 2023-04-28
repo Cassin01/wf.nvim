@@ -69,7 +69,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 </div>
 
-`wf.nvim` is a new which-key plugin for Neovim.
+`wf.nvim` is a new which-key like plugin for Neovim.
 
 ✨ Features
 * Builtin fuzzy-finder
