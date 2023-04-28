@@ -638,6 +638,7 @@ local function setup_objs(choices_obj, callback, opts_)
   local which_obj = which.input_obj_gen(opts, opts.selector == "which")
   local fuzzy_obj = fuzzy.input_obj_gen(opts, opts.selector == "fuzzy")
   vim.api.nvim_buf_set_lines(which_obj.buf, -2, -1, true, { opts.text_insert_in_advance })
+  print("fuzzy buf name: ", vim.api.nvim_buf_get_name(fuzzy_obj.buf))
 
   vim.schedule(function()
     vim.cmd("startinsert!")

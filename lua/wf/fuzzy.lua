@@ -16,7 +16,7 @@ local function input_obj_gen(opts, cursor)
   end, { buffer = buf })
 
   -- vim.fn.prompt_setprompt(buf, opts.style.icons.fuzzy_prompt)
-  local wcnf = vim.api.nvim_win_get_config(win)
+  -- local wcnf = vim.api.nvim_win_get_config(win)
   -- vim.api.nvim_win_set_config(
   --   win,
   --   vim.fn.extend(wcnf, { title = opts.style.borderchars.bottom[2] })
