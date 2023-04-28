@@ -100,9 +100,9 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 ```lua
 -- stable version
-use {"wf", tag = "*", config = function() require("wf").setup() end}
+use {"wf.nvim", tag = "*", config = function() require("wf").setup() end}
 -- dev version
-use {"wf", config = function() require("wf").setup() end}
+use {"wf.nvim", config = function() require("wf").setup() end}
 ```
 
 </td>
@@ -118,9 +118,9 @@ use {"wf", config = function() require("wf").setup() end}
 ```vim
 call plug#begin()
 -- stable version
-Plug "wf", { "tag": "*" }
+Plug "wf.nvim", { "tag": "*" }
 -- dev version
-Plug "wf"
+Plug "wf.nvim"
 call plug#end()
 
 lua << EOF
@@ -140,9 +140,9 @@ EOF
 
 ```lua
 -- stable version
-require("lazy").setup({{"wf", version = "*", config = function() require("wf").setup() end}})
+require("lazy").setup({{"wf.nvim", version = "*", config = function() require("wf").setup() end}})
 -- dev version
-require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
+require("lazy").setup({{"wf.nvim", config = function() require("wf").setup() end}})
 ```
 
 </td>
