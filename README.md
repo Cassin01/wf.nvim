@@ -91,7 +91,6 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 *Cons*  
 - Slower processing speed for larger number of runtime process
-- Weird English
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
