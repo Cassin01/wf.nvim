@@ -288,7 +288,7 @@ The default key assignments are shown in the table below.
 
 ## Documentation
 
-You can find guides for the plugin on [the document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
+You can find guides for the plugin on [the document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
