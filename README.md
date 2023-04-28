@@ -405,10 +405,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Credits
 
-### CI
+### CI, README
 - [shortcuts/neovim-plugin-boilerplate](https://github.com/shortcuts/neovim-plugin-boilerplate)
 - [echasnovski/mini.nvim](https://github.com/echasnovski/mini.nvim)
-### Flowting-window picker
+- [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+### Picker
 - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 - [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
 - [liuchengxu/vim-which-key](https://github.com/liuchengxu/vim-which-key)
