@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Cassin01/wf.nvim/compare/v1.0.0...v1.0.1) (2023-04-28)
+
+
+### Bug Fixes
+
+* 77 ([69d1c0c](https://github.com/Cassin01/wf.nvim/commit/69d1c0cc0f550bb8766c84d2d635c618cb7a1004))
+
 ## 1.0.0 (2023-04-02)
 
 
