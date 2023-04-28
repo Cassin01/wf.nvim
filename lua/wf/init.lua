@@ -1,7 +1,7 @@
 -- MIT License Copyright (c) 2022 Cassin01
 
 -- Documentation ==============================================================
---- A modern which-key for neovim
+--- A modern which-key like plugin for neovim
 ---
 --- # Getting started~
 ---
