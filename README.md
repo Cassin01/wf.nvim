@@ -212,7 +212,14 @@ vim.keymap.set(
   which_key({ text_insert_in_advance = "<Leader>" }),
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
+```
 
+If you are concerned about the lag between pressing the shortcut that activates `which-key` and the actual activation of `which-key`, you can put the `nowait` option in the keymap. (Not recommended.)
+
+However, in order for the key to be invoked nowait, the shortcut to invoke `which-key` must be at the end of the init.lua file.
+Below is an example of using timeout to delay the registration of the shortcut that activates `which-key`.
+
+```lua
 -- set keymaps with `nowait`
 -- see `:h :map-nowait`
 local function timeout(ms, callback)
