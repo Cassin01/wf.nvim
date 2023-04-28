@@ -97,7 +97,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 ## Installation
 
-<div align="center">
+<!-- <div align="center"> -->
 <table>
 <thead>
 <tr>
@@ -165,7 +165,7 @@ require("lazy").setup({{"wf.nvim", config = function() require("wf").setup() end
 </tr>
 </tbody>
 </table>
-</div>
+<!-- </div> -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
