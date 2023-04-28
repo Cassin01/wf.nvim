@@ -7,6 +7,7 @@ local au = require("wf.util").au
 local function input_obj_gen(opts, cursor)
   local _row_offset = row_offset() + opts.style.input_win_row_offset
   local buf, win = gen_obj(_row_offset, opts, cursor, "nofile", opts.style.borderchars.bottom[2])
+  vim.api.nvim_buf_set_name(buf, "wffuzzy")
 
   au(_g, "BufEnter", function()
     local _, _ = pcall(function()
