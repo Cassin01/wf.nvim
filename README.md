@@ -92,7 +92,6 @@ The display of `wf.nvim` is displayed in a row at the bottom right like [helix](
 - The layout does not collapse even if multibyte characters are included.
 - You can use the builtin fuzzy finder to find forgotten shortcuts.
 - Three themes(default, space, chad) are offered.
-    - `which-key.nvim` is one theme.
 - Fits any color scheme.
     - The colors change to match the color scheme.
 - Stress-free selection even when long letters are available as options.
@@ -125,9 +124,9 @@ The display of `wf.nvim` is displayed in a row at the bottom right like [helix](
 
 ```lua
 -- stable version
-use {"wf.nvim", tag = "*", config = function() require("wf").setup() end}
+use {"Cassin01/wf.nvim", tag = "*", config = function() require("wf").setup() end}
 -- dev version
-use {"wf.nvim", config = function() require("wf").setup() end}
+use {"Cassin01/wf.nvim", config = function() require("wf").setup() end}
 ```
 
 </td>
@@ -143,9 +142,9 @@ use {"wf.nvim", config = function() require("wf").setup() end}
 ```vim
 call plug#begin()
 -- stable version
-Plug "wf.nvim", { "tag": "*" }
+Plug "Cassin01/wf.nvim", { "tag": "*" }
 -- dev version
-Plug "wf.nvim"
+Plug "Cassin01/wf.nvim"
 call plug#end()
 
 lua << EOF
@@ -165,9 +164,9 @@ EOF
 
 ```lua
 -- stable version
-require("lazy").setup({{"wf.nvim", version = "*", config = function() require("wf").setup() end}})
+require("lazy").setup({{"Cassin01/wf.nvim", version = "*", config = function() require("wf").setup() end}})
 -- dev version
-require("lazy").setup({{"wf.nvim", config = function() require("wf").setup() end}})
+require("lazy").setup({{"Cassin01/wf.nvim", config = function() require("wf").setup() end}})
 ```
 
 </td>
@@ -215,7 +214,7 @@ vim.keymap.set(
   bookmark({
     nvim = "~/.config/nvim",
     zsh = "~/.zshrc",
-  })
+  }),
   { noremap = true, silent = true, desc = "[wf.nvim] bookmark" }
 )
 
@@ -341,7 +340,9 @@ You can find guides for the plugin on [the document](https://github.com/Cassin01
 
 ### Holding specific key pattern on which_key
 
-It may be a bit arrogant to call it tips, but here is my init.lua setup.
+<!-- It may be a bit arrogant to call it tips, but here is my init.lua setup. -->
+Below is an example of using `keys_group_dicti`. `keys_group_dict` is a list of prefix patterns.
+Keys with that pattern can be grouped together when displayed.
 
 ```lua
 -- setup table for prefixes
