@@ -72,14 +72,24 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 `wf.nvim` is a new which-key like plugin for Neovim.
 
 ### ✨ Features
-* Builtin fuzzy-finder
-* Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
-* Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
-* Builtin pickers (`which-key`, `mark`, `bookmark`, `buffer`, `register`)
+- Built-in fuzzy-finder
+- Does not provide a default global keymap
+- Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
+- for Neovim 0.7 and higher, it uses the desc as key description
+- Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
+- Builtin pickers:
+  * `which-key`: displays key mappings to invoke
+  * `mark`: displays marks to move
+  * `bookmark`: displays file paths to open
+  * `buffer`: displays buffers to focus
+  * `register`: displays the contents of registers
 
-### ✨ The difference with [which-key.nvim](https://github.com/folke/which-key.nvim)
+### The difference with [which-key.nvim](https://github.com/folke/which-key.nvim)
 
-*Pros*  
+The display of `wf.nvim` is displayed in a row at the bottom right like [helix](https://helix-editor.com/). Instead of displaying multiple columns at the bottom like [spacemacs](https://www.spacemacs.org/) style. This has improved the display speed of multibyte characters in particular.
+
+#### Pros
+- The layout does not collapse even if multibyte characters are included.
 - You can use the builtin fuzzy finder to find forgotten shortcuts.
 - Three themes(default, space, chad) are offered.
     - `which-key.nvim` is one theme.
@@ -89,7 +99,7 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
     - See `skip_front_duplication` and `skip_back_duplication` at the document.
 - Modal selection is made possible by adopting an event-driven architecture instead of waiting for a key with a while loop.
 
-*Cons*  
+#### Cons
 - Slower processing speed for larger number of runtime process
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -189,6 +199,8 @@ local mark = require("wf.builtin.mark")
 vim.keymap.set(
   "n",
   "<Space>wr",
+  -- register(opts?: table) -> function
+  -- opts?: option
   register(),
   { noremap = true, silent = true, desc = "[wf.nvim] register" }
 )
@@ -197,6 +209,9 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<Space>wbo",
+  -- bookmark(bookmark_dirs: table, opts?: table) -> function
+  -- bookmark_dirs: directory or file paths
+  -- opts?: option
   bookmark({
     nvim = "~/.config/nvim",
     zsh = "~/.zshrc",
@@ -208,22 +223,28 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<Space>wbu",
-  buffer({}),
+  -- buffer(opts?: table) -> function
+  -- opts?: option
+  buffer(),
   {noremap = true, silent = true, desc = "[wf.nvim] buffer"}
 )
 
 -- Mark
 vim.keymap.set(
-    "n"
-    "'"
-    mark(),
-    {nowait = true, noremap = true, silent = true, desc = "[wf.nvim] mark"}
+  "n",
+  "'",
+  -- mark(opts?: table) -> function
+  -- opts?: option
+  mark(),
+  { nowait = true, noremap = true, silent = true, desc = "[wf.nvim] mark"}
 )
 
 -- Which Key
 vim.keymap.set(
   "n",
   "<Leader>",
+   -- mark(opts?: table) -> function
+   -- opts?: option
   which_key({ text_insert_in_advance = "<Leader>" }),
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
@@ -231,12 +252,14 @@ vim.keymap.set(
 
 If you are concerned about the lag between pressing the shortcut that activates `which-key` and the actual activation of `which-key`, you can put the `nowait` option in the keymap. (Not recommended.)
 
-However, in order for the key to be invoked nowait, the shortcut to invoke `which-key` must be at the end of the init.lua file.
-Below is an example of using timeout to delay the registration of the shortcut that activates `which-key`.
+However, in order for the key to be invoked nowait, the shortcut to invoke `which-key` must be at the end of the `init.lua` file.
+Below is an example of using `timeout` to delay the registration of the shortcut that activates `which-key`.
 
 ```lua
 -- set keymaps with `nowait`
 -- see `:h :map-nowait`
+
+-- a timer to call a callback after a specified number of milliseconds.
 local function timeout(ms, callback)
   local uv = vim.loop
   local timer = uv.new_timer()
