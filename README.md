@@ -341,7 +341,7 @@ You can find guides for the plugin on [the document](https://github.com/Cassin01
 ### Holding specific key pattern on which_key
 
 <!-- It may be a bit arrogant to call it tips, but here is my init.lua setup. -->
-Below is an example of using `keys_group_dicti`. `keys_group_dict` is a list of prefix patterns.
+Below is an example of using `keys_group_dict`. `keys_group_dict` is a list of prefix patterns.
 Keys with that pattern can be grouped together when displayed.
 
 ```lua
