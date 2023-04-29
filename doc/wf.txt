@@ -47,10 +47,10 @@ Parameters~
 ------------------------------------------------------------------------------
                                                            *wf.builtin.bookmark*
                       `bookmark`({bookmark_dirs}, {opts})
-Parameters~
-{bookmark_dirs} `(table)`
 Usage~
 bookmark({nvim="~/.config/nvim", zsh="~/.zshrc"})
+Parameters~
+{bookmark_dirs} `(table)`
 {opts} `(optional)` WFOptions
 
 
