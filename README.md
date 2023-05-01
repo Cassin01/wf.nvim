@@ -43,6 +43,7 @@
     <li><a href="#key-bindings-assignments">Default Shortcut / Key
     Bindings Assignments</a></li>
     <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#how-to-use-as-a-picker">How to use as a picker</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#credits">Credits</a></li>
@@ -330,6 +331,14 @@ The default key assignments are shown in the table below.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## How to use as a picker
+
+The core concept of `wf.nvim` is to extend the functionality of which-key so that it can be used as a picker rather than just a shortcut completion.
+
+To realize this concept, `wf.nvim` can be used as a picker to select an item from arbitrary items like `vim.ui.select({items}, {opts}, {on_choice})`, i.e. `wf.select({items}, {opts}, {on_choice})`.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Documentation
 
 You can find guides for the plugin on [the document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt).
@@ -403,7 +412,7 @@ which_key({text_insert_in_advance="<space>", key_group_dict=_G.__key_prefixes["n
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
