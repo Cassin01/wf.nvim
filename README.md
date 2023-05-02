@@ -337,6 +337,21 @@ The core concept of `wf.nvim` is to extend the functionality of which-key so tha
 
 To realize this concept, `wf.nvim` can be used as a picker to select an item from arbitrary items like `vim.ui.select({items}, {opts}, {on_choice})`, i.e. `wf.select({items}, {opts}, {on_choice})`.
 
+
+Example:
+```lua
+require("wf").select({happy = "😊", sad = "😥"}, {
+        title = "Select your feelings:", behavior = {
+            skip_front_duplication = true,
+            skip_back_duplication = true,
+        },
+    }, function(text, key)
+        -- You feel happy.
+        vim.notify("You feel " .. key .. ".")
+    end)
+end
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Documentation
