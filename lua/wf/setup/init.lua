@@ -174,5 +174,4 @@ local function setup(opts)
   -- setup_keymap(keymaps)
 end
 
--- return { setup = setup }
 return { setup = setup }
