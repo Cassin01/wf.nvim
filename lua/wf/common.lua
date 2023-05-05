@@ -9,7 +9,7 @@ local function open_win(buf, height, row_offset, opts, cursor, title)
     title_pos = "center",
     noautocmd = true,
   }
-  if vim.v.version <= 800 then
+  if vim.fn.has("nvim-0.9.0") == 0 then
     conf_["title"] = nil
     conf_["title_pos"] = nil
   end
