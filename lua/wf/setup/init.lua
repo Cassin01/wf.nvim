@@ -27,7 +27,7 @@ end
 local themes = {
   chad = {
     highlight = {
-      WFNornal = "NormalFloat",
+      WFNormal = "NormalFloat",
       WFComment = (function()
         local tbl = { default = true }
         tbl = get_hl(tbl, "Comment", "fg")
@@ -174,5 +174,4 @@ local function setup(opts)
   -- setup_keymap(keymaps)
 end
 
--- return { setup = setup }
 return { setup = setup }
