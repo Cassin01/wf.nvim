@@ -180,7 +180,8 @@ require("lazy").setup({{"Cassin01/wf.nvim", config = function() require("wf").se
 
 ## Getting started
 
-There is no required dependencies on `wf.nvim` but Neovim >= 0.8.1 and
+<!-- There is no required dependencies on `wf.nvim` but --> 
+Neovim >= 0.9.0 and
 [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) is recommended
 for enjoying all the features of `wf.nvim`.
 
@@ -346,8 +347,8 @@ require("wf").select({happy = "😊", sad = "😥"}, {
             skip_back_duplication = true,
         },
     }, function(text, key)
-        -- You feel happy.
-        vim.notify("You feel " .. key .. ".")
+        -- You feel happy😊.
+        vim.notify("You feel " .. key .. text .. ".")
     end)
 end
 ```
