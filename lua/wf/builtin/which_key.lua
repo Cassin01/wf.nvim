@@ -38,7 +38,7 @@ local function _get_bmap(buf, mode)
     if not string.match(val.lhs, "^<Plug>") then
       local lhs = val.lhs
       lhs = string.gsub(lhs, " ", "<Space>")
-      choices[lhs] = val.desc or val.rhs .. " [buf]" --or val.rhs
+      choices[lhs] = val.desc or val.rhs or tostring(val.callback) .. " [buf]" --or val.rhs
     end
   end
   return choices
