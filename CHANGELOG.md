@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/Cassin01/wf.nvim/compare/v1.0.2...v1.0.3) (2023-09-06)
+
+
+### Bug Fixes
+
+* which_key for mappings with callback ([ad22e41](https://github.com/Cassin01/wf.nvim/commit/ad22e41275b8d48b7378b911ca38e27b306855fe))
+
 ## [1.0.2](https://github.com/Cassin01/wf.nvim/compare/v1.0.1...v1.0.2) (2023-05-05)
 
 
