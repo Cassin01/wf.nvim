@@ -382,17 +382,17 @@ end
 
 -- utility function for setting keymaps
 ---------------------------------------
-local function nmaps(prefix, desc, tbl)
-  local sign = "["..name.."]"
+local function nmaps(prefix, group, tbl)
+  local sign = "[" .. group .. "] "
   table.insert(_G.__key_prefixes["n"], prefix, sign)
   local set = function(key, cmd, desc, opt)
     local _opt = opt or {}
-    _opt["desc"] = desc..sign
+    _opt["desc"] = sign .. desc
     _opt["noremap"] = true
     vim.keymap.set("n", prefix .. key, cmd, _opt)
   end
   for _, v in ipairs(tbl)  do
-    set(unpack tbl)
+    set(unpack(v))
   end
 end
 
