@@ -369,7 +369,7 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
   end
 
   -- highlight which matches
-  if vim.api.nvim_get_current_buf() == which_obj.buf then
+  if vim.api.nvim_get_current_buf() == which_obj.buf and #vim.fn.getbufinfo(output_obj.buf) > 0 then
     output_obj_which:place(output_obj.buf)
   else
     output_obj_which:clear(output_obj.buf)
