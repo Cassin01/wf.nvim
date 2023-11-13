@@ -76,6 +76,20 @@ local function feedkeys(lhs, count, caller, noremap)
   end
 end
 
+
+local function leader()
+    if vim.g["mapleader"] then
+        if vim.g["mapleader"] == " " then
+            return "<Space>"
+        else
+            return vim.g["mapleader"]
+        end
+    else
+        return [[\]]
+    end
+end
+
+
 ---@tag wf.builtin.which_key
 ---@param opts? WFOptions
 local function which_key(opts)
@@ -95,7 +109,7 @@ local function which_key(opts)
 
     opts = opts or { text_insert_in_advance = "" }
     opts["text_insert_in_advance"] =
-      string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"] or [[\]])
+      string.gsub(opts["text_insert_in_advance"], "<Leader>", leader())
     local _opts = {
       title = "Which Key",
       text_insert_in_advance = "",
