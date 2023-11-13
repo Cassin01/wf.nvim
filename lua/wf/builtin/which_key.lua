@@ -78,11 +78,12 @@ end
 
 
 local function leader()
-    if vim.g["mapleader"] then
-        if vim.g["mapleader"] == " " then
+    local ml = vim.g["mapleader"]
+    if ml then
+        if ml == " " then
             return "<Space>"
         else
-            return vim.g["mapleader"]
+            return ml
         end
     else
         return [[\]]
@@ -109,7 +110,7 @@ local function which_key(opts)
 
     opts = opts or { text_insert_in_advance = "" }
     opts["text_insert_in_advance"] =
-      string.gsub(opts["text_insert_in_advance"], "<Leader>", leader())
+      string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"], [[\]])
     local _opts = {
       title = "Which Key",
       text_insert_in_advance = "",
