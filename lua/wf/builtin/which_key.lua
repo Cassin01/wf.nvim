@@ -110,7 +110,7 @@ local function which_key(opts)
 
     opts = opts or { text_insert_in_advance = "" }
     opts["text_insert_in_advance"] =
-      string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"], [[\]])
+      string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"] or [[\]])
     local _opts = {
       title = "Which Key",
       text_insert_in_advance = "",
