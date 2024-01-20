@@ -7,7 +7,7 @@ local function async(callback)
   local handle
   handle = vim.loop.new_async(vim.schedule_wrap(function()
     local ret = callback()
-    print(vim.g[full_name .. "#text_insert_in_advance"])
+    -- print(vim.g[full_name .. "#text_insert_in_advance"])
     local text_insert_in_advance = vim.g[full_name .. "#text_insert_in_advance"]
     local which_obj_buf = vim.g[full_name .. "#which_obj_buf"]
     if text_insert_in_advance ~= nil and which_obj_buf ~= nil then

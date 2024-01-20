@@ -25,6 +25,7 @@ local function _get_gmap(mode)
   for _, val in ipairs(keys) do
     if not string.match(val.lhs, "^<Plug>") then
       local lhs = string.gsub(val.lhs, " ", "<Space>")
+      lhs = string.gsub(lhs, "\t", "<Tab>")
       choices[lhs] = val.desc or val.rhs
     end
   end
@@ -38,6 +39,7 @@ local function _get_bmap(buf, mode)
     if not string.match(val.lhs, "^<Plug>") then
       local lhs = val.lhs
       lhs = string.gsub(lhs, " ", "<Space>")
+      lhs = string.gsub(lhs, "\t", "<Tab>")
       choices[lhs] = val.desc or val.rhs .. " [buf]" --or val.rhs
     end
   end
