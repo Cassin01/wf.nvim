@@ -485,7 +485,7 @@ local function which_setup(
   --     end
   --   end
   -- end, "match")
-  bmap(which_obj.buf, { "i" }, "<Tab>", function() return rt("<Tab>") end, "<Tab>", { expr = true })
+  bmap(which_obj.buf, { "i" }, "<Tab>", function() return "<Tab>" end, "<Tab>", { expr = true })
   bmap(which_obj.buf, { "i" }, "<C-H>", function()
     local pos = vim.api.nvim_win_get_cursor(which_obj.win)
     local line = vim.api.nvim_buf_get_lines(which_obj.buf, pos[1] - 1, pos[1], true)[1]
