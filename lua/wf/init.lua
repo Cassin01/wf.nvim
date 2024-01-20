@@ -206,7 +206,7 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
     end
   end
   bmap(which_obj.buf, { "n", "i" }, "<CR>", select_, "select matched which key")
-  vim.keymap.set("i", "<Tab>", "<Tab>")
+  vim.keymap.set("i", "<Tab>", "\t")
   bmap(fuzzy_obj.buf, { "n", "i" }, "<CR>", select_, "select matched which key")
   return { del = del, which_map_list = which_map_list }
 end
