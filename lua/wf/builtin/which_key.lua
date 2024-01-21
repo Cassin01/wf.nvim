@@ -76,20 +76,18 @@ local function feedkeys(lhs, count, caller, noremap)
   end
 end
 
-
 local function leader()
-    local ml = vim.g["mapleader"]
-    if ml then
-        if ml == " " then
-            return "<Space>"
-        else
-            return ml
-        end
+  local ml = vim.g["mapleader"]
+  if ml then
+    if ml == " " then
+      return "<Space>"
     else
-        return [[\]]
+      return ml
     end
+  else
+    return [[\]]
+  end
 end
-
 
 ---@tag wf.builtin.which_key
 ---@param opts? WFOptions
@@ -109,8 +107,8 @@ local function which_key(opts)
     local count = vim.api.nvim_get_vvar("count")
 
     opts = opts or { text_insert_in_advance = "" }
-    opts["text_insert_in_advance"] = string.gsub(opts["text_insert_in_advance"], "<Leader>", leader())
-    opts["text_insert_in_advance"] = string.gsub(opts["text_insert_in_advance"], "<leader>", leader())
+    opts["text_insert_in_advance"] =
+      string.gsub(opts["text_insert_in_advance"], "<Leader>", leader())
     local _opts = {
       title = "Which Key",
       text_insert_in_advance = "",
