@@ -1,7 +1,7 @@
 -- MIT License Copyright (c) 2022 Cassin01
 
 -- Documentation ==============================================================
---- A modern which-key for neovim
+--- A modern which-key like plugin for neovim
 ---
 --- # Getting started~
 ---
@@ -220,7 +220,7 @@ local function swap_win_pos(up, down, style)
     vim.fn.extend(
       cnf_up,
       (function()
-        if vim.v.version < 800 then
+        if vim.fn.has("nvim-0.9.0") == 0 then
           return {
             row = row - style.input_win_row_offset,
             border = style.borderchars.center,
@@ -243,7 +243,7 @@ local function swap_win_pos(up, down, style)
     vim.fn.extend(
       cnf_down,
       (function()
-        if vim.v.version < 800 then
+        if vim.fn.has("nvim-0.9.0") == 0 then
           return {
             row = row,
             border = style.borderchars.bottom,
@@ -393,7 +393,7 @@ local function which_setup(
       output_obj.win,
       vim.fn.extend(wcnf, {
         title = (function()
-          if vim.v.version < 801 then
+          if vim.fn.has("nvim-0.9.0") == 0 then
             return nil
           elseif opts.title ~= nil then
             return { { " " .. opts.title .. " ", "WFTitleOutputWhich" } }
@@ -671,7 +671,10 @@ local function select(items, opts, on_choice)
     else
       local choices = {}
       for i, val in pairs(items) do
-        table.insert(choices, cell.new(i, tostring(i), val, "key"))
+        -- Exclude keymaps with a description of hidden or which_key_ignore.
+        if not vim.tbl_contains({ "hidden", "which_key_ignore" }, val) then
+          table.insert(choices, cell.new(i, tostring(i), val, "key"))
+        end
       end
       return choices
     end

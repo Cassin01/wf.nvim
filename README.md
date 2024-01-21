@@ -43,6 +43,7 @@
     <li><a href="#key-bindings-assignments">Default Shortcut / Key
     Bindings Assignments</a></li>
     <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#how-to-use-as-a-picker">How to use as a picker</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#credits">Credits</a></li>
@@ -69,19 +70,43 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 </div>
 
-`wf.nvim` is a new which-key plugin for Neovim.
+`wf.nvim` is a new which-key like plugin for Neovim.
 
-✨ Features
-* Builtin fuzzy-finder
-* Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
-* Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
-* Builtin pickers (`which-key`, `mark`, `bookmark`, `buffer`, `register`)
+### ✨ Features
+- Built-in fuzzy-finder
+- Does not provide a default global keymap
+- Using `nvim_set_keymap`'s "desc" feature (see `:help nvim_set_keymap`)
+- for Neovim 0.7 and higher, it uses the desc as key description
+- Skip duplicate characters (`skip_front_duplication`, `skip_back_duplication`)
+- Builtin pickers:
+  * `which-key`: displays key mappings to invoke
+  * `mark`: displays marks to move
+  * `bookmark`: displays file paths to open
+  * `buffer`: displays buffers to focus
+  * `register`: displays the contents of registers
+
+### The difference with [which-key.nvim](https://github.com/folke/which-key.nvim)
+
+The display of `wf.nvim` is displayed in a row at the bottom right like [helix](https://helix-editor.com/). Instead of displaying multiple columns at the bottom like [spacemacs](https://www.spacemacs.org/) style. This has improved the display speed of multibyte characters in particular.
+
+#### Pros
+- The layout does not collapse even if multibyte characters are included.
+- You can use the builtin fuzzy finder to find forgotten shortcuts.
+- Three themes(default, space, chad) are offered.
+- Fits any color scheme.
+    - The colors change to match the color scheme.
+- Stress-free selection even when long letters are available as options.
+    - See `skip_front_duplication` and `skip_back_duplication` at the document.
+- Modal selection is made possible by adopting an event-driven architecture instead of waiting for a key with a while loop.
+
+#### Cons
+- Slower processing speed for larger number of runtime process
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Installation
 
-<div align="center">
+<!-- <div align="center"> -->
 <table>
 <thead>
 <tr>
@@ -100,9 +125,9 @@ https://user-images.githubusercontent.com/42632201/219690019-a5615bac-6747-41d8-
 
 ```lua
 -- stable version
-use {"wf", tag = "*", config = function() require("wf").setup() end}
+use {"Cassin01/wf.nvim", tag = "*", config = function() require("wf").setup() end}
 -- dev version
-use {"wf", config = function() require("wf").setup() end}
+use {"Cassin01/wf.nvim", config = function() require("wf").setup() end}
 ```
 
 </td>
@@ -118,9 +143,9 @@ use {"wf", config = function() require("wf").setup() end}
 ```vim
 call plug#begin()
 -- stable version
-Plug "wf", { "tag": "*" }
+Plug "Cassin01/wf.nvim", { "tag": "*" }
 -- dev version
-Plug "wf"
+Plug "Cassin01/wf.nvim"
 call plug#end()
 
 lua << EOF
@@ -140,22 +165,23 @@ EOF
 
 ```lua
 -- stable version
-require("lazy").setup({{"wf", version = "*", config = function() require("wf").setup() end}})
+require("lazy").setup({{"Cassin01/wf.nvim", version = "*", config = function() require("wf").setup() end}})
 -- dev version
-require("lazy").setup({{"wf", config = function() require("wf").setup() end}})
+require("lazy").setup({{"Cassin01/wf.nvim", config = function() require("wf").setup() end}})
 ```
 
 </td>
 </tr>
 </tbody>
 </table>
-</div>
+<!-- </div> -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting started
 
-There is no required dependencies on `wf.nvim` but Neovim >= 0.8.1 and
+<!-- There is no required dependencies on `wf.nvim` but --> 
+Neovim >= 0.9.0 and
 [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) is recommended
 for enjoying all the features of `wf.nvim`.
 
@@ -174,6 +200,8 @@ local mark = require("wf.builtin.mark")
 vim.keymap.set(
   "n",
   "<Space>wr",
+  -- register(opts?: table) -> function
+  -- opts?: option
   register(),
   { noremap = true, silent = true, desc = "[wf.nvim] register" }
 )
@@ -182,10 +210,13 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<Space>wbo",
+  -- bookmark(bookmark_dirs: table, opts?: table) -> function
+  -- bookmark_dirs: directory or file paths
+  -- opts?: option
   bookmark({
     nvim = "~/.config/nvim",
     zsh = "~/.zshrc",
-  })
+  }),
   { noremap = true, silent = true, desc = "[wf.nvim] bookmark" }
 )
 
@@ -193,28 +224,43 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<Space>wbu",
-  buffer({}),
+  -- buffer(opts?: table) -> function
+  -- opts?: option
+  buffer(),
   {noremap = true, silent = true, desc = "[wf.nvim] buffer"}
 )
 
 -- Mark
 vim.keymap.set(
-    "n"
-    "'"
-    mark(),
-    {nowait = true, noremap = true, silent = true, desc = "[wf.nvim] mark"}
+  "n",
+  "'",
+  -- mark(opts?: table) -> function
+  -- opts?: option
+  mark(),
+  { nowait = true, noremap = true, silent = true, desc = "[wf.nvim] mark"}
 )
 
 -- Which Key
 vim.keymap.set(
   "n",
   "<Leader>",
+   -- mark(opts?: table) -> function
+   -- opts?: option
   which_key({ text_insert_in_advance = "<Leader>" }),
   { noremap = true, silent = true, desc = "[wf.nvim] which-key /", }
 )
+```
 
+If you are concerned about the lag between pressing the shortcut that activates `which-key` and the actual activation of `which-key`, you can put the `nowait` option in the keymap. (Not recommended.)
+
+However, in order for the key to be invoked nowait, the shortcut to invoke `which-key` must be at the end of the `init.lua` file.
+Below is an example of using `timeout` to delay the registration of the shortcut that activates `which-key`.
+
+```lua
 -- set keymaps with `nowait`
 -- see `:h :map-nowait`
+
+-- a timer to call a callback after a specified number of milliseconds.
 local function timeout(ms, callback)
   local uv = vim.loop
   local timer = uv.new_timer()
@@ -286,9 +332,32 @@ The default key assignments are shown in the table below.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## How to use as a picker
+
+The core concept of `wf.nvim` is to extend the functionality of which-key so that it can be used as a picker rather than just a shortcut completion.
+
+To realize this concept, `wf.nvim` can be used as a picker to select an item from arbitrary items like `vim.ui.select({items}, {opts}, {on_choice})`, i.e. `wf.select({items}, {opts}, {on_choice})`.
+
+
+Example:
+```lua
+require("wf").select({happy = "😊", sad = "😥"}, {
+        title = "Select your feelings:", behavior = {
+            skip_front_duplication = true,
+            skip_back_duplication = true,
+        },
+    }, function(text, key)
+        -- You feel happy😊.
+        vim.notify("You feel " .. key .. text .. ".")
+    end)
+end
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Documentation
 
-You can find guides for the plugin on [the document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt)
+You can find guides for the plugin on [the document](https://github.com/Cassin01/wf.nvim/blob/main/doc/wf.txt).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -296,7 +365,9 @@ You can find guides for the plugin on [the document](https://github.com/Cassin01
 
 ### Holding specific key pattern on which_key
 
-It may be a bit arrogant to call it tips, but here is my init.lua setup.
+<!-- It may be a bit arrogant to call it tips, but here is my init.lua setup. -->
+Below is an example of using `keys_group_dict`. `keys_group_dict` is a list of prefix patterns.
+Keys with that pattern can be grouped together when displayed.
 
 ```lua
 -- setup table for prefixes
@@ -311,17 +382,17 @@ end
 
 -- utility function for setting keymaps
 ---------------------------------------
-local function nmaps(prefix, desc, tbl)
-  local sign = "["..name.."]"
+local function nmaps(prefix, group, tbl)
+  local sign = "[" .. group .. "] "
   table.insert(_G.__key_prefixes["n"], prefix, sign)
   local set = function(key, cmd, desc, opt)
     local _opt = opt or {}
-    _opt["desc"] = desc..sign
+    _opt["desc"] = sign .. desc
     _opt["noremap"] = true
     vim.keymap.set("n", prefix .. key, cmd, _opt)
   end
   for _, v in ipairs(tbl)  do
-    set(unpack tbl)
+    set(unpack(v))
   end
 end
 
@@ -357,7 +428,7 @@ which_key({text_insert_in_advance="<space>", key_group_dict=_G.__key_prefixes["n
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -382,10 +453,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Credits
 
-### CI
+### CI, README
 - [shortcuts/neovim-plugin-boilerplate](https://github.com/shortcuts/neovim-plugin-boilerplate)
 - [echasnovski/mini.nvim](https://github.com/echasnovski/mini.nvim)
-### Flowting-window picker
+- [othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+### Picker
 - [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 - [folke/which-key.nvim](https://github.com/folke/which-key.nvim)
 - [liuchengxu/vim-which-key](https://github.com/liuchengxu/vim-which-key)

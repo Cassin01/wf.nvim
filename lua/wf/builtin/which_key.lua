@@ -39,8 +39,7 @@ local function _get_bmap(buf, mode)
     if not string.match(val.lhs, "^<Plug>") then
       local lhs = val.lhs
       lhs = string.gsub(lhs, " ", "<Space>")
-      lhs = string.gsub(lhs, "\t", "<Tab>")
-      choices[lhs] = val.desc or val.rhs .. " [buf]" --or val.rhs
+      choices[lhs] = val.desc or val.rhs or tostring(val.callback) .. " [buf]" --or val.rhs
     end
   end
   return choices
@@ -78,6 +77,21 @@ local function feedkeys(lhs, count, caller, noremap)
   end
 end
 
+
+local function leader()
+    local ml = vim.g["mapleader"]
+    if ml then
+        if ml == " " then
+            return "<Space>"
+        else
+            return ml
+        end
+    else
+        return [[\]]
+    end
+end
+
+
 ---@tag wf.builtin.which_key
 ---@param opts? WFOptions
 local function which_key(opts)
@@ -96,8 +110,8 @@ local function which_key(opts)
     local count = vim.api.nvim_get_vvar("count")
 
     opts = opts or { text_insert_in_advance = "" }
-    opts["text_insert_in_advance"] =
-      string.gsub(opts["text_insert_in_advance"], "<Leader>", vim.g["mapleader"] or [[\]])
+    opts["text_insert_in_advance"] = string.gsub(opts["text_insert_in_advance"], "<Leader>", leader())
+    opts["text_insert_in_advance"] = string.gsub(opts["text_insert_in_advance"], "<leader>", leader())
     local _opts = {
       title = "Which Key",
       text_insert_in_advance = "",
