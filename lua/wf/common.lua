@@ -31,6 +31,7 @@ local function gen_obj(row_offset, opts, cursor, buftype, title)
   vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
   vim.api.nvim_buf_set_option(buf, "swapfile", false)
   vim.api.nvim_buf_set_option(buf, "buflisted", false)
+  vim.api.nvim_buf_set_option(buf, "expandtab", false)
   return buf, win
 end
 
