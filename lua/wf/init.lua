@@ -667,7 +667,10 @@ local function select(items, opts, on_choice)
     else
       local choices = {}
       for i, val in pairs(items) do
-        table.insert(choices, cell.new(i, tostring(i), val, "key"))
+        -- Exclude keymaps with a description of hidden or which_key_ignore.
+        if not vim.tbl_contains({ "hidden", "which_key_ignore" }, val) then
+          table.insert(choices, cell.new(i, tostring(i), val, "key"))
+        end
       end
       return choices
     end
