@@ -109,8 +109,7 @@ local function which_key(opts)
     local count = vim.api.nvim_get_vvar("count")
 
     opts = opts or { text_insert_in_advance = "" }
-    opts["text_insert_in_advance"] =
-      string.gsub(opts["text_insert_in_advance"], "<leader>", leader())
+    opts["text_insert_in_advance"] = string.gsub(opts["text_insert_in_advance"], "<leader>", leader())
     local _opts = {
       title = "Which Key",
       text_insert_in_advance = "",
