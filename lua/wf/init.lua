@@ -147,8 +147,8 @@ local function objs_setup(fuzzy_obj, which_obj, output_obj, caller_obj, choices_
   end
 
   local which_key_list_operator = {
-    escape = "<C-C>",
-    toggle = "<C-T>",
+    escape = vim.g[full_name .. "#builtin_keymaps#escape"] or "<C-C>",
+    toggle = vim.g[full_name .. "#builtin_keymaps#toggle"] or "<C-T>",
   }
   for _, o in ipairs(objs) do
     bmap(o.buf, "n", "<esc>", del, "quit")
