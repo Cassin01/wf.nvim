@@ -82,9 +82,9 @@ local function leader()
   vim.api.nvim_echo({"f" .. ml .. "f"}, true, {})
   if ml ~= nil then
     if ml == " " then
-      return "\\<Space>"
+      return "<Space>"
     else
-      return ml
+      return "hoge"
     end
   else
     return [[\]]
