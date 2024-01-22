@@ -78,8 +78,8 @@ end
 
 local function leader()
   local ml = vim.g["mapleader"]
+  vim.api.nvim_echo({"f" .. ml .. "f"}, true, {})
   if ml ~= nil then
-    print("f" .. ml .. "f")
     if ml == " " then
       return "\\<Space>"
     else
