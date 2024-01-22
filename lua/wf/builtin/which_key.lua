@@ -78,6 +78,7 @@ end
 
 local function leader()
   local ml = vim.g["mapleader"]
+  vim.notify("k" .. ml .. "k")
   vim.api.nvim_echo({"f" .. ml .. "f"}, true, {})
   if ml ~= nil then
     if ml == " " then
