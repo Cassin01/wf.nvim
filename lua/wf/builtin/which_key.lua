@@ -77,18 +77,17 @@ local function feedkeys(lhs, count, caller, noremap)
 end
 
 local function leader()
-  local ml = vim.g["mapleader"]
-  vim.notify("k" .. ml .. "k")
-  vim.api.nvim_echo({"f" .. ml .. "f"}, true, {})
-  if ml ~= nil then
-    if ml == " " then
-      return "<Space>"
-    else
-      return "hoge"
-    end
-  else
-    return [[\]]
-  end
+  return "hoge"
+  -- local ml = vim.g["mapleader"]
+  -- if ml ~= nil then
+  --   if ml == " " then
+  --     return "<Space>"
+  --   else
+  --     return ml
+  --   end
+  -- else
+  --   return [[\]]
+  -- end
 end
 
 ---@tag wf.builtin.which_key
