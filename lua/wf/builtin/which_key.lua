@@ -80,7 +80,7 @@ local function leader()
   local ml = vim.g["mapleader"]
   if ml then
     if ml == " " then
-      return "<Space>"
+      return "\\<Space>"
     else
       return ml
     end
