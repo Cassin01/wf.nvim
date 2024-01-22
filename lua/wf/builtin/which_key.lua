@@ -107,6 +107,10 @@ local function which_key(opts)
     local count = vim.api.nvim_get_vvar("count")
 
     opts = opts or { text_insert_in_advance = "" }
+    -- Upper case
+    opts["text_insert_in_advance"] =
+      string.gsub(opts["text_insert_in_advance"], "<Leader>", leader())
+    -- Lower case
     opts["text_insert_in_advance"] =
       string.gsub(opts["text_insert_in_advance"], "<leader>", leader())
     local _opts = {
