@@ -93,6 +93,13 @@ Class~
 
 ------------------------------------------------------------------------------
 Class~
+{WFkeymaps}
+Fields~
+{escape} `(string)`
+{toggle} `(string)`
+
+------------------------------------------------------------------------------
+Class~
 {WFHighlight}
 Fields~
 {WFNormal} hl_group
@@ -122,6 +129,7 @@ Class~
 Fields~
 {theme} `(optional)` "default"|"space"|"chad"
 {highlight} `(optional)` WFHighlight
+{builtin_keymaps} WFkeymaps
 
 ------------------------------------------------------------------------------
 Class~
