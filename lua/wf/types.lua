@@ -2,6 +2,10 @@
 
 ---@class hl_group string Highlight group name, e.g. "ErrorMsg"
 
+---@class WFkeymaps
+---@field escape string
+---@field toggle string
+
 ---@class WFHighlight
 ---@field WFNormal hl_group
 ---@field WFFloatBorder hl_group
@@ -27,6 +31,7 @@
 ---@class WFConfig
 ---@field theme? WFTheme
 ---@field highlight? WFHighlight
+---@field builtin_keymaps WFkeymaps
 
 ---@class WFBehavior
 ---@field skip_front_duplication boolean
