@@ -16,6 +16,8 @@ jobs:
     name: lint
     steps:
       - uses: actions/checkout@v3
+        with:
+          node-version: "20"
 
       - uses: JohnnyMorganz/stylua-action@v2
         with:
@@ -28,6 +30,8 @@ jobs:
     name: documentation
     steps:
       - uses: actions/checkout@v3
+        with:
+          node-version: "20"
 
       - name: setup neovim
         uses: rhysd/action-setup-vim@v1
@@ -42,7 +46,7 @@ jobs:
         run: exit $(git diff --name-only origin/main -- doc | wc -l)
 
   tests:
-    needs: 
+    needs:
       - lint
       - documentation
     runs-on: ubuntu-latest
