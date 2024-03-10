@@ -16,8 +16,6 @@ jobs:
     name: lint
     steps:
       - uses: actions/checkout@v4
-        with:
-          node-version: 'latest'
 
       - uses: JohnnyMorganz/stylua-action@v2
         with:
