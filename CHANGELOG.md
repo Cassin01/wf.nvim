@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/Cassin01/wf.nvim/compare/v1.0.3...v1.0.4) (2024-03-10)
+
+
+### Bug Fixes
+
+* prevent invalid buffer id ([63ee25a](https://github.com/Cassin01/wf.nvim/commit/63ee25a55805ebd0a2f4fb5f987cc68eb79f7707))
+
 ## [1.0.3](https://github.com/Cassin01/wf.nvim/compare/v1.0.2...v1.0.3) (2023-09-06)
 
 
