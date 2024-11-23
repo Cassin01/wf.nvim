@@ -250,9 +250,11 @@ local core = function(choices_obj, groups_obj, which_obj, fuzzy_obj, output_obj,
         local g = vim.api.nvim_create_augroup(augname_skip_front_duplicate, { clear = true })
         vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
           callback = function()
-            for _, c in ipairs(cs) do
-              vim.api.nvim_buf_del_keymap(which_obj.buf, "i", c)
-            end
+            pcall(function()
+              for _, c in ipairs(cs) do
+                vim.api.nvim_buf_del_keymap(which_obj.buf, "i", c)
+              end
+            end)
           end,
           once = true,
           buffer = which_obj.buf,
