@@ -23,15 +23,14 @@ tag	char	action
 *n_<ESC>*	<ESC>	Quit wf.nvim
 *n_CTRL-C*	CTRL-C	Quit wf.nvim
 
-
 ------------------------------------------------------------------------------
                                                                      *wf.select*
                      `select`({items}, {opts}, {on_choice})
-Parameters~
+Parameters ~
 {items} items
 {opts} WFOptions
 {on_choice} `(fun(string, table)|fun(num,)` table)
-Usage~
+Usage ~
 `require("wf").select(items, opts, on_choice)`
 
 
@@ -39,7 +38,7 @@ Usage~
 ------------------------------------------------------------------------------
                                                                       *wf.setup*
                                 `setup`({opts})
-Parameters~
+Parameters ~
 {opts} `(optional)` WFConfig
 
 
@@ -47,9 +46,9 @@ Parameters~
 ------------------------------------------------------------------------------
                                                            *wf.builtin.bookmark*
                       `bookmark`({bookmark_dirs}, {opts})
-Usage~
+Usage ~
 bookmark({nvim="~/.config/nvim", zsh="~/.zshrc"})
-Parameters~
+Parameters ~
 {bookmark_dirs} `(table)`
 {opts} `(optional)` WFOptions
 
@@ -58,7 +57,7 @@ Parameters~
 ------------------------------------------------------------------------------
                                                              *wf.builtin.buffer*
                                 `buffer`({opts})
-Parameters~
+Parameters ~
 {opts} `(optional)` WFOptions
 
 
@@ -66,7 +65,7 @@ Parameters~
 ------------------------------------------------------------------------------
                                                                *wf.builtin.mark*
                                  `mark`({opts})
-Parameters~
+Parameters ~
 {opts} `(optional)` WFOptions
 
 
@@ -74,7 +73,7 @@ Parameters~
 ------------------------------------------------------------------------------
                                                            *wf.builtin.register*
                                `register`({opts})
-Parameters~
+Parameters ~
 {opts} `(optional)` WFOptions
 
 
@@ -82,19 +81,26 @@ Parameters~
 ------------------------------------------------------------------------------
                                                           *wf.builtin.which_key*
                               `which_key`({opts})
-Parameters~
+Parameters ~
 {opts} `(optional)` WFOptions
 
 
 ==============================================================================
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {hl_group} string Highlight group name, e.g. "ErrorMsg"
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
+{WFkeymaps}
+Fields ~
+{escape} `(string)`
+{toggle} `(string)`
+
+------------------------------------------------------------------------------
+Class ~
 {WFHighlight}
-Fields~
+Fields ~
 {WFNormal} hl_group
 {WFFloatBorder} hl_group
 {WFFloatBorderFocus} hl_group
@@ -117,16 +123,17 @@ Fields~
 {WFTitleFreeze} hl_group
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {WFConfig}
-Fields~
+Fields ~
 {theme} `(optional)` "default"|"space"|"chad"
 {highlight} `(optional)` WFHighlight
+{builtin_keymaps} WFkeymaps
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {WFBehavior}
-Fields~
+Fields ~
 {skip_front_duplication} `(boolean)`
 Example:
 When there are two lines:
@@ -143,23 +150,23 @@ When there are two lines:
 At this time, the candidate is uniquely determined, so confirm the candidate before pressiong `j`.
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {Cell}
-Fields~
+Fields ~
 {key} `(string)`
 {id} `(string)`
 {text} `(string)`
 {type} "key"|"group"
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {Chunks}
 list of [text, hl_group] arrays, each representing a text chunk with specified highlight. hl_group element can not be omitted for not
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {WFStyle}
-Fields~
+Fields ~
 {border} `(string)`
 of window border. This can either be a string or an array.
 nvim_open_win
@@ -171,14 +178,14 @@ nvim_open_win
 number a width for windows
 
 ------------------------------------------------------------------------------
-Class~
+Class ~
 {WFOptions}
-Fields~
+Fields ~
 {title} `(string?)`
 {selector} "which"|"fuzzy"
 {text_insert_in_advance} `(string)`
 {key_group_dict} `(table)`
-Usage~
+Usage ~
 key_group_dict = { "<leader>l"="vimtex", "<leader>e"="conjure" }
 {prefix_size} `(number)`
 {sorter} `(function)`

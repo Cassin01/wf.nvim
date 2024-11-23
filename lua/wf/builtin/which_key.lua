@@ -78,7 +78,7 @@ end
 
 local function leader()
   local ml = vim.g["mapleader"]
-  if ml then
+  if ml ~= nil then
     if ml == " " then
       return "<Space>"
     else

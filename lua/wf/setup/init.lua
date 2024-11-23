@@ -159,9 +159,8 @@ end
 ---@param opts? WFConfig
 local function setup(opts)
   opts = opts or { theme = "default" }
-  opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
-  local keymaps = opts["keymaps"] or {}
 
+  opts.highlight = opts["highlight"] or themes[opts["theme"] or "default"].highlight
   for k, v in pairs(opts.highlight) do
     if type(v) == "string" then
       vim.api.nvim_set_hl(0, k, { default = true, link = v })
@@ -171,7 +170,15 @@ local function setup(opts)
   end
   vim.g[full_name .. "#theme"] = opts.theme
 
-  -- setup_keymap(keymaps)
+  opts["builtin_keymaps"] = opts["builtin_keymaps"]
+    or {
+      escape = "<C-C>", -- Accept null
+      toggle = "<C-T>", -- Not Accept null
+    }
+  opts["builtin_keymaps"]["escape"] = opts["builtin_keymaps"]["escape"] or "<C-C>"
+  opts["builtin_keymaps"]["toggle"] = opts["builtin_keymaps"]["toggle"] or "<C-T>"
+  vim.g[full_name .. "#builtin_keymaps#escape"] = opts["builtin_keymaps"]["escape"]
+  vim.g[full_name .. "#builtin_keymaps#toggle"] = opts["builtin_keymaps"]["toggle"]
 end
 
 return { setup = setup }
