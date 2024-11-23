@@ -23,7 +23,6 @@ tag	char	action
 *n_<ESC>*	<ESC>	Quit wf.nvim
 *n_CTRL-C*	CTRL-C	Quit wf.nvim
 
-
 ------------------------------------------------------------------------------
                                                                      *wf.select*
                      `select`({items}, {opts}, {on_choice})
